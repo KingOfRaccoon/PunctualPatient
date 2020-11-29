@@ -66,4 +66,5 @@ fun main(){
         println()
         println()
     }
+    println(LocalDate.now())
 }

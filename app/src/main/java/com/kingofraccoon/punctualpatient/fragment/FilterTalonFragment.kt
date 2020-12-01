@@ -32,7 +32,8 @@ class FilterTalonFragment: Fragment() {
         spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (spinner.selectedItem != def_type_doctor)
-                    typeDoctors = types[position]
+                    typeDoctors
+                typeDoctors = types[position]
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }

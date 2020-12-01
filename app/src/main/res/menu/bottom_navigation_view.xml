@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/write"
+        android:icon="@drawable/note_add"
+        android:id="@+id/writeTalon"
+        android:checked="false" />
+    <item
+        android:title="@string/profile"
+        android:icon="@drawable/profile"
+        android:id="@+id/profile"
+        android:checked="false" />
+
+</menu>

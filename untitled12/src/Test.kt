@@ -61,10 +61,15 @@ fun main(){
 //    println(TalonGenerator().createTalons(doctor5, 15, LocalDate.now()))
     val hospital = Hospital(mutableListOf(doctor), "Больница")
     hospital.createTalons(LocalDate.now())
-    hospital.timetables.forEach {
-        println(it.talons)
-        println()
-        println()
-    }
-    println(LocalDate.now())
+//    hospital.timetables.forEach {
+//        println(it.talons)
+//        println()
+//        println()
+//    }
+//    println(LocalDate.now())
+    val a = mutableListOf(1, 2, 3, 4, 5)
+    println(a.filter {
+        it > 3
+    })
+    println(a)
 }

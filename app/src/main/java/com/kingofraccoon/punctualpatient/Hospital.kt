@@ -2,7 +2,7 @@ package com.kingofraccoon.punctualpatient
 
 import java.time.LocalDate
 
-class Hospital(
+open class Hospital(
         var doctors: MutableList<Doctor>,
         var name: String
 //    var adress: Adress

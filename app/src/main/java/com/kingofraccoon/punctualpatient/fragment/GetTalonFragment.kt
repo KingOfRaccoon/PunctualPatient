@@ -7,18 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.LocalHospital.hospital
 import java.time.LocalDate
 
-class GetTalonFragment : Fragment(){
-    val doctor5 = Doctor(
-            "Костлев Алексей Владимирович",
-            6,
-            TypeDoctors.CARDIOLOGIST,
-            6, 10, 30
-    )
+class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment(){
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_get_talon, container, false)
@@ -26,11 +22,15 @@ class GetTalonFragment : Fragment(){
         val talonAdapter = TalonAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = talonAdapter
-        val hospital = Hospital(mutableListOf(doctor5), "Больница №1")
-        hospital.createTalons(LocalDate.now())
+        val mutableListTalon = mutableListOf<Talon>()
         hospital.timetables.forEach {
-            talonAdapter.setList(it.talons)
+            mutableListTalon.addAll(it.talons)
         }
+        talonAdapter.setList(
+                mutableListTalon.filter
+                {
+                    it.doctor.typeDoctor == typeDoctors
+                }.toMutableList())
 
         return view
     }

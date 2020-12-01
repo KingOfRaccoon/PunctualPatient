@@ -1,7 +1,7 @@
 package com.kingofraccoon.punctualpatient
 
-enum class TypeDoctors(name: String) {
-    PEDIATRICIAN("Педиатр"),
+enum class TypeDoctors(var nameType: String) {
+    PEDIATRICIAN("Педиатор"),
     CARDIOLOGIST("Кардиолог"),
     TRAUMATOLOGIST("Травматолог"),
     SURGEON("Хирург")

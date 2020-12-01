@@ -2,7 +2,7 @@ package com.kingofraccoon.punctualpatient
 
 import java.time.LocalDate
 
-class TalonGenerator() {
+class TalonGenerator {
     fun createTalons(doctor: Doctor, day: LocalDate): MutableList<Talon> {
         val listTalons = mutableListOf<Talon>()
         val quantity = (doctor.endWork - doctor.startWork) * 60 / doctor.duration

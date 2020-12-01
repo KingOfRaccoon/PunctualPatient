@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TalonAdapter: RecyclerView.Adapter<TalonAdapter.Companion.TalonViewHolder>() {
     var listTalons = mutableListOf<Talon>()
+
     fun setList(mutableList: MutableList<Talon>){
         listTalons.addAll(mutableList)
         notifyDataSetChanged()

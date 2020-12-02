@@ -12,8 +12,10 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">#D0C4DF</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="itemIconTint">@color/tx_light</item>
+        <item name="android:buttonTint">@color/tx_light</item>
+        <item name="android:navigationBarColor">#B9ABCC</item>
 
         <!-- Customize your theme here. -->
     </style>

@@ -11,11 +11,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bnv"
         android:id="@+id/frame"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bnv"
-        app:menu="@menu/bottom_navigation_view"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:backgroundTint="#fff"
+
+        app:itemTextColor="@color/tx_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

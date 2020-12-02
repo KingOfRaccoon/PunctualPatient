@@ -4,11 +4,13 @@
         android:title="@string/write"
         android:icon="@drawable/note_add"
         android:id="@+id/writeTalon"
+        android:iconTint="@color/tx_grey"
         android:checked="false" />
     <item
         android:title="@string/profile"
         android:icon="@drawable/profile"
         android:id="@+id/profile"
+        android:iconTint="@color/tx_grey"
         android:checked="false" />
 
 </menu>

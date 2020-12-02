@@ -3,6 +3,7 @@
     <string name="write">Запись</string>
     <string name="profile">Профиль</string>
     <string name="getTalon">Получить талон</string>
+    <string name="talon">Талон</string>
     <string-array name="typesDoctors">
         <item>Педиатор</item>
         <item>Кардиолог</item>

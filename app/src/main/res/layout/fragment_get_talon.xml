@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#EDEDED"
+    android:background="@color/light_grey"
     android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

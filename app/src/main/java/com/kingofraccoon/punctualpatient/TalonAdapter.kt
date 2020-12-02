@@ -27,7 +27,7 @@ class TalonAdapter: RecyclerView.Adapter<TalonAdapter.Companion.TalonViewHolder>
     companion object{
         class TalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
             //val number : TextView = view.findViewById(R.id.number)
-            val cabinet : TextView = view.findViewById(R.id.office)
+            val cabinet : TextView = view.findViewById(R.id.number_cabinet)
             val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
             val doctor : TextView = view.findViewById(R.id.doctor)
             fun bind(talon: Talon){

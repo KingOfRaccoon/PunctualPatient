@@ -27,15 +27,15 @@ class ProfileFragment: Fragment() {
             val listData = HashMap<String, List<String>>()
 
             val redmiMobiles = ArrayList<String>()
-            redmiMobiles.add("Redmi Y2")
-            redmiMobiles.add("Redmi S2")
+            redmiMobiles.add("Город: ")
+            redmiMobiles.add("Что-то")
             redmiMobiles.add("Redmi Note 5 Pro")
-            redmiMobiles.add("Redmi Note 5")
-            redmiMobiles.add("Redmi 5 Plus")
+            redmiMobiles.add("Место жительство")
+            redmiMobiles.add("Возраст: ")
             redmiMobiles.add("Redmi Y1")
             redmiMobiles.add("Redmi 3S Plus")
 
-            listData["Redmi"] = redmiMobiles
+            listData["Полная информация"] = redmiMobiles
 
             return listData
         }

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kingofraccoon.punctualpatient.ProfileTalonAdapter
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.TalonAdapter
 import com.kingofraccoon.punctualpatient.User
@@ -43,7 +44,7 @@ class ProfileFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
-        val talonAdapter = TalonAdapter()
+        val talonAdapter = ProfileTalonAdapter()
         recyclerView.adapter = talonAdapter
         User.mutableLiveDataTalons.observe(viewLifecycleOwner, {
             talonAdapter.setList(it)

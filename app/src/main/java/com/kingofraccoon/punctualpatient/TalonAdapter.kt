@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kingofraccoon.punctualpatient.firebase.FireStore
 import kotlin.coroutines.coroutineContext
 
-class TalonAdapter: RecyclerView.Adapter<TalonAdapter.Companion.TalonViewHolder>() {
+open class TalonAdapter: RecyclerView.Adapter<TalonViewHolder>() {
     var listTalons = mutableListOf<Talon>()
 
     fun setList(mutableList: MutableList<Talon>){
@@ -24,7 +24,7 @@ class TalonAdapter: RecyclerView.Adapter<TalonAdapter.Companion.TalonViewHolder>
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TalonViewHolder {
-        return TalonViewHolder(LayoutInflater.from(parent.context)
+        return RegisterTalonViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.recycler_talon, parent, false))
     }
 
@@ -35,23 +35,46 @@ class TalonAdapter: RecyclerView.Adapter<TalonAdapter.Companion.TalonViewHolder>
 
     override fun getItemCount(): Int = listTalons.size
 
-    companion object{
-        class TalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
-            //val number : TextView = view.findViewById(R.id.number)
-            val cabinet : TextView = view.findViewById(R.id.number_cabinet)
-            val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
-            val doctor : TextView = view.findViewById(R.id.doctor)
-            val button : Button = view.findViewById(R.id.get_talon)
-            @RequiresApi(Build.VERSION_CODES.O)
-            fun bind(talon: Talon){
-                //number.text = talon.number.toString()
-                dateAndTime.text = "${talon.date} \n ${talon.time}"
-                doctor.text = talon.doctor.toString()
-                cabinet.text = "Кабинет №${talon.doctor.number_cabinet}"
-                button.setOnClickListener {
-                    FireStore().writeTalon("Я", talon)
-                }
-            }
+}
+class ProfileTalonAdapter: TalonAdapter(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TalonViewHolder {
+        return ProfileTalonViewHolder(LayoutInflater.from(parent.context)
+            .inflate(R.layout.recycler_talon, parent, false)
+        )
+    }
+}
+
+class ProfileTalonViewHolder(view: View): TalonViewHolder(view){
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun bind(talon: Talon) {
+        super.bind(talon)
+        button.text = "Подтвердить талон"
+        button.setOnClickListener {
+
         }
     }
 }
+
+class RegisterTalonViewHolder(view: View): TalonViewHolder(view){
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun bind(talon: Talon) {
+        super.bind(talon)
+        button.setOnClickListener {
+            FireStore().writeTalon(User.id, talon)
+        }
+    }
+}
+
+open class TalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    val cabinet : TextView = view.findViewById(R.id.number_cabinet)
+    val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
+    val doctor : TextView = view.findViewById(R.id.doctor)
+    val button : Button = view.findViewById(R.id.get_talon)
+    @RequiresApi(Build.VERSION_CODES.O)
+    open fun bind(talon: Talon){
+        dateAndTime.text = "${talon.date} \n ${talon.time}"
+        doctor.text = talon.doctor.toString()
+        cabinet.text = "Кабинет №${talon.doctor.number_cabinet}"
+    }
+}
+

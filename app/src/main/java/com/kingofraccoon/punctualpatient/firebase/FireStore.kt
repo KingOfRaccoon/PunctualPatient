@@ -90,26 +90,26 @@ class FireStore: FirebaseApi {
                 }
         return doctors
     }
-    fun getDoctor(name: String): Doctor? {
-        var doctor : Doctor? = null
-        firebase.collection("doctors")
-                .document(name)
-                .get()
-                .addOnSuccessListener { value ->
-                    doctor = Doctor(
-                            value.getString("name") as String,
-                            (value.get("cabinet") as Long).toInt(),
-                            getEnumDoctor(value.getString("nameType") as String)!!,
-                            (value.get("start") as Long).toInt(),
-                            (value.get("end") as Long).toInt(),
-                            (value.get("duration") as Long).toInt()
-                    )
-                }
-                .addOnFailureListener {
-                    Log.d("Fire", it.message.toString())
-                }
-        return doctor
-    }
+//    fun getDoctor(name: String): Doctor? {
+//        var doctor : Doctor? = null
+//        firebase.collection("doctors")
+//                .document(name)
+//                .get()
+//                .addOnSuccessListener { value ->
+//                    doctor = Doctor(
+//                            value.getString("name") as String,
+//                            (value.get("cabinet") as Long).toInt(),
+//                            getEnumDoctor(value.getString("nameType") as String)!!,
+//                            (value.get("start") as Long).toInt(),
+//                            (value.get("end") as Long).toInt(),
+//                            (value.get("duration") as Long).toInt()
+//                    )
+//                }
+//                .addOnFailureListener {
+//                    Log.d("Fire", it.message.toString())
+//                }
+//        return doctor
+//    }
 
     fun pullDoctorsOnFireStore(){
         LocalHospital.doctors.forEach {

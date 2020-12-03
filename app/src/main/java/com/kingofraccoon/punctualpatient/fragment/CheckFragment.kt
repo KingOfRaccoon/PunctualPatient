@@ -1,4 +1,4 @@
-package com.kingofraccoon.zik
+package com.kingofraccoon.punctualpatient.fragment
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.zik.CheckKodFragment
 
 class CheckFragment: Fragment() {
     val CHANEL_ID = 1.toString()

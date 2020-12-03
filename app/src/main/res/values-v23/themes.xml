@@ -15,7 +15,11 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="itemIconTint">@color/tx_light</item>
         <item name="android:buttonTint">@color/tx_light</item>
-        <item name="android:navigationBarColor">#B9ABCC</item>
+        <item name="android:navigationBarColor">@color/teal_200</item>
+        <item name="android:windowActionBar">@color/purple_500</item>
+        <item name="actionBarItemBackground">@color/purple_500</item>
+        <item name="android:navigationIcon">@color/tx_light</item>
+        <item name="navigationMode">@color/tx_light</item>
 
         <!-- Customize your theme here. -->
     </style>

@@ -1,10 +1,16 @@
 package com.kingofraccoon.punctualpatient
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.coroutines.coroutineContext
 
 class TalonAdapter: RecyclerView.Adapter<TalonAdapter.Companion.TalonViewHolder>() {
     var listTalons = mutableListOf<Talon>()

@@ -9,6 +9,12 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -37,8 +43,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setTitle(actBar)
         //actBar.setSpan(BackgroundColorSpan(Color.rgb(240, 237, 245)), 0, 0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        //val butNavigationView = BottomNavigationView(this)
-        //butNavigationView.itemIconTintList.
+
+
     }
     fun FragmentManager.setFragment(fragment: Fragment){
         this.beginTransaction()
@@ -46,4 +52,6 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
+
+
 }

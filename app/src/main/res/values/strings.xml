@@ -10,4 +10,7 @@
         <item>Травматолог</item>
         <item>Хирург</item>
     </string-array>
+    <string name="more">Меню</string>
+    <string name="full">Подробнее</string>
+    <string name="remind">Напомнить</string>
 </resources>

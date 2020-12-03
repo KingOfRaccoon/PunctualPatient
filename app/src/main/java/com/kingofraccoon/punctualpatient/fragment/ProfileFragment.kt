@@ -23,18 +23,21 @@ class ProfileFragment: Fragment() {
     internal var adapter: ExpandableListAdapter ?= null
     internal var titleList: List<String> ?= null
 
+    val number = 89059441402
+    val mail = "qwert@mail.ru"
+    val age = 18
+    val address = "ул. Пионерская, дом 103, кв 60"
+
+
     val data: HashMap<String, List<String>>
         get() {
             val listData = HashMap<String, List<String>>()
 
             val redmiMobiles = ArrayList<String>()
-            redmiMobiles.add("Город: ")
-            redmiMobiles.add("Что-то")
-            redmiMobiles.add("Redmi Note 5 Pro")
-            redmiMobiles.add("Место жительство")
-            redmiMobiles.add("Возраст: ")
-            redmiMobiles.add("Redmi Y1")
-            redmiMobiles.add("Redmi 3S Plus")
+            redmiMobiles.add("Адрес: $address")
+            redmiMobiles.add("Возраст: $age")
+            redmiMobiles.add("Телефон: $number")
+            redmiMobiles.add("Почта: $mail")
 
             listData["Полная информация"] = redmiMobiles
 
@@ -57,30 +60,11 @@ class ProfileFragment: Fragment() {
             titleList = ArrayList(listData.keys)
             adapter = ProfileExpandableListAdapter(requireContext(), titleList as ArrayList<String>, listData)
             expandableListView.setAdapter(adapter)
-            expandableListView.setOnGroupExpandListener { groupPosition ->
-                Toast.makeText(
-                    activity?.applicationContext,
-                    (titleList as ArrayList<String>)[groupPosition] + " List Expanded.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            expandableListView.setOnGroupExpandListener { groupPosition ->  }
 
-            expandableListView.setOnGroupCollapseListener { groupPosition ->
-                Toast.makeText(
-                    activity?.applicationContext,
-                    (titleList as ArrayList<String>)[groupPosition] + " List Collapsed.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            expandableListView.setOnGroupCollapseListener { groupPosition ->  }
 
             expandableListView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-                Toast.makeText(
-                    activity?.applicationContext,
-                    "Clicked: " + (titleList as ArrayList<String>)[groupPosition] + " -> " + listData[(titleList as ArrayList<String>)[groupPosition]]!!.get(
-                        childPosition
-                    ),
-                    Toast.LENGTH_SHORT
-                ).show()
                 false
             }
         }

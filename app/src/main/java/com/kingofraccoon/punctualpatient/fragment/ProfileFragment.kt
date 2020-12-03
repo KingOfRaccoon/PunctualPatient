@@ -8,7 +8,13 @@ import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.TalonAdapter
+import com.kingofraccoon.punctualpatient.User
+import com.kingofraccoon.punctualpatient.firebase.FireStore
 import com.tutorialwing.expandablelistview.ProfileExpandableListAdapter
 
 class ProfileFragment: Fragment() {
@@ -36,14 +42,21 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
+        val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
+        val talonAdapter = TalonAdapter()
+        recyclerView.adapter = talonAdapter
+        User.mutableLiveDataTalons.observe(viewLifecycleOwner, {
+            talonAdapter.setList(it)
+        })
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val expandableListView = view.findViewById<ExpandableListView>(R.id.expandableListView)
         if (expandableListView != null) {
             val listData = data
             titleList = ArrayList(listData.keys)
             adapter = ProfileExpandableListAdapter(requireContext(), titleList as ArrayList<String>, listData)
-            expandableListView!!.setAdapter(adapter)
-            expandableListView!!.setOnGroupExpandListener { groupPosition ->
+            expandableListView.setAdapter(adapter)
+            expandableListView.setOnGroupExpandListener { groupPosition ->
                 Toast.makeText(
                     activity?.applicationContext,
                     (titleList as ArrayList<String>)[groupPosition] + " List Expanded.",
@@ -51,7 +64,7 @@ class ProfileFragment: Fragment() {
                 ).show()
             }
 
-            expandableListView!!.setOnGroupCollapseListener { groupPosition ->
+            expandableListView.setOnGroupCollapseListener { groupPosition ->
                 Toast.makeText(
                     activity?.applicationContext,
                     (titleList as ArrayList<String>)[groupPosition] + " List Collapsed.",
@@ -59,7 +72,7 @@ class ProfileFragment: Fragment() {
                 ).show()
             }
 
-            expandableListView!!.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+            expandableListView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
                 Toast.makeText(
                     activity?.applicationContext,
                     "Clicked: " + (titleList as ArrayList<String>)[groupPosition] + " -> " + listData[(titleList as ArrayList<String>)[groupPosition]]!!.get(

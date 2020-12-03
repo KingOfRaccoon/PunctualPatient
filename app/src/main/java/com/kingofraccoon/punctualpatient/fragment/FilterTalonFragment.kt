@@ -1,5 +1,6 @@
 package com.kingofraccoon.punctualpatient.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,21 +8,26 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.Spinner
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.CustomAdapter
 import com.kingofraccoon.punctualpatient.LocalHospital
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.TypeDoctors
+import com.kingofraccoon.punctualpatient.firebase.FireStore
+import java.time.LocalDate
 
 class FilterTalonFragment: Fragment() {
     var def_type_doctor = "Введите специализацию врача:"
     var typeDoctors = ""
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.filter_talon_fragment, container, false)
         val spinner : Spinner = view.findViewById(R.id.spinner_filter)
         val types = resources.getStringArray(R.array.typesDoctors).toMutableList()
         val customAdapter = CustomAdapter(requireContext())
         val button : Button = view.findViewById(R.id.button)
+
 
         customAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         customAdapter.addAll(types)

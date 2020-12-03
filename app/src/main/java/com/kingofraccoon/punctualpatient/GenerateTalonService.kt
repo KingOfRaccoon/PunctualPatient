@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
+import com.kingofraccoon.punctualpatient.firebase.FireStore
 import java.time.LocalDate
 
 class GenerateTalonService : Service() {
@@ -21,8 +22,7 @@ class GenerateTalonService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun generate(startId: Int) {
-        LocalHospital.hospital.createTalons(LocalDate.now())
-        LocalHospital.liveDataHospital.value = LocalHospital.hospital
+        LocalHospital.doctors = FireStore().getDoctors()
         stopSelf(startId)
     }
 }

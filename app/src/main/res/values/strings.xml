@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">punctual patient</string>
+    <string name="app_name">Punctual patient</string>
     <string name="write">Запись</string>
     <string name="profile">Профиль</string>
     <string name="getTalon">Получить талон</string>

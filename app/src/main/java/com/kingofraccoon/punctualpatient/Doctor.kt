@@ -1,7 +1,5 @@
 package com.kingofraccoon.punctualpatient
 
-import java.time.Duration
-
 class Doctor(
         var name : String,
         var number_cabinet: Int,

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "508055630278",
+    "firebase_url": "https://punctual-patient.firebaseio.com",
+    "project_id": "punctual-patient",
+    "storage_bucket": "punctual-patient.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508055630278:android:b6b5b39669e27a779942c7",
+        "android_client_info": {
+          "package_name": "com.kingofraccoon.punctualpatient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508055630278-p0avm0so93afsgv7qvge9r20806p5e7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLexSE9u14ZJYc9QzRuNFINqW4CTGe-cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508055630278-p0avm0so93afsgv7qvge9r20806p5e7e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

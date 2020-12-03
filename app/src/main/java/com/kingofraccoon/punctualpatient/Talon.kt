@@ -7,10 +7,16 @@ import java.time.format.DateTimeFormatter
 
 class Talon(
         var number: Int,
-        var date: LocalDate,
+        var date: String,
         var doctor: Doctor,
         var time: String
 ){
+        @RequiresApi(Build.VERSION_CODES.O)
+        constructor(
+                number: Int,
+                date: LocalDate,
+                doctor: Doctor,
+                time: String): this(number, date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), doctor, time)
         @RequiresApi(Build.VERSION_CODES.O)
         override fun toString(): String {
                 return "Номер: $number" +

@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.LocalHospital.hospital
-import com.shrikanthravi.collapsiblecalendarview.data.Day
-import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
+import com.kingofraccoon.punctualpatient.firebase.FireStore
 import java.time.LocalDate
 
 class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment(){

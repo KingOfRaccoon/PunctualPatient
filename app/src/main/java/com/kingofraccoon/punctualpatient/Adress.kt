@@ -21,4 +21,8 @@ class Adress(
             }
         }
     }
+
+    override fun toString(): String {
+        return "$region, $city, $street, $number_house"
+    }
 }

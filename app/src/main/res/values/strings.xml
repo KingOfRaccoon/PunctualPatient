@@ -23,4 +23,5 @@
     <string name="sms">SMS код</string>
     <string name="send">Отправить</string>
     <string name="create">Создать аккаунт</string>
+    <string name="register">Регестрация</string>
 </resources>

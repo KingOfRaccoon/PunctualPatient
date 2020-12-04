@@ -31,6 +31,15 @@ class CheckFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_check, container, false)
         val number_people : EditText = view.findViewById(R.id.phone_check)
         val button_check : Button = view.findViewById(R.id.button_check)
+        val button_register : Button = view.findViewById(R.id.register)
+
+        button_register.setOnClickListener {
+            requireFragmentManager().beginTransaction()
+                    .add(R.id.frame, RegisterFragment())
+                    .addToBackStack(null)
+                    .commit()
+        }
+
         button_check.setOnClickListener {
             var check = false
             if (!number_people.text.isNullOrEmpty()) {
@@ -68,6 +77,8 @@ class CheckFragment: Fragment() {
                                             User.adress = Adress.instance(
                                                     userDoc.getString("adress") as String
                                             )
+                                            User.age = (userDoc.getLong("age") as Long).toInt()
+                                            User.number = number_people.text.toString()
                                             check = User.name != ""
                                             check(number_people, check)
                                         }
@@ -76,6 +87,8 @@ class CheckFragment: Fragment() {
             }
 
         }
+
+
         return view
     }
 

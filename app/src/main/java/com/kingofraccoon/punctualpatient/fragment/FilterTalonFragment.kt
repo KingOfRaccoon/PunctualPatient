@@ -45,7 +45,7 @@ class FilterTalonFragment: Fragment() {
 
         button.setOnClickListener {
             requireFragmentManager().beginTransaction()
-                    .replace(R.id.frame, GetTalonFragment(getEnumDoctor()!!))
+                    .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!))
                     .commit()
         }
 

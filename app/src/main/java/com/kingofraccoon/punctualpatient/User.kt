@@ -9,21 +9,8 @@ object User {
     var adress = Adress()
     var sex = ""
     var email = ""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    var age = 0
+    var number = ""
 
     var typeOfUser = ""
 

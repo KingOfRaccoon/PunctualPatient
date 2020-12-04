@@ -21,7 +21,6 @@ class MainFragment: Fragment() {
         val view = inflater.inflate(R.layout.main_fragment, container, false)
 
         val bottomNavigationView : BottomNavigationView = view.findViewById(R.id.bnv)
-        val mainFrame : FrameLayout = view.findViewById(R.id.main_frame)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.writeTalon ->{

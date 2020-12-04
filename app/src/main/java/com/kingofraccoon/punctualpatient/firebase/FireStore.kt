@@ -8,7 +8,9 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.gson.internal.`$Gson$Preconditions`
 import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.fragment.Person
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -112,26 +114,20 @@ class FireStore: FirebaseApi {
             }
         return doctor != null
     }
-//    fun getDoctor(name: String): Doctor? {
-//        var doctor : Doctor? = null
-//        firebase.collection("doctors")
-//                .document(name)
-//                .get()
-//                .addOnSuccessListener { value ->
-//                    doctor = Doctor(
-//                            value.getString("name") as String,
-//                            (value.get("cabinet") as Long).toInt(),
-//                            getEnumDoctor(value.getString("nameType") as String)!!,
-//                            (value.get("start") as Long).toInt(),
-//                            (value.get("end") as Long).toInt(),
-//                            (value.get("duration") as Long).toInt()
-//                    )
-//                }
-//                .addOnFailureListener {
-//                    Log.d("Fire", it.message.toString())
-//                }
-//        return doctor
-//    }
+
+    fun registerNewUser(userNumber: String, person: Person){
+        val hashMap = hashMapOf(
+                "name" to person.name,
+                "sex" to person.sex,
+                "date" to person.date,
+                "email" to person.email,
+                "adress" to person.adress.toString(),
+                "age" to person.age.toString()
+        )
+        firebase.collection("users")
+                .document(userNumber)
+                .set(hashMap)
+    }
 
     fun pullDoctorsOnFireStore(){
         LocalHospital.doctors.forEach {

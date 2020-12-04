@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kingofraccoon.punctualpatient.fragment.CheckFragment
 import com.kingofraccoon.punctualpatient.fragment.FilterTalonFragment
 import com.kingofraccoon.punctualpatient.fragment.GetTalonFragment
 import com.kingofraccoon.punctualpatient.fragment.ProfileFragment
@@ -28,15 +29,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         startService(Intent(this, GenerateTalonService::class.java))
-
-        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.writeTalon -> supportFragmentManager.setFragment(FilterTalonFragment())
-                R.id.profile -> supportFragmentManager.setFragment(ProfileFragment())
-            }
-            return@setOnNavigationItemSelectedListener true
-        }
+        supportFragmentManager.setFragment(CheckFragment())
+//        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
+//        bottomNavigationView.setOnNavigationItemSelectedListener {
+//            when(it.itemId){
+//                R.id.writeTalon -> supportFragmentManager.setFragment(FilterTalonFragment())
+//                R.id.profile -> supportFragmentManager.setFragment(ProfileFragment())
+//            }
+//            return@setOnNavigationItemSelectedListener true
+//        }
 
         val actBar = SpannableString(title)
         actBar.setSpan(ForegroundColorSpan(Color.rgb(78, 78, 78)), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

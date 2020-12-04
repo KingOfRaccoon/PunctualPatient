@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_grey"
+    android:background="@color/wwwhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <LinearLayout
         android:paddingTop="8dp"
-        android:background="@drawable/round_figure"
+        android:background="@color/wwwhite"
         android:id="@+id/linear"
         android:paddingLeft="15dp"
 

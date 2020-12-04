@@ -23,5 +23,12 @@
     <string name="sms">SMS код</string>
     <string name="send">Отправить</string>
     <string name="create">Создать аккаунт</string>
-    <string name="register">Регестрация</string>
+    <string name="register">Регистрация</string>
+
+    <string name="name">Имя</string>
+    <string name="second_name">Отчество</string>
+    <string name="fam">Фамилия</string>
+    <string name="birthday">Дата рождения</string>
+
+    <string name="next">Далее</string>
 </resources>

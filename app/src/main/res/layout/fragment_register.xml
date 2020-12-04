@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -13,14 +14,86 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:textSize="22sp"
         android:textColor="@color/tx_grey"
         android:id="@+id/text_register" />
+
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/person_phone"
-        android:inputType="phone"
-        tools:ignore="MissingConstraints" />
+        android:inputType="textPersonName"
+        android:textColor="@color/tx_grey"
+        android:background="@drawable/grey_round"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/name"
+        android:id="@+id/name"
+        android:layout_marginTop="40dp"
+        android:textColorHint="@color/black_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_register" />
+
+    <EditText
+        android:inputType="textPersonName"
+        android:textColor="@color/tx_grey"
+        android:background="@drawable/grey_round"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/fam"
+        android:id="@+id/fam"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/black_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:inputType="textPersonName"
+        android:textColor="@color/tx_grey"
+        android:background="@drawable/grey_round"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:id="@+id/second_name"
+        android:hint="@string/second_name"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/black_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fam" />
+
+    <EditText
+        android:inputType="date"
+        android:textColor="@color/tx_grey"
+        android:background="@drawable/grey_round"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/birthday"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/black_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_name" />
+
+    <Button
+        android:id="@+id/next"
+        android:text="@string/next"
+        android:backgroundTint="@color/but_selector"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/tx_grey"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

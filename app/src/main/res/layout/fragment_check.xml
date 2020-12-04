@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textColor="@color/tx_grey"
         android:id="@+id/text_enter" />
 
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/phone_check"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/but_selector"
+            android:backgroundTint="@color/but_selector"
             android:paddingLeft="8dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
@@ -45,11 +45,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="@string/find_cod"
-            android:id="@+id/go_code"
+            android:id="@+id/button_check"
             android:textColor="@color/tx_grey" />
 
 
-    <EditText
+    <!--<EditText
         android:id="@+id/code"
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
@@ -74,7 +74,8 @@
         app:layout_constraintTop_toBottomOf="@id/code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/button_check"/>
+        android:id="@+id/button_check"/>-->
+
 
     <Button
         android:layout_width="wrap_content"
@@ -85,6 +86,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_check" />
+        android:layout_marginBottom="40dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

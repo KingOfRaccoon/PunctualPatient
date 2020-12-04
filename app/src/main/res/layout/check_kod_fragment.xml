@@ -22,6 +22,7 @@
         android:background="@drawable/grey_round"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginBottom="2dp"
         android:hint="@string/code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,18 +33,42 @@
         android:inputType="phone"
         android:id="@+id/kod_check"/>
 
+
+
     <Button
-        android:layout_marginTop="20dp"
         android:id="@+id/button_check_kod"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:backgroundTint="@color/purple_200"
-        android:text="@string/enter"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="@string/enter"
         android:textColor="@color/tx_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kod_check" />
+
+    <LinearLayout
+        android:id="@+id/remember"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_check_kod">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remember" />
+
+        <CheckBox
+            style="@style/CheckBoxRemember"
+            android:id="@+id/check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

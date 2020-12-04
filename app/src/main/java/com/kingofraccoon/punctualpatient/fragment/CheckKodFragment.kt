@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.R
@@ -19,6 +20,8 @@ class CheckKodFragment(var kod: Int): Fragment() {
         val view = inflater.inflate(R.layout.check_kod_fragment, container, false)
         val editText : EditText = view.findViewById(R.id.kod_check)
         val button : Button = view.findViewById(R.id.button_check_kod)
+        val checkBox: CheckBox = view.findViewById(R.id.check)
+
         button.setOnClickListener {
             if (editText.text.toString().toInt() == kod){
 //                Toast.makeText(requireContext(), "True", Toast.LENGTH_SHORT).show()
@@ -32,6 +35,11 @@ class CheckKodFragment(var kod: Int): Fragment() {
                             .commit()
             }
         }
+
+        checkBox.setOnClickListener{
+
+        }
+
         return view
     }
 }

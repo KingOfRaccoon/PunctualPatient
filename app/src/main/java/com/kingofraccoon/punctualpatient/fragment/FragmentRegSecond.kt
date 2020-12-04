@@ -16,7 +16,7 @@ class FragmentRegSecond: Fragment() {
 
         button.setOnClickListener {
             requireFragmentManager().beginTransaction()
-                .add(R.id.frame, FilterTalonFragment())
+                .add(R.id.frame, MainFragment())
                 .addToBackStack(null)
                 .commit()
         }

@@ -25,6 +25,7 @@
     <string name="send">Отправить</string>
     <string name="create">Создать аккаунт</string>
     <string name="register">Регистрация</string>
+    <string name="remember">Запомнить</string>
 
     <string name="name">Имя</string>
     <string name="second_name">Отчество</string>
@@ -32,8 +33,9 @@
     <string name="birthday">Дата рождения</string>
 
     <string name="next">Далее</string>
-    <string name="addition">Дополнительная нформация</string>
+    <string name="addition">Дополнительная информация</string>
     <string name="address">Адрес</string>
     <string name="age">Возраст</string>
     <string name="mail">Почта</string>
+
 </resources>

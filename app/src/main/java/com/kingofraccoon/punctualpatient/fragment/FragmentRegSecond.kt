@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.kingofraccoon.punctualpatient.MainActivity
 import com.kingofraccoon.punctualpatient.R
 
 class FragmentRegSecond: Fragment() {
@@ -15,9 +14,8 @@ class FragmentRegSecond: Fragment() {
         val button: Button = view.findViewById(R.id.next)
 
         button.setOnClickListener {
-            requireFragmentManager().beginTransaction()
-                .add(R.id.frame, FilterTalonFragment())
-                .addToBackStack(null)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.frame, MainFragment())
                 .commit()
         }
 

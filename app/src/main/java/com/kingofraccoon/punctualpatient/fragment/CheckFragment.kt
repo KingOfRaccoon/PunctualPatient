@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
@@ -60,7 +61,10 @@ class CheckFragment: Fragment() {
                             }
                             check = doctor != null
                             if (check) {
+                                User.number = doctor?.number.toString()
+                                User.name = doctor?.name.toString()
                                 User.typeOfUser = "Doctor"
+                                requireActivity().startService(Intent(requireActivity(), GetTalonDoctorServise::class.java))
                                 check(number_people, check)
                             }
                             else {
@@ -80,6 +84,7 @@ class CheckFragment: Fragment() {
                                             User.age = (userDoc.getLong("age") as Long).toInt()
                                             User.number = number_people.text.toString()
                                             check = User.name != ""
+                                            requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
                                             check(number_people, check)
                                         }
                             }

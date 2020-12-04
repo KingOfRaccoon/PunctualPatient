@@ -1,8 +1,11 @@
 package com.kingofraccoon.punctualpatient
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.time.LocalDate
 
 class TalonGenerator {
+    @RequiresApi(Build.VERSION_CODES.O)
     fun createTalons(doctor: Doctor, day: LocalDate): MutableList<Talon> {
         val listTalons = mutableListOf<Talon>()
         val quantity = (doctor.endWork - doctor.startWork) * 60 / doctor.duration
@@ -10,7 +13,6 @@ class TalonGenerator {
         for (i in 0 until quantity){
             listTalons.add(
                     Talon(
-                            i+1,
                             day,
                             doctor,
                             time.toString()

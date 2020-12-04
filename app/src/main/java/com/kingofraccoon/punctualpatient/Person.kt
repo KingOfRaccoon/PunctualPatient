@@ -1,4 +1,4 @@
-package com.kingofraccoon.punctualpatient.fragment
+package com.kingofraccoon.punctualpatient
 
 import com.kingofraccoon.punctualpatient.Adress
 

@@ -10,7 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PunctualPatient">
         <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true"/>
+        <service
             android:name=".GenerateTalonService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".GetTalonDoctorServise"
             android:enabled="true"
             android:exported="true" />
 

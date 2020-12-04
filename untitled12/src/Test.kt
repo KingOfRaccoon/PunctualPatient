@@ -1,6 +1,7 @@
 package com.kingofraccoon.punctualpatient
 
 import java.time.LocalDate
+import java.util.*
 
 fun main(){
     val doctor = Doctor(
@@ -72,4 +73,5 @@ fun main(){
         it > 3
     })
     println(a)
+    println(UUID.randomUUID().mostSignificantBits)
 }

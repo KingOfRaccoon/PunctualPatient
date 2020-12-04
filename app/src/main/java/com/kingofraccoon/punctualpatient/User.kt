@@ -21,4 +21,12 @@ object User {
         mutableListTalon = mutableList
         mutableLiveDataTalons.value = mutableList
     }
+
+    var mutableListTalonDoctor = mutableListOf<TalonUser>()
+    val mutableLiveDataTalonsDoctor = MutableLiveData<MutableList<TalonUser>>()
+
+    fun setValueDoctor(mutableList: MutableList<TalonUser>){
+        mutableListTalonDoctor = mutableList
+        mutableLiveDataTalonsDoctor.value = mutableList
+    }
 }

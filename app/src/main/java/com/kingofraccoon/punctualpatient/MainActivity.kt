@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        startService(Intent(this, GenerateTalonService::class.java))
         supportFragmentManager.setFragment(CheckFragment())
 //        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
 //        bottomNavigationView.setOnNavigationItemSelectedListener {

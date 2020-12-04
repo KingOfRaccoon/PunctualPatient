@@ -1,5 +1,6 @@
 package com.kingofraccoon.punctualpatient.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.kingofraccoon.punctualpatient.MyService
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
 
@@ -20,6 +22,8 @@ class CheckKodFragment(var kod: Int): Fragment() {
         val editText : EditText = view.findViewById(R.id.kod_check)
         val button : Button = view.findViewById(R.id.button_check_kod)
         button.setOnClickListener {
+            if (User.typeOfUser == "Doctor")
+                requireActivity().startService(Intent(requireActivity(), MyService::class.java))
             if (editText.text.toString().toInt() == kod){
 //                Toast.makeText(requireContext(), "True", Toast.LENGTH_SHORT).show()
                 if (User.typeOfUser == "User")

@@ -2,31 +2,32 @@ package com.kingofraccoon.punctualpatient.firebase
 
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.gson.internal.`$Gson$Preconditions`
 import com.kingofraccoon.punctualpatient.*
-import com.kingofraccoon.punctualpatient.fragment.Person
+import com.kingofraccoon.punctualpatient.Person
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.concurrent.fixedRateTimer
 
 class FireStore: FirebaseApi {
     var firebase = FirebaseFirestore.getInstance()
 
     override fun getMyTalons(id: String, doctors: MutableList<Doctor>): MutableList<Talon> {
         val myTalons = mutableListOf<Talon>()
-        firebase.collection(id)
+        firebase.collection("users")
+                .document(id)
+                .collection("talons")
             .addSnapshotListener( object : EventListener<QuerySnapshot>{
                 @RequiresApi(Build.VERSION_CODES.O)
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     value?.documents?.forEach {
                         myTalons.add(
                             Talon(
-                                    (it.get("number") as Long).toInt(),
                                 it.getString("date") as String,
                                     doctors.find { doc ->
                                     doc.name == it.getString("doctor")
@@ -43,13 +44,14 @@ class FireStore: FirebaseApi {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun writeTalon(id: String, talon: Talon) {
         val hashMap = hashMapOf(
-                "number" to talon.number,
                 "date" to talon.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 "doctor" to talon.doctor.name,
                 "time" to talon.time
         )
-        firebase.collection(id)
-                .document(talon.number.toString())
+        firebase.collection("users")
+                .document(User.number)
+                .collection("talons")
+                .document("${UUID.randomUUID().mostSignificantBits}")
                 .set(hashMap)
                 .addOnSuccessListener {
                     Log.d("TAG", "DocumentSnapshot successfully written!")
@@ -89,7 +91,7 @@ class FireStore: FirebaseApi {
                     LocalHospital.hospital.doctors = doctors
                     LocalHospital.hospital.createTalons(LocalDate.now())
                     LocalHospital.liveDataHospital.value = LocalHospital.hospital
-                    User.setValue(getMyTalons(User.id, doctors))
+                    User.setValue(getMyTalons(User.number, doctors))
                 }
         return doctors
     }
@@ -113,6 +115,33 @@ class FireStore: FirebaseApi {
                 }
             }
         return doctor != null
+    }
+    fun getAllTalonsDoctors(nameDoctor : String): MutableList<TalonUser> {
+        val talonsDoctor = mutableListOf<TalonUser>()
+        val f = firebase.collection("users")
+                f.get()
+                .addOnSuccessListener {
+                    it.documents.forEach { doc ->
+                        Log.d("Fire", doc.reference.id)
+                        doc.reference.collection("talons")
+//                                .whereEqualTo("doctor", nameDoctor)
+                                .get()
+                                .addOnSuccessListener { talons ->
+                                    talons.documents.forEach { talon ->
+                                        talonsDoctor.add(
+                                                TalonUser(
+                                                        talon.getString("date") as String,
+                                                        doc.id,
+                                                        talon.getString("time") as String
+                                                )
+                                        )
+                                    }
+                                }
+                    }
+                }
+        User.setValueDoctor(talonsDoctor)
+
+        return talonsDoctor
     }
 
     fun registerNewUser(userNumber: String, person: Person){
@@ -152,6 +181,23 @@ class FireStore: FirebaseApi {
         }
     }
 
+    fun changeUser(){
+        val list = mutableListOf<TalonUser>()
+        User.mutableListTalonDoctor.forEach {
+            val  f = firebase.collection("users")
+                .document(it.name)
+                .get()
+            if (f.isComplete)
+            list.add(
+                TalonUser(
+                it.date,
+                f.result?.data?.get("name").toString(),
+                it.time
+                )
+            )
+        }
+        User.setValueDoctor(list)
+    }
     private fun getEnumDoctor(string: String): TypeDoctors? {
         return when(string){
             TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST

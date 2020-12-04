@@ -1,4 +1,4 @@
-package com.kingofraccoon.zik
+package com.kingofraccoon.punctualpatient.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.User
 
 class CheckKodFragment(var kod: Int): Fragment() {
     override fun onCreateView(
@@ -22,9 +22,14 @@ class CheckKodFragment(var kod: Int): Fragment() {
         button.setOnClickListener {
             if (editText.text.toString().toInt() == kod){
 //                Toast.makeText(requireContext(), "True", Toast.LENGTH_SHORT).show()
-//                requireFragmentManager().beginTransaction()
-//                        .replace(R.id.frame, MainFragment())
-//                        .commit()
+                if (User.typeOfUser == "User")
+                    requireFragmentManager().beginTransaction()
+                        .replace(R.id.frame, MainFragment())
+                        .commit()
+                else
+                    requireFragmentManager().beginTransaction()
+                            .replace(R.id.frame, ProfileFragment())
+                            .commit()
             }
         }
         return view

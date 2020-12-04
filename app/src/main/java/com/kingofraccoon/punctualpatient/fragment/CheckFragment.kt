@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,14 +16,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
-import com.google.firebase.firestore.FirebaseFirestore
-import com.kingofraccoon.punctualpatient.R
-import com.kingofraccoon.zik.CheckKodFragment
+import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.firebase.FireStore
 
 class CheckFragment: Fragment() {
     val CHANEL_ID = 1.toString()
     val kod = (1000..9999).random()
-    val db = FirebaseFirestore.getInstance()
+    var doctor : Doctor? = null
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -36,14 +34,44 @@ class CheckFragment: Fragment() {
         button_check.setOnClickListener {
             var check = false
             if (!number_people.text.isNullOrEmpty()) {
-                db.collection("users")
-                        .document("workers")
+                FireStore().firebase.collection("doctors")
+                        .whereEqualTo("number", number_people.text.toString())
                         .get()
-                        .addOnCompleteListener { doc ->
-                            check = doc.result?.getBoolean(number_people.text.toString()) == true
-                            check(number_people, check)
-                        }.addOnFailureListener {
-                            Log.d("FIRE", it.message.toString())
+                        .addOnSuccessListener {
+                            it.documents.forEach { value ->
+                                doctor = Doctor(
+                                        value.getString("name") as String,
+                                        (value.get("cabinet") as Long).toInt(),
+                                        getEnumDoctor(value.getString("nameType") as String)!!,
+                                        (value.get("start") as Long).toInt(),
+                                        (value.get("end") as Long).toInt(),
+                                        (value.get("duration") as Long).toInt(),
+                                        value.getString("number") as String
+                                )
+                            }
+                            check = doctor != null
+                            if (check) {
+                                User.typeOfUser = "Doctor"
+                                check(number_people, check)
+                            }
+                            else {
+                                User.typeOfUser = "User"
+                                FireStore().firebase.collection("users")
+                                        .document(number_people.text.toString())
+                                        .get()
+                                        .addOnSuccessListener { userDoc ->
+                                            User.name = userDoc.getString("name") as String
+                                            User.sex = userDoc.getString("sex") as String
+                                            User.id = number_people.text.toString()
+                                            User.date = userDoc.getString("date") as String
+                                            User.email = userDoc.getString("email") as String
+                                            User.adress = Adress.instance(
+                                                    userDoc.getString("adress") as String
+                                            )
+                                            check = User.name != ""
+                                            check(number_people, check)
+                                        }
+                            }
                         }
             }
 
@@ -56,7 +84,6 @@ class CheckFragment: Fragment() {
     }
     fun check(number_people: EditText, check: Boolean){
         if (check) {
-//            requireContext().setToast("True")
             val notificationManager = requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -91,6 +118,15 @@ class CheckFragment: Fragment() {
                 number_people.setTextColor(Color.RED)
                 requireContext().setToast("Проверьте правильность введенного номера")
             }
+        }
+    }
+    private fun getEnumDoctor(string: String): TypeDoctors? {
+        return when(string){
+            TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST
+            TypeDoctors.PEDIATRICIAN.nameType -> TypeDoctors.PEDIATRICIAN
+            TypeDoctors.SURGEON.nameType -> TypeDoctors.SURGEON
+            TypeDoctors.TRAUMATOLOGIST.nameType -> TypeDoctors.TRAUMATOLOGIST
+            else -> null
         }
     }
 }

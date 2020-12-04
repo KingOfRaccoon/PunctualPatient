@@ -12,5 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/tx_grey</item>
         <!-- Customize your theme here. -->
+        <item name="primaryColor">@color/purple_700</item>
+        <item name="textColor">@color/purple_200</item>
+        <item name="selectedItem_textColor">#3066BE</item>
+        <item name="todayItem_textColor">#8DB580</item>
+        <item name="buttonLeft_drawableTintColor">#AE8E1C</item>
+        <item name="buttonRight_drawableTintColor">#823200</item>
+        <item name="expandIconColor">#650D1B</item>
     </style>
 </resources>

@@ -18,10 +18,20 @@
             android:id="@+id/calendarView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:primaryColor="@color/purple_700"
+            app:textColor="@color/purple_200"
+            app:selectedItem_textColor="#3066BE"
+            app:todayItem_textColor="#8DB580"
+            app:todayItem_background="@drawable/circle_white_stroke_background"
+            app:selectedItem_background="@drawable/circle_white_solid_background"
+            app:buttonLeft_drawableTintColor="#AE8E1C"
+            app:buttonRight_drawableTintColor="#823200"
+            app:expandIconColor="#650D1B">
 
 
         </com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"

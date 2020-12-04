@@ -6,94 +6,10 @@
     android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="60dp"
-        android:textSize="22sp"
-        android:textColor="@color/tx_grey"
-        android:id="@+id/text_register" />
-
-    <EditText
-        android:inputType="textPersonName"
-        android:textColor="@color/tx_grey"
-        android:background="@drawable/grey_round"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:hint="@string/name"
-        android:id="@+id/name"
-        android:layout_marginTop="40dp"
-        android:textColorHint="@color/black_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_register" />
-
-    <EditText
-        android:inputType="textPersonName"
-        android:textColor="@color/tx_grey"
-        android:background="@drawable/grey_round"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:hint="@string/fam"
-        android:id="@+id/fam"
-        android:layout_marginTop="30dp"
-        android:textColorHint="@color/black_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <EditText
-        android:inputType="textPersonName"
-        android:textColor="@color/tx_grey"
-        android:background="@drawable/grey_round"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:id="@+id/second_name"
-        android:hint="@string/second_name"
-        android:layout_marginTop="30dp"
-        android:textColorHint="@color/black_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fam" />
-
-    <EditText
-        android:inputType="date"
-        android:textColor="@color/tx_grey"
-        android:background="@drawable/grey_round"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:hint="@string/birthday"
-        android:layout_marginTop="30dp"
-        android:textColorHint="@color/black_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/second_name" />
-
-    <Button
-        android:id="@+id/next"
-        android:text="@string/next"
-        android:backgroundTint="@color/but_selector"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
-        android:textColor="@color/tx_grey"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        android:layout_height="match_parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

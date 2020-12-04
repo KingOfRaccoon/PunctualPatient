@@ -19,6 +19,7 @@
     <string name="code">Введите код из SMS</string>
     <string name="find_cod">Получить код</string>
     <string name="enter">Вход</string>
+    <string name="ready">Готово</string>
     <string name="confirmation">Подтверждение</string>
     <string name="sms">SMS код</string>
     <string name="send">Отправить</string>
@@ -31,4 +32,8 @@
     <string name="birthday">Дата рождения</string>
 
     <string name="next">Далее</string>
+    <string name="addition">Дополнительная нформация</string>
+    <string name="address">Адрес</string>
+    <string name="age">Возраст</string>
+    <string name="mail">Почта</string>
 </resources>

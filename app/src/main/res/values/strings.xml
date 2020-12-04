@@ -17,8 +17,10 @@
     <string name="login">Логин:</string>
     <string name="hint_number">Введите номер телефона</string>
     <string name="code">Введите код из SMS</string>
+    <string name="find_cod">Получить код</string>
     <string name="enter">Вход</string>
     <string name="confirmation">Подтверждение</string>
     <string name="sms">SMS код</string>
     <string name="send">Отправить</string>
+    <string name="create">Создать аккаунт</string>
 </resources>

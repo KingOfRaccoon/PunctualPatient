@@ -2,20 +2,13 @@ package com.kingofraccoon.punctualpatient.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.ImageButton
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.LocalHospital.hospital
-import com.kingofraccoon.punctualpatient.firebase.FireStore
-import java.time.LocalDate
 
 class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment(){
     @RequiresApi(Build.VERSION_CODES.O)
@@ -29,7 +22,7 @@ class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment(){
         hospital.timetables.forEach {
             mutableListTalon.addAll(it.talons)
         }
-        talonAdapter.setList(
+        talonAdapter.addList(
                 mutableListTalon.filter
                 {
                     it.doctor.typeDoctor == typeDoctors

@@ -1,6 +1,6 @@
 package com.kingofraccoon.punctualpatient
 
-class Doctor(
+data class Doctor(
         var name : String,
         var number_cabinet: Int,
         var typeDoctor: TypeDoctors,

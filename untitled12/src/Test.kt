@@ -68,10 +68,13 @@ fun main(){
 //        println()
 //    }
 //    println(LocalDate.now())
-    val a = mutableListOf(1, 2, 3, 4, 5)
-    println(a.filter {
-        it > 3
-    })
-    println(a)
-    println(UUID.randomUUID().mostSignificantBits)
+//    val a = mutableListOf(1, 2, 3, 4, 5)
+//    println(a.filter {
+//        it > 3
+//    })
+//    println(a)
+//    println(UUID.randomUUID().mostSignificantBits)
+    val a = (1..3).random()
+    val b = (1..7).random()
+    println("$a $b")
 }

@@ -20,8 +20,18 @@ import kotlin.coroutines.coroutineContext
 open class TalonAdapter: RecyclerView.Adapter<TalonViewHolder>() {
     var listTalons = mutableListOf<Talon>()
 
-    fun setList(mutableList: MutableList<Talon>){
+    fun addList(mutableList: MutableList<Talon>){
         listTalons.addAll(mutableList)
+        notifyDataSetChanged()
+    }
+
+    fun setList(mutableList: MutableList<Talon>){
+        listTalons = mutableList
+        notifyDataSetChanged()
+    }
+
+    fun addTalon(talon: Talon){
+        listTalons.add(talon)
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TalonViewHolder {

@@ -19,7 +19,7 @@ object User {
 
     fun setValue(mutableList: MutableList<Talon>){
         mutableListTalon = mutableList
-        mutableLiveDataTalons.value = mutableList
+        mutableLiveDataTalons.value = mutableListTalon
     }
 
     var mutableListTalonDoctor = mutableListOf<TalonUser>()

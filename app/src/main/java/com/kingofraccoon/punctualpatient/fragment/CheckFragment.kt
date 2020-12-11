@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +70,8 @@ class CheckFragment: Fragment() {
                             }
                             else {
                                 User.typeOfUser = "User"
-                                FireStore().firebase.collection("users")
+                                FireStore().firebase
+                                        .collection("users")
                                         .document(number_people.text.toString())
                                         .get()
                                         .addOnSuccessListener { userDoc ->
@@ -86,6 +88,9 @@ class CheckFragment: Fragment() {
                                             check = User.name != ""
                                             requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
                                             check(number_people, check)
+                                        }
+                                        .addOnFailureListener {
+                                            Log.d("Fire", it.message.toString())
                                         }
                             }
                         }

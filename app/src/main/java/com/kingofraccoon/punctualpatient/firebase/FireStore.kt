@@ -41,6 +41,35 @@ class FireStore: FirebaseApi {
         return myTalons
     }
 
+    fun getProfileTalon(id: String): MutableList<Talon> {
+        val doctors = mutableListOf<Doctor>()
+        var talons = mutableListOf<Talon>()
+        val task = firebase.collection("doctors").get()
+
+        task.addOnSuccessListener {
+            it.documents.forEach { value ->
+                doctors.add(
+                        Doctor(
+                                value.getString("name") as String,
+                                (value.get("cabinet") as Long).toInt(),
+                                getEnumDoctor(value.getString("nameType") as String)!!,
+                                (value.get("start") as Long).toInt(),
+                                (value.get("end") as Long).toInt(),
+                                (value.get("duration") as Long).toInt(),
+                                value.getString("number") as String
+                        )
+                )
+            }
+            Log.d("Fire", doctors.size.toString())
+        }
+                .addOnFailureListener {
+                    Log.d("Fire", it.message.toString())
+                }
+                .continueWith {
+                    talons = getMyTalons(id, doctors)
+                }
+        return talons
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun writeTalon(id: String, talon: Talon) {
         val hashMap = hashMapOf(
@@ -91,7 +120,7 @@ class FireStore: FirebaseApi {
                     LocalHospital.hospital.doctors = doctors
                     LocalHospital.hospital.createTalons(LocalDate.now())
                     LocalHospital.liveDataHospital.value = LocalHospital.hospital
-                    User.setValue(getMyTalons(User.number, doctors))
+//                    User.setValue(getMyTalons(User.number, doctors))
                 }
         return doctors
     }
@@ -198,7 +227,7 @@ class FireStore: FirebaseApi {
         }
         User.setValueDoctor(list)
     }
-    private fun getEnumDoctor(string: String): TypeDoctors? {
+    fun getEnumDoctor(string: String): TypeDoctors? {
         return when(string){
             TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST
             TypeDoctors.PEDIATRICIAN.nameType -> TypeDoctors.PEDIATRICIAN

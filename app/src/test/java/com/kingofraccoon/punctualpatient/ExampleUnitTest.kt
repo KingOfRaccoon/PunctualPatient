@@ -12,6 +12,6 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        print(Doctor("fgjhk", 78, TypeDoctors.CARDIOLOGIST, 67,89,787,"ytdffhg"))
     }
 }

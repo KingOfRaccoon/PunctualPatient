@@ -12,6 +12,16 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        print(Doctor("fgjhk", 78, TypeDoctors.CARDIOLOGIST, 67,89,787,"ytdffhg"))
+        var doc = Doctor("fgjhk", 78, TypeDoctors.CARDIOLOGIST, 67,89,787,"ytdffhg")
+        var cript: Cript = Cript()
+        var result = cript.encrypt(doc.toString())
+        result.forEach { print(it) }
+        println()
+        var result2 = cript.decrypt(result)
+        result2.forEach { print(it) }
+
+
+
+
     }
 }

@@ -1,7 +1,5 @@
 package com.kingofraccoon.punctualpatient
 
-import android.graphics.Region
-
 class Adress(
 //    var country: String,
 

@@ -14,6 +14,10 @@ object User {
 
     var typeOfUser = ""
 
+    var firstName = ""
+    var secondName = ""
+    var thirdName = ""
+
     var mutableListTalon = mutableListOf<Talon>()
     val mutableLiveDataTalons = MutableLiveData<MutableList<Talon>>()
 
@@ -29,4 +33,5 @@ object User {
         mutableListTalonDoctor = mutableList
         mutableLiveDataTalonsDoctor.value = mutableList
     }
+
 }

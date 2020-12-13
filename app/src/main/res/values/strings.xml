@@ -37,5 +37,8 @@
     <string name="address">Адрес</string>
     <string name="age">Возраст</string>
     <string name="mail">Почта</string>
+    <string name="number">Номер</string>
 
+    <string name="male">Мужчина</string>
+    <string name="female">Женщина</string>
 </resources>

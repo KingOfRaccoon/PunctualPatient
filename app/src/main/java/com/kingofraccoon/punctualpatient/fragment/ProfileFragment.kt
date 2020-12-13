@@ -32,7 +32,6 @@ class ProfileFragment: Fragment() {
     val age = 18
     val address = "ул. Пионерская, дом 103, кв 60"
 
-
     val data: HashMap<String, List<String>>
         get() {
             val listData = HashMap<String, List<String>>()

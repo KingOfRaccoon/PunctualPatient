@@ -81,8 +81,7 @@ class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment() {
             fun onWeekChange(view: View) {  }
 
         })*/
-        return view
-    }
+
     /*popupMenu.setOnMenuItemClickListener {
         when (it.itemId) {
             R.id.in_full -> {

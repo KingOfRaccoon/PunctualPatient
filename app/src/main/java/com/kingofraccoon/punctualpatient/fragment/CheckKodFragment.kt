@@ -28,7 +28,6 @@ class CheckKodFragment(var kod: Int): Fragment() {
             if (User.typeOfUser == "Doctor")
                 requireActivity().startService(Intent(requireActivity(), MyService::class.java))
             if (editText.text.toString().toInt() == kod){
-//                Toast.makeText(requireContext(), "True", Toast.LENGTH_SHORT).show()
                 if (User.typeOfUser == "User")
                     requireFragmentManager().beginTransaction()
                         .replace(R.id.frame, MainFragment())
@@ -39,11 +38,9 @@ class CheckKodFragment(var kod: Int): Fragment() {
                             .commit()
             }
         }
-
         checkBox.setOnClickListener{
 
         }
-
         return view
     }
 }

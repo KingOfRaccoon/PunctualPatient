@@ -11,11 +11,8 @@ import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.CustomAdapter
-import com.kingofraccoon.punctualpatient.LocalHospital
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.TypeDoctors
-import com.kingofraccoon.punctualpatient.firebase.FireStore
-import java.time.LocalDate
 
 class FilterTalonFragment: Fragment() {
     var def_type_doctor = "Введите специализацию врача:"
@@ -26,7 +23,7 @@ class FilterTalonFragment: Fragment() {
         val spinner : Spinner = view.findViewById(R.id.spinner_filter)
         val types = resources.getStringArray(R.array.typesDoctors).toMutableList()
         val customAdapter = CustomAdapter(requireContext())
-        val button : Button = view.findViewById(R.id.button)
+        val button : Button = view.findViewById(R.id.take_talon)
 
 
         customAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)

@@ -6,8 +6,10 @@ object User {
     var id = "Я"
     var name = ""
     var date = ""
-    var adress = Adress()
+//    var adress = Adress()
+    var adress = ""
     var sex = ""
+
     var email = ""
     var age = 0
     var number = ""

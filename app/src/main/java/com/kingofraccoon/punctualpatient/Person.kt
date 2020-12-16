@@ -3,7 +3,7 @@ package com.kingofraccoon.punctualpatient
 import com.kingofraccoon.punctualpatient.Adress
 
 class Person() {
-    var adress = Adress()
+    var adress = ""
     var date = ""
     var email = ""
     var name = ""
@@ -11,7 +11,7 @@ class Person() {
     var age = 0
     var number = ""
     constructor(
-            adress: Adress,
+            adress: String,
             date: String,
             email: String,
             name: String,

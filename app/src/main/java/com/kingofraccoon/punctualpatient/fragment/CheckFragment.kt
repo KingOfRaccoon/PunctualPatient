@@ -33,7 +33,7 @@ class CheckFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_check, container, false)
         val number_people : EditText = view.findViewById(R.id.phone_check)
         val button_check : Button = view.findViewById(R.id.button_check)
-        val button_register : Button = view.findViewById(R.id.register)
+        val button_register : Button = view.findViewById(R.id.create_account)
 
         button_register.setOnClickListener {
             requireFragmentManager().beginTransaction()
@@ -80,9 +80,7 @@ class CheckFragment: Fragment() {
                                             User.id = number_people.text.toString()
                                             User.date = userDoc.getString("date") as String
                                             User.email = userDoc.getString("email") as String
-                                            User.adress = Adress.instance(
-                                                    userDoc.getString("adress") as String
-                                            )
+                                            User.adress = userDoc.getString("adress") as String
                                             User.age = (userDoc.getLong("age") as Long).toInt()
                                             User.number = number_people.text.toString()
                                             check = User.name != ""

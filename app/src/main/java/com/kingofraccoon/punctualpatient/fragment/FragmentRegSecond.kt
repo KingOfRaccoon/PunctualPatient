@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
-import com.kingofraccoon.punctualpatient.Adress
 import com.kingofraccoon.punctualpatient.Person
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
@@ -17,10 +16,10 @@ import com.kingofraccoon.punctualpatient.firebase.FireStore
 class FragmentRegSecond: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.frag_regist_second, container, false)
-        val button: Button = view.findViewById(R.id.next)
-        val textAdress : EditText = view.findViewById(R.id.name)
-        val textEmail : EditText = view.findViewById(R.id.fam)
-        val textAge : EditText = view.findViewById(R.id.second_name)
+        val button: Button = view.findViewById(R.id.next_reg)
+        val textAdress : EditText = view.findViewById(R.id.address_reg)
+        val textEmail : EditText = view.findViewById(R.id.mail_reg)
+        val textAge : EditText = view.findViewById(R.id.age_reg)
         val textNumber : EditText = view.findViewById(R.id.number)
         val radioMale : RadioButton = view.findViewById(R.id.male)
         val radioFemale : RadioButton = view.findViewById(R.id.female)
@@ -32,7 +31,8 @@ class FragmentRegSecond: Fragment() {
         }
 
         button.setOnClickListener {
-            User.adress = Adress.instance(textAdress.text.toString().trim())
+//            User.adress = Adress.instance(textAdress.text.toString().trim())
+            User.adress = textAdress.text.toString().trim()
             User.email = textEmail.text.toString().trim()
             User.age = textAge.text.toString().trim().toInt()
             User.number = textNumber.text.toString()
@@ -54,7 +54,6 @@ class FragmentRegSecond: Fragment() {
                             User.number
                     ))
         }
-
         return view
     }
 }

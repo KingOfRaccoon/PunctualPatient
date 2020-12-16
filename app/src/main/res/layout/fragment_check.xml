@@ -1,95 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/authFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <TextView
-        android:textStyle="bold"
+        android:id="@+id/text_enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="150dp"
-        android:textSize="22sp"
+        android:text="@string/enter"
         android:textColor="@color/tx_grey"
-        android:id="@+id/text_enter" />
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-        <EditText
-            android:textColor="@color/tx_grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="100dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_enter"
-            android:layout_weight="4"
-            android:background="@drawable/grey_round"
-            android:id="@+id/phone_check"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:hint="@string/hint_number"
-            android:textColorHint="@color/black_purple"
-            android:inputType="phone"/>
-
-        <Button
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/phone_check"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:backgroundTint="@color/purple_200"
-            android:paddingLeft="8dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_weight="4"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/find_cod"
-            android:id="@+id/button_check"
-            android:textColor="@color/tx_grey" />
-
-
-    <!--<EditText
-        android:id="@+id/code"
-        android:layout_marginTop="30dp"
+    <EditText
+        android:id="@+id/phone_check"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="40dp"
-        android:hint="@string/code"
+        android:layout_weight="4"
+        android:hint="@string/hint_number"
+        android:inputType="phone"
+        android:background="@drawable/grey_round"
+        android:textColor="@color/tx_grey"
         android:textColorHint="@color/black_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/go_code" />
+        app:layout_constraintTop_toBottomOf="@id/text_enter" />
 
     <Button
-        android:background="@color/but_selector"
-        android:layout_marginTop="30dp"
+        android:id="@+id/button_check"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_weight="4"
+        android:paddingLeft="8dp"
+        android:text="@string/find_cod"
         android:textColor="@color/tx_grey"
-        android:text="@string/enter"
-        app:layout_constraintTop_toBottomOf="@id/code"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/button_check"/>-->
-
+        android:backgroundTint="@color/purple_200"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_check" />
 
     <Button
-        android:id="@+id/register"
+        android:id="@+id/create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:text="@string/create"
         android:background="#00FFFFFF"
         android:textColor="@color/tx_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="40dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

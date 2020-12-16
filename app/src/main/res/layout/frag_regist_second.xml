@@ -7,7 +7,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/text_register"
+        android:id="@+id/text_finish_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -28,12 +28,12 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:hint="@string/address"
-            android:id="@+id/name"
+            android:id="@+id/address_reg"
             android:layout_marginTop="40dp"
             android:textColorHint="@color/black_purple"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_register" />
+            app:layout_constraintTop_toBottomOf="@+id/text_finish_register" />
 
         <EditText
             android:inputType="textPersonName"
@@ -44,31 +44,31 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:hint="@string/mail"
-            android:id="@+id/fam"
+            android:id="@+id/mail_reg"
             android:layout_marginTop="30dp"
             android:textColorHint="@color/black_purple"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/address_reg" />
 
         <EditText
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:textColor="@color/tx_grey"
             android:background="@drawable/grey_round"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:id="@+id/second_name"
+            android:id="@+id/age_reg"
             android:hint="@string/age"
             android:layout_marginTop="30dp"
             android:textColorHint="@color/black_purple"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fam" />
+            app:layout_constraintTop_toBottomOf="@+id/mail_reg" />
 
     <EditText
-        android:inputType="textPersonName"
+        android:inputType="phone"
         android:textColor="@color/tx_grey"
         android:background="@drawable/grey_round"
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         android:textColorHint="@color/black_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/second_name" />
+        app:layout_constraintTop_toBottomOf="@+id/age_reg" />
 
     <RadioGroup
         android:orientation="horizontal"
@@ -112,7 +112,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RadioGroup>
     <Button
-        android:id="@+id/next"
+        android:id="@+id/next_reg"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"

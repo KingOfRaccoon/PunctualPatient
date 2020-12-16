@@ -1,4 +1,4 @@
-package com.kingofraccoon.punctualpatient
+package com.kingofraccoon.punctualpatient.encoder
 
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator

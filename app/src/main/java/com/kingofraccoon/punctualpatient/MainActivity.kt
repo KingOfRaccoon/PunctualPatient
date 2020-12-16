@@ -53,5 +53,4 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-
 }

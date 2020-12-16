@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.LocalHospital.hospital
 
-class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment(){
+class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_get_talon, container, false)
@@ -27,6 +27,28 @@ class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment(){
                 {
                     it.doctor.typeDoctor == typeDoctors
                 }.toMutableList())
+        return view
+    }
+
+//    fun calendarListener():{
+//        var calendarView = R.layout.calendarView
+//        calendarView.setOnDateChangeListener { view; var year: Int; var month: Int; var dayOfMonth: Int ->
+//            "$dayOfMonth.${month + 1}.$year"
+//        }
+//        return 0
+//    }
+//
+//
+//    calendarView.setOnClickListener {
+//        val selectedDate = calendarView.date
+//        val calendar = Calendar.getInstance()
+//        calendar.timeInMillis = selectedDate
+//        val dateFormatter = DateFormat.getDateInstance(DateFormat.MEDIUM)
+//        var date = dateFormatter.format(calendar.time)
+//    }
+
+
+
 
        /* val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, "Menu", duration)

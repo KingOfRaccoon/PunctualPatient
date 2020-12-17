@@ -13,7 +13,7 @@ import com.kingofraccoon.punctualpatient.MyService
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
 
-class CheckKodFragment(var kod: Int): Fragment() {
+class AuthorizationKodFragment(var kod: Int): Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

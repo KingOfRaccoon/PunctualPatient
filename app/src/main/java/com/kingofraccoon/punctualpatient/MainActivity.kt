@@ -8,14 +8,10 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.FirebaseFunctionsException
-import com.kingofraccoon.punctualpatient.fragment.CheckFragment
-import com.kingofraccoon.punctualpatient.retrofit.Answer
+import com.kingofraccoon.punctualpatient.fragment.AuthorizationFragment
 import com.kingofraccoon.punctualpatient.retrofit.DataPerson
 import com.kingofraccoon.punctualpatient.retrofit.RetroFitClient
 import com.kingofraccoon.punctualpatient.retrofit.RetrofitApi
@@ -84,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
         )
-        supportFragmentManager.setFragment(CheckFragment())
+        supportFragmentManager.setFragment(AuthorizationFragment())
 //        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
 //        bottomNavigationView.setOnNavigationItemSelectedListener {
 //            when(it.itemId){

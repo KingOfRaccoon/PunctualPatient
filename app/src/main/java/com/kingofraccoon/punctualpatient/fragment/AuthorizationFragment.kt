@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +20,7 @@ import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.firebase.FireStore
 
-class CheckFragment: Fragment() {
+class AuthorizationFragment: Fragment() {
     val CHANEL_ID = 1.toString()
     val kod = (1000..9999).random()
     var doctor : Doctor? = null
@@ -126,7 +125,7 @@ class CheckFragment: Fragment() {
             val nc = requireActivity().applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             nc.notify(0, builder)
             requireFragmentManager().beginTransaction()
-                .replace(R.id.frame, CheckKodFragment(kod))
+                .replace(R.id.frame, AuthorizationKodFragment(kod))
                 .commit()
         } else {
             number_people.setTextColor(resources.getColor(R.color.red))

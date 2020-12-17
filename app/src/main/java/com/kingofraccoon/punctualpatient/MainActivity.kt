@@ -32,7 +32,6 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var functions : FirebaseFunctions
     lateinit var retrofit: RetrofitApi
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,52 +77,28 @@ class MainActivity : AppCompatActivity() {
 //                    }
 //                }
 //        )
-//        retrofit.check().enqueue(
-//                object : Callback<MutableList<DataPerson>>{
-//                    override fun onResponse(call: Call<MutableList<DataPerson>>, response: Response<MutableList<DataPerson>>) {
-//                        response.body()?.forEach {
-//                            Log.d("Fire", it.toString())
-//                        }
-//                    }
-//
-//                    override fun onFailure(call: Call<MutableList<DataPerson>>, t: Throwable) {
-//                        Log.d("Fire", t.message.toString())
-//                    }
-//                }
-//        )
-//        val cript = Cript()
-//        Log.d("Fire", cript.getKey().toString())
-//        val person = Person("12345", "12345","12345","12345","12345",12345,"12345")
-//        val crPerson = cript.encrypt(CriptConverter().toJson(person))
-//        val strCrPerson = Base64.encodeToString(crPerson, Base64.DEFAULT)
-//        Log.d("Fire", strCrPerson)
-//        FireStore().firebase
-//                .collection("testCript")
-//                .document("cript12")
-//                .set(cryptPerson(cript, person))
-//            .set(hashMapOf("text" to Base64.encodeToString(Cript().encrypt(CriptConverter().toJson(person)), Base64.DEFAULT)))
-//            .set(hashMapOf("text" to CriptConverter().toJson(person)))
-//            .set(hashMapOf("text" to strCrPerson))
-//                .addOnSuccessListener {
-//                    print("Yes")
-//                }
-//                .addOnFailureListener {
-//                    print("No")
-//                }.continueWith {
-//                    FireStore().firebase
-//                            .document("testCript/cript12")
-//                            .get()
-//                            .addOnSuccessListener { doc ->
-//                                val person = Cript().decrypt(Base64.decode(doc.getString("text"), Base64.DEFAULT))
-//                                val pr = Base64.decode(doc.getString("text"), Base64.DEFAULT)
-//                                val per = Cript().decrypt(pr)
-//                                val person = CriptConverter().fromJsontoPerson(per)
-//                                val person = CriptConverter().fromJsontoPerson(doc.getString("text") as String)
-//                                Log.d("Fire", person.toString())
-//                            }
-//                }
-        supportFragmentManager.setFragment(CheckFragment(), CheckFragment.tag)
+        retrofit.check().enqueue(
+                object : Callback<MutableList<DataPerson>>{
+                    override fun onResponse(call: Call<MutableList<DataPerson>>, response: Response<MutableList<DataPerson>>) {
+                        response.body()?.forEach {
+                            Log.d("Fire", it.toString())
+                        }
+                    }
 
+                    override fun onFailure(call: Call<MutableList<DataPerson>>, t: Throwable) {
+                        Log.d("Fire", t.message.toString())
+                    }
+                }
+        )
+        supportFragmentManager.setFragment(CheckFragment())
+//        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
+//        bottomNavigationView.setOnNavigationItemSelectedListener {
+//            when(it.itemId){
+//                R.id.writeTalon -> supportFragmentManager.setFragment(FilterTalonFragment())
+//                R.id.profile -> supportFragmentManager.setFragment(ProfileFragment())
+//            }
+//            return@setOnNavigationItemSelectedListener true
+//        }
 
         val actBar = SpannableString(title)
         actBar.setSpan(ForegroundColorSpan(Color.rgb(78, 78, 78)), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -133,14 +108,12 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
-    fun FragmentManager.setFragment(fragment: Fragment, tag: String){
+    fun FragmentManager.setFragment(fragment: Fragment){
         this.beginTransaction()
-            .add(R.id.frame, fragment)
-            .addToBackStack(null)
-            .commit()
+                .add(R.id.frame, fragment)
+                .addToBackStack(null)
+                .commit()
     }
-
     private fun addMessage(text: String): Task<String> {
         // Create the arguments to the callable function.
         val data = hashMapOf(
@@ -160,5 +133,5 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-}
 
+}

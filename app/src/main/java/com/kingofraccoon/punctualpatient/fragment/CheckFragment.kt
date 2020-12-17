@@ -97,10 +97,7 @@ class CheckFragment: Fragment() {
                             }
                         }
             }
-
         }
-
-
         return view
     }
 

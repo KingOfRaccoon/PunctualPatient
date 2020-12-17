@@ -57,7 +57,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
     androidTestImplementation 'com.21buttons:fragment-test-rule:1.0.0'
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.kingofraccoon.punctualpatient.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.Person
 import com.kingofraccoon.punctualpatient.R
@@ -34,25 +36,32 @@ class FragmentRegSecond: Fragment() {
 //            User.adress = Adress.instance(textAdress.text.toString().trim())
             User.adress = textAdress.text.toString().trim()
             User.email = textEmail.text.toString().trim()
-            User.age = textAge.text.toString().trim().toInt()
+            User.age = if (!textAge.text.isNullOrBlank()) textAge.text.toString().trim().toInt() else 0
             User.number = textNumber.text.toString()
             if (radioMale.isChecked)
                 User.sex = "Мужчина"
             else
                 User.sex = "Женщина"
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.frame, MainFragment())
-                .commit()
-            FireStore().registerNewUser(textNumber.text.toString().trim(),
-                    Person(
-                            User.adress,
-                            User.date,
-                            User.email,
-                            User.firstName + " " + User.secondName + " " + User.thirdName,
-                            User.sex,
-                            User.age,
-                            User.number
-                    ))
+            if(!textNumber.text.isNullOrBlank()) {
+                requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame, MainFragment())
+                        .commit()
+                FireStore().registerNewUser(textNumber.text.toString().trim(),
+                        Person(
+                                User.adress,
+                                User.date,
+                                User.email,
+                                User.firstName + " " + User.secondName + " " + User.thirdName,
+                                User.sex,
+                                User.age,
+                                User.number
+                        ))
+            }
+            else{
+                textNumber.setTextColor(Color.RED)
+                textNumber.setHintTextColor(Color.RED)
+                Toast.makeText(requireContext(), "Введите свой номер телефона", Toast.LENGTH_SHORT).show()
+            }
         }
         return view
     }

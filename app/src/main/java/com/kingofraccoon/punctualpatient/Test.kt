@@ -1,6 +1,8 @@
 package com.kingofraccoon.punctualpatient
 
-import java.util.*
+import com.google.firebase.functions.FirebaseFunctions
+import com.kingofraccoon.punctualpatient.firebase.FireBaseFunctions
 
 fun main(){
+
 }

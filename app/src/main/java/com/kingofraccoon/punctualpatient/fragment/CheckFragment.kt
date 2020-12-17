@@ -74,18 +74,22 @@ class CheckFragment: Fragment() {
                                         .collection("users")
                                         .document(number_people.text.toString())
                                         .get()
-                                        .addOnSuccessListener { userDoc ->
-                                            User.name = userDoc.getString("name") as String
-                                            User.sex = userDoc.getString("sex") as String
-                                            User.id = number_people.text.toString()
-                                            User.date = userDoc.getString("date") as String
-                                            User.email = userDoc.getString("email") as String
-                                            User.adress = userDoc.getString("adress") as String
-                                            User.age = (userDoc.getLong("age") as Long).toInt()
-                                            User.number = number_people.text.toString()
-                                            check = User.name != ""
-                                            requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
-                                            check(number_people, check)
+                                        .addOnCompleteListener { userDoc ->
+                                            if(userDoc.result?.exists() == true) {
+                                                User.name = userDoc.result?.getString("name") as String
+                                                User.sex = userDoc.result?.getString("sex") as String
+                                                User.id = number_people.text.toString()
+                                                User.date = userDoc.result?.getString("date") as String
+                                                User.email = userDoc.result?.getString("email") as String
+                                                User.adress = userDoc.result?.getString("adress") as String
+                                                User.age = (userDoc.result?.getString("age").toString()).toInt()
+                                                User.number = number_people.text.toString()
+                                                check = User.name != ""
+                                                requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
+                                                check(number_people, check)
+                                            }
+                                            else
+                                                check(number_people, check)
                                         }
                                         .addOnFailureListener {
                                             Log.d("Fire", it.message.toString())
@@ -128,10 +132,7 @@ class CheckFragment: Fragment() {
                 .replace(R.id.frame, CheckKodFragment(kod))
                 .commit()
         } else {
-            number_people.background.setColorFilter(
-                    resources.getColor(R.color.red),
-                    PorterDuff.Mode.SRC_ATOP
-            )
+            number_people.setTextColor(resources.getColor(R.color.red))
             if (number_people.text.isNullOrEmpty()) {
                 number_people.setHintTextColor(Color.RED)
                 requireContext().setToast("Введите свой номер")

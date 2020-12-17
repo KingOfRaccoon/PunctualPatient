@@ -28,6 +28,9 @@ class CheckKodFragment(var kod: Int): Fragment() {
             if (User.typeOfUser == "Doctor")
                 requireActivity().startService(Intent(requireActivity(), MyService::class.java))
             if (editText.text.toString().toInt() == kod){
+                if (checkBox.isChecked){
+
+                }
                 if (User.typeOfUser == "User")
                     requireFragmentManager().beginTransaction()
                         .replace(R.id.frame, MainFragment())

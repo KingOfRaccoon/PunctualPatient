@@ -28,9 +28,9 @@ class ProfileFragment: Fragment() {
     internal var titleList: List<String> ?= null
 
     val number = User.number
-    val mail = "qwert@mail.ru"
-    val age = 18
-    val address = "ул. Пионерская, дом 103, кв 60"
+    val mail = User.email
+    val age = User.age
+    val address = if (User.adress.isBlank()) "ул. Пионерская, дом 103, кв 60" else User.adress
 
     val data: HashMap<String, List<String>>
         get() {
@@ -39,7 +39,7 @@ class ProfileFragment: Fragment() {
             val redmiMobiles = ArrayList<String>()
             redmiMobiles.add("Адрес: $address")
             redmiMobiles.add("Возраст: $age")
-            redmiMobiles.add("Телефон: $number}")
+            redmiMobiles.add("Телефон: $number")
             redmiMobiles.add("Почта: ${mail}")
 
             listData["Полная информация"] = redmiMobiles
@@ -56,8 +56,8 @@ class ProfileFragment: Fragment() {
         val dateUser : TextView = view.findViewById(R.id.about)
         val sexUser : TextView = view.findViewById(R.id.sex)
         nameUser.text = User.name
-        dateUser.text = "14-02-1981"
-        sexUser.text = "Мужской"
+        dateUser.text = if (User.date.isBlank()) "14-02-1981" else User.date
+        sexUser.text = if (User.sex.isBlank()) "Мужской" else User.sex
         if (User.typeOfUser != "Doctor") {
             recyclerView.adapter = talonAdapter
 //            User.mutableLiveDataTalons.observe(viewLifecycleOwnerLiveData.value!!, {

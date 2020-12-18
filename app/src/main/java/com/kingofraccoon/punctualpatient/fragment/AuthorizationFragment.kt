@@ -18,9 +18,11 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.auth.Authorization
 import com.kingofraccoon.punctualpatient.firebase.FireStore
 
 class AuthorizationFragment: Fragment() {
+    lateinit var authorization: Authorization
     val CHANEL_ID = 1.toString()
     val kod = (1000..9999).random()
     var doctor : Doctor? = null

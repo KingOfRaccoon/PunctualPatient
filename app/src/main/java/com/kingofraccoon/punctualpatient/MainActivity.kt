@@ -10,7 +10,10 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.functions.FirebaseFunctions
+import com.kingofraccoon.punctualpatient.auth.Authorization
 import com.kingofraccoon.punctualpatient.fragment.AuthorizationFragment
 import com.kingofraccoon.punctualpatient.retrofit.DataPerson
 import com.kingofraccoon.punctualpatient.retrofit.RetroFitClient
@@ -27,6 +30,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         retrofit = RetroFitClient.instance()!!
         functions = FirebaseFunctions.getInstance()
+//        Authorization().auth(123456789.toString(), 1234.toString())
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword("zmear@mail.ru","password")
+                .addOnCompleteListener {
+                    if (it.isSuccessful){
+                        val user = auth.currentUser
+                        updateUI(user)
+                        Log.d("Fire", auth.uid.toString())
+                    }
+                    else{
+                        updateUI(null)
+                    }
+                }
 //        functions.getHttpsCallable("addMessage").call(hashMapOf(
 //                "number1" to 3,
 //                "number2" to 6
@@ -122,6 +138,8 @@ class MainActivity : AppCompatActivity() {
                 result
             }
     }
+    fun updateUI(user: FirebaseUser?) { }
+
 
 
 }

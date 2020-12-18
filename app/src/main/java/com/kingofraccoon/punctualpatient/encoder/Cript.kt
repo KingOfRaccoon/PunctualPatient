@@ -1,5 +1,6 @@
 package com.kingofraccoon.punctualpatient.encoder
 
+import android.util.Log
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -22,4 +23,5 @@ class Cript {
         var decriptbyte: ByteArray = cipher.doFinal(t)
         return String(decriptbyte)
     }
+
 }

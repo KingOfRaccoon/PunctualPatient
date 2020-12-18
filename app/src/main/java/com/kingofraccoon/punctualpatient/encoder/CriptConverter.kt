@@ -11,9 +11,9 @@ class CriptConverter {
 
     fun<T> toJson(doc: T) = json.toJson(doc)
 
-    fun fromJsontoDoctor(jobject: JsonElement) = json.fromJson(jobject, Doctor::class.java)
+    fun fromJsontoDoctor(jobject: String) = json.fromJson(jobject, Doctor::class.java)
 
-    fun fromJsontoPerson(jobject: JsonElement) = json.fromJson(jobject, Person::class.java)
+    fun fromJsontoPerson(jobject: String) = json.fromJson(jobject, Person::class.java)
 
 
 }

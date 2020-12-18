@@ -9,7 +9,5 @@ data class Doctor(
         var duration: Int,
         var number : String
 ) {
-    override fun toString(): String {
-        return "Врач: $name"
-    }
+
 }

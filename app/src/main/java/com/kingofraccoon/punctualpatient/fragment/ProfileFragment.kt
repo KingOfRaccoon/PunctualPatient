@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.EventListener
@@ -23,6 +24,10 @@ import com.kingofraccoon.punctualpatient.firebase.FireStore
 import com.tutorialwing.expandablelistview.ProfileExpandableListAdapter
 
 class ProfileFragment: Fragment() {
+
+    companion object{
+        val tag = "profile"
+    }
 
     internal var adapter: ExpandableListAdapter ?= null
     internal var titleList: List<String> ?= null
@@ -111,7 +116,7 @@ class ProfileFragment: Fragment() {
         }
         else{
             recyclerView.adapter = doctorAdapter
-            User.mutableLiveDataTalonsDoctor.observe(viewLifecycleOwner, {
+            User.mutableLiveDataTalonsDoctor.observe(viewLifecycleOwner, Observer{
 //                doctorAdapter.setList(it)
             })
         }

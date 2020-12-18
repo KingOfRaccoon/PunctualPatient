@@ -23,6 +23,10 @@ import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.firebase.FireStore
 
 class CheckFragment: Fragment() {
+
+    companion object {
+        val tag = "check"
+    }
     val CHANEL_ID = 1.toString()
     val kod = (1000..9999).random()
     var doctor : Doctor? = null

@@ -15,6 +15,10 @@ import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.TypeDoctors
 
 class FilterTalonFragment: Fragment() {
+
+    companion object{
+        val tag = "filtertalon"
+    }
     var def_type_doctor = "Введите специализацию врача:"
     var typeDoctors = ""
     @RequiresApi(Build.VERSION_CODES.O)

@@ -122,15 +122,8 @@ class MainActivity : AppCompatActivity() {
 //                                Log.d("Fire", person.toString())
 //                            }
 //                }
-        supportFragmentManager.setFragment(CheckFragment())
-//        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
-//        bottomNavigationView.setOnNavigationItemSelectedListener {
-//            when(it.itemId){
-//                R.id.writeTalon -> supportFragmentManager.setFragment(FilterTalonFragment())
-//                R.id.profile -> supportFragmentManager.setFragment(ProfileFragment())
-//            }
-//            return@setOnNavigationItemSelectedListener true
-//        }
+        supportFragmentManager.setFragment(CheckFragment(), CheckFragment.tag)
+
 
         val actBar = SpannableString(title)
         actBar.setSpan(ForegroundColorSpan(Color.rgb(78, 78, 78)), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -140,12 +133,14 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    fun FragmentManager.setFragment(fragment: Fragment){
+
+    fun FragmentManager.setFragment(fragment: Fragment, tag: String){
         this.beginTransaction()
-                .add(R.id.frame, fragment)
-                .addToBackStack(null)
-                .commit()
+            .add(R.id.frame, fragment)
+            .addToBackStack(null)
+            .commit()
     }
+
     private fun addMessage(text: String): Task<String> {
         // Create the arguments to the callable function.
         val data = hashMapOf(
@@ -166,3 +161,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+

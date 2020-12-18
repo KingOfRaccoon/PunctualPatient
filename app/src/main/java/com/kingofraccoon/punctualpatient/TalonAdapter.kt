@@ -84,7 +84,7 @@ open class TalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
     @RequiresApi(Build.VERSION_CODES.O)
     open fun bind(talon: Talon){
         dateAndTime.text = "${talon.date} \n ${talon.time}"
-        doctor.text = talon.doctor.toString()
+        doctor.text = "Врач: " + talon.doctor.name
         cabinet.text = "Кабинет №${talon.doctor.number_cabinet}"
     }
 }

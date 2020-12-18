@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
 //                                Log.d("Fire", person.toString())
 //                            }
 //                }
-//        supportFragmentManager.setFragment(CheckFragment())
+        supportFragmentManager.setFragment(CheckFragment())
 //        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
 //        bottomNavigationView.setOnNavigationItemSelectedListener {
 //            when(it.itemId){

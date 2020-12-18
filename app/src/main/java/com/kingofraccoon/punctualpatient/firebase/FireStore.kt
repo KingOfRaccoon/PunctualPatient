@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.Person
+import com.kingofraccoon.punctualpatient.encoder.Cript
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -19,25 +20,34 @@ class FireStore: FirebaseApi {
 
     override fun getMyTalons(id: String, doctors: MutableList<Doctor>): MutableList<Talon> {
         val myTalons = mutableListOf<Talon>()
-        firebase.collection("users")
-                .document(id)
-                .collection("talons")
-            .addSnapshotListener( object : EventListener<QuerySnapshot>{
-                @RequiresApi(Build.VERSION_CODES.O)
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    value?.documents?.forEach {
-                        myTalons.add(
-                            Talon(
-                                it.getString("date") as String,
-                                    doctors.find { doc ->
-                                    doc.name == it.getString("doctor")
-                                }!!,
-                                it.getString("time") as String
-                            )
-                        )
-                    }
-                }
-            })
+//        firebase.collection("usersCrypt/$id/talons")
+//            .get()
+//            .addOnSuccessListener {
+//                    it.documents.forEach {
+//                        User.listTalonsID.add(it.getString("idTalon") as String)
+//                    }
+//                }
+//            .continueWith {
+//                User.listTalonsID.forEach {
+//                    firebase.collection("talons")
+//                        .whereEqualTo("idUser", User.number)
+//                        .get()
+//                        .addOnSuccessListener {
+//                            it.documents.forEach {
+//                                myTalons.add(
+//                                    Talon(
+//                                        it.getString("date") as String,
+//                                        doctors.find { doc ->
+//                                            doc.number == it.getString("doctorID")
+//                                        }!!,
+//                                        it.getString("time") as String
+//                                    )
+//                                )
+//                            }
+//
+//                        }
+//                }
+//            }
         return myTalons
     }
 
@@ -74,19 +84,24 @@ class FireStore: FirebaseApi {
     override fun writeTalon(id: String, talon: Talon) {
         val hashMap = hashMapOf(
                 "date" to talon.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
-                "doctor" to talon.doctor.name,
-                "time" to talon.time
+                "doctorID" to talon.idDoctor,
+                "time" to talon.time,
+                "userID" to id
         )
-        firebase.collection("users")
-                .document(User.number)
-                .collection("talons")
-                .document("${UUID.randomUUID().mostSignificantBits}")
+        firebase.collection("talons")
+                .document(talon.uuid)
                 .set(hashMap)
                 .addOnSuccessListener {
                     Log.d("TAG", "DocumentSnapshot successfully written!")
                 }
                 .addOnFailureListener {
                     e -> Log.w("TAG", "Error writing document", e)
+                }.continueWith {
+                    firebase.collection("usersCrypt/$id/talons")
+                            .document(talon.uuid)
+                            .set(hashMapOf(
+                                    "idTalon" to talon.uuid
+                            ))
                 }
     }
 
@@ -187,6 +202,15 @@ class FireStore: FirebaseApi {
                 .set(hashMap)
     }
 
+    fun registerNewUserCrypt(userNumber: String, person: Person){
+        val hashMap = hashMapOf(
+            "text" to Cript().cryptPersonForFireStore(person)
+        )
+        firebase.collection("usersCrypt")
+            .document(userNumber)
+            .set(hashMap)
+    }
+
     fun pullDoctorsOnFireStore(){
         LocalHospital.doctors.forEach {
             val set = hashMapOf(
@@ -199,7 +223,7 @@ class FireStore: FirebaseApi {
                 "number" to it.number
             )
             firebase.collection("doctors")
-                .document(it.name)
+                .document(it.number)
                 .set(set)
                 .addOnSuccessListener {
                     Log.d("TAG", "DocumentSnapshot successfully written!")
@@ -213,7 +237,7 @@ class FireStore: FirebaseApi {
     fun changeUser(){
         val list = mutableListOf<TalonUser>()
         User.mutableListTalonDoctor.forEach {
-            val  f = firebase.collection("users")
+            val f = firebase.collection("users")
                 .document(it.name)
                 .get()
             if (f.isComplete)
@@ -226,6 +250,25 @@ class FireStore: FirebaseApi {
             )
         }
         User.setValueDoctor(list)
+    }
+
+
+    fun getDoctor(idDoctor: String): Doctor{
+        var doctor : Doctor? = null
+        val task = firebase.document("doctors/$idDoctor").get()
+
+        task.addOnSuccessListener {value ->
+                    doctor = Doctor(
+                        value.getString("name") as String,
+                        (value.get("cabinet") as Long).toInt(),
+                        getEnumDoctor(value.getString("nameType") as String)!!,
+                        (value.get("start") as Long).toInt(),
+                        (value.get("end") as Long).toInt(),
+                        (value.get("duration") as Long).toInt(),
+                        value.getString("number") as String
+                )
+        }
+        return doctor!!
     }
     fun getEnumDoctor(string: String): TypeDoctors? {
         return when(string){

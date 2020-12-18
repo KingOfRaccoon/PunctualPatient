@@ -30,108 +30,20 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var functions : FirebaseFunctions
-    lateinit var retrofit: RetrofitApi
-    @RequiresApi(Build.VERSION_CODES.O)
+//    private lateinit var functions : FirebaseFunctions
+//    lateinit var retrofit: RetrofitApi
+//    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        retrofit = RetroFitClient.instance()!!
-        functions = FirebaseFunctions.getInstance()
-//        functions.getHttpsCallable("addMessage").call(hashMapOf(
-//                "number1" to 3,
-//                "number2" to 6
-//        )).addOnCompleteListener {
-//            Log.d("Fire", it.result.toString())
-//        }
-//                .addOnCompleteListener {
-//            OnCompleteListener<Answer> {
-//            Log.d("Fire", it.result.toString())
-//            }
-//        }
-//                .addOnSuccessListener {
-//            Log.d("Fire", it.toString())
-//        }.addOnFailureListener {
-//            Log.d("Fire", it.message.toString())
-//        }
-//        addMessage("Привет!")
-//            .addOnCompleteListener {
-//                if (!it.isSuccessful){
-//                    val e = it.exception
-//                    if (e is FirebaseFunctionsException){
-//                        val code = e.code
-//                        val details = e.details
-//                        Log.d("Fire", code.toString() + " " + details.toString())
-//                    }
-//                }
-//                else
-//                    Log.d("Fire", it.result.toString())
-//            }
-//        retrofit.addMessage("1").enqueue(
-//                object : Callback<Answer>{
-//                    override fun onResponse(call: Call<Answer>, response: Response<Answer>) {
-//                        Log.d("Fire", response.body().toString())
-//                    }
-//
-//                    override fun onFailure(call: Call<Answer>, t: Throwable) {
-//                        Log.d("Fire", t.message.toString())
-//                    }
-//                }
-//        )
-//        retrofit.check().enqueue(
-//                object : Callback<MutableList<DataPerson>>{
-//                    override fun onResponse(call: Call<MutableList<DataPerson>>, response: Response<MutableList<DataPerson>>) {
-//                        response.body()?.forEach {
-//                            Log.d("Fire", it.toString())
-//                        }
-//                    }
-//
-//                    override fun onFailure(call: Call<MutableList<DataPerson>>, t: Throwable) {
-//                        Log.d("Fire", t.message.toString())
-//                    }
-//                }
-//        )
-//        val cript = Cript()
-//        Log.d("Fire", cript.getKey().toString())
-//        val person = Person("12345", "12345","12345","12345","12345",12345,"12345")
-//        val crPerson = cript.encrypt(CriptConverter().toJson(person))
-//        val strCrPerson = Base64.encodeToString(crPerson, Base64.DEFAULT)
-//        Log.d("Fire", strCrPerson)
-//        FireStore().firebase
-//                .collection("testCript")
-//                .document("cript12")
-//                .set(cryptPerson(cript, person))
-//            .set(hashMapOf("text" to Base64.encodeToString(Cript().encrypt(CriptConverter().toJson(person)), Base64.DEFAULT)))
-//            .set(hashMapOf("text" to CriptConverter().toJson(person)))
-//            .set(hashMapOf("text" to strCrPerson))
-//                .addOnSuccessListener {
-//                    print("Yes")
-//                }
-//                .addOnFailureListener {
-//                    print("No")
-//                }.continueWith {
-//                    FireStore().firebase
-//                            .document("testCript/cript12")
-//                            .get()
-//                            .addOnSuccessListener { doc ->
-//                                val person = Cript().decrypt(Base64.decode(doc.getString("text"), Base64.DEFAULT))
-//                                val pr = Base64.decode(doc.getString("text"), Base64.DEFAULT)
-//                                val per = Cript().decrypt(pr)
-//                                val person = CriptConverter().fromJsontoPerson(per)
-//                                val person = CriptConverter().fromJsontoPerson(doc.getString("text") as String)
-//                                Log.d("Fire", person.toString())
-//                            }
-//                }
+//    FireStore().pullDoctorsOnFireStore()
+//        retrofit = RetroFitClient.instance()!!
+//        functions = FirebaseFunctions.getInstance()
         supportFragmentManager.setFragment(CheckFragment(), CheckFragment.tag)
-
-
         val actBar = SpannableString(title)
         actBar.setSpan(ForegroundColorSpan(Color.rgb(78, 78, 78)), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         supportActionBar?.setTitle(actBar)
         //actBar.setSpan(BackgroundColorSpan(Color.rgb(240, 237, 245)), 0, 0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-
-
     }
 
     fun FragmentManager.setFragment(fragment: Fragment, tag: String){
@@ -139,25 +51,6 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.frame, fragment)
             .addToBackStack(null)
             .commit()
-    }
-
-    private fun addMessage(text: String): Task<String> {
-        // Create the arguments to the callable function.
-        val data = hashMapOf(
-            "text" to text,
-            "push" to true
-        )
-
-        return functions
-            .getHttpsCallable("randomNum")
-            .call()
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data as String
-                result
-            }
     }
 
 }

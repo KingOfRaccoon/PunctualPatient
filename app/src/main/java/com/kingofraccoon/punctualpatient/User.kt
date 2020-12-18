@@ -36,4 +36,15 @@ object User {
         mutableLiveDataTalonsDoctor.value = mutableList
     }
 
+    fun setUser(person: Person){
+        name = person.name
+        date = person.date
+        adress = person.adress
+        sex = person.sex
+        email = person.email
+        age = person.age
+        number = person.number
+    }
+
+    var listTalonsID = mutableListOf<String>()
 }

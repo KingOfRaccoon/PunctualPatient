@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.kingofraccoon.punctualpatient.ConvertToTalonServise
 import com.kingofraccoon.punctualpatient.MyService
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
@@ -31,10 +32,12 @@ class CheckKodFragment(var kod: Int): Fragment() {
                 if (checkBox.isChecked){
 
                 }
-                if (User.typeOfUser == "User")
+                if (User.typeOfUser == "User") {
                     requireFragmentManager().beginTransaction()
-                        .replace(R.id.frame, MainFragment())
-                        .commit()
+                            .replace(R.id.frame, MainFragment())
+                            .commit()
+                    requireActivity().startService(Intent(requireContext(), ConvertToTalonServise::class.java))
+                }
                 else
                     requireFragmentManager().beginTransaction()
                             .replace(R.id.frame, ProfileFragment())

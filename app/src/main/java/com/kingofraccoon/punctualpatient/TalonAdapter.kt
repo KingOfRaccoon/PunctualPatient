@@ -71,7 +71,7 @@ class RegisterTalonViewHolder(view: View): TalonViewHolder(view){
     override fun bind(talon: Talon) {
         super.bind(talon)
         button.setOnClickListener {
-            FireStore().writeTalon(User.id, talon)
+            FireStore().writeTalon(User.number, talon)
         }
     }
 }
@@ -81,11 +81,11 @@ open class TalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
     val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
     val doctor : TextView = view.findViewById(R.id.doctor)
     val button : Button = view.findViewById(R.id.get_talon)
-    @RequiresApi(Build.VERSION_CODES.O)
-    open fun bind(talon: Talon){
+    open fun bind(talon: Talon) {
+
         dateAndTime.text = "${talon.date} \n ${talon.time}"
-        doctor.text = "Врач: " + talon.doctor.name
-        cabinet.text = "Кабинет №${talon.doctor.number_cabinet}"
+        doctor.text = "Врач: ${LocalHospital.doctors.find { talon.idDoctor == it.number }?.name}"
+        cabinet.text = "Кабинет №: ${LocalHospital.doctors.find { talon.idDoctor == it.number }?.number_cabinet}"
     }
 }
 class DoctorAdapter : RecyclerView.Adapter<DoctorViewHolder>() {

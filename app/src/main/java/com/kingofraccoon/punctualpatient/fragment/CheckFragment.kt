@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
@@ -34,6 +35,8 @@ class CheckFragment: Fragment() {
         val number_people : EditText = view.findViewById(R.id.phone_check)
         val button_check : Button = view.findViewById(R.id.button_check)
         val button_register : Button = view.findViewById(R.id.create_account)
+        val text_view : TextView = view.findViewById(R.id.text_enter)
+        text_view.text = "Вход"
 
         button_register.setOnClickListener {
             requireFragmentManager().beginTransaction()

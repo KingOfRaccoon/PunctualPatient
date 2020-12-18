@@ -110,19 +110,19 @@ class MainActivity : AppCompatActivity() {
 //                .addOnFailureListener {
 //                    print("No")
 //                }.continueWith {
-                    FireStore().firebase
-                            .document("testCript/cript12")
-                            .get()
-                            .addOnSuccessListener { doc ->
+//                    FireStore().firebase
+//                            .document("testCript/cript12")
+//                            .get()
+//                            .addOnSuccessListener { doc ->
 //                                val person = Cript().decrypt(Base64.decode(doc.getString("text"), Base64.DEFAULT))
-                                val pr = Base64.decode(doc.getString("text"), Base64.DEFAULT)
-                                val per = Cript().decrypt(pr)
-                                val person = CriptConverter().fromJsontoPerson(per)
+//                                val pr = Base64.decode(doc.getString("text"), Base64.DEFAULT)
+//                                val per = Cript().decrypt(pr)
+//                                val person = CriptConverter().fromJsontoPerson(per)
 //                                val person = CriptConverter().fromJsontoPerson(doc.getString("text") as String)
-                                Log.d("Fire", person.toString())
-                            }
+//                                Log.d("Fire", person.toString())
+//                            }
 //                }
-        supportFragmentManager.setFragment(CheckFragment())
+//        supportFragmentManager.setFragment(CheckFragment())
 //        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
 //        bottomNavigationView.setOnNavigationItemSelectedListener {
 //            when(it.itemId){

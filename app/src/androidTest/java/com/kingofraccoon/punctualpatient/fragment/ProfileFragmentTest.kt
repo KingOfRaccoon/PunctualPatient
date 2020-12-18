@@ -7,7 +7,9 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.android21buttons.fragmenttestrule.FragmentTestRule
+import com.kingofraccoon.punctualpatient.CustomAdapter
 import com.kingofraccoon.punctualpatient.MainActivity
+import com.kingofraccoon.punctualpatient.ProfileTalonViewHolder
 import com.kingofraccoon.punctualpatient.R
 import junit.framework.TestCase
 import org.junit.Rule
@@ -25,6 +27,6 @@ class ProfileFragmentTest{
     @Throws(Exception::class)
     fun recycler_view_talon(){
         onView(withId(R.id.user_talon))
-                .perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+                .perform(actionOnItemAtPosition<ProfileTalonViewHolder>(0, click()))
     }
 }

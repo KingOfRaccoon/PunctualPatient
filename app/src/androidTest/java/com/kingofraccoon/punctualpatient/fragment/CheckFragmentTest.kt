@@ -16,8 +16,8 @@ import org.junit.runner.RunWith
 class CheckFragmentTest{
     @Rule
     @JvmField
-    val fragmentTestRule : FragmentTestRule<MainActivity, CheckFragment> =
-            FragmentTestRule(MainActivity::class.java, CheckFragment::class.java)
+    val fragmentTestRule : FragmentTestRule<MainActivity, AuthorizationFragment> =
+            FragmentTestRule(MainActivity::class.java, AuthorizationFragment::class.java)
 
     @Test
     @Throws(Exception::class)

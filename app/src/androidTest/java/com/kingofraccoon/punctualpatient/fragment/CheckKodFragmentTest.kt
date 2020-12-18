@@ -18,8 +18,8 @@ import org.junit.runner.RunWith
 class CheckKodFragmentTest{
     @Rule
     @JvmField
-    val fragmentTestRule : FragmentTestRule<MainActivity, CheckKodFragment> =
-            FragmentTestRule(MainActivity::class.java, CheckKodFragment::class.java)
+    val fragmentTestRule : FragmentTestRule<MainActivity, AuthorizationKodFragment> =
+            FragmentTestRule(MainActivity::class.java, AuthorizationKodFragment::class.java)
 
     @Test
     @Throws(Exception::class)

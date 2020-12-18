@@ -59,7 +59,7 @@ class ProfileTalonViewHolder(view: View): TalonViewHolder(view){
     @RequiresApi(Build.VERSION_CODES.O)
     override fun bind(talon: Talon) {
         super.bind(talon)
-        button.text = "Подтвердить талон"
+        button.text = "Отменить талон"
         button.setOnClickListener {
 
         }
@@ -142,7 +142,10 @@ class DoctorViewHolder(view: View): RecyclerView.ViewHolder(view){
     fun bind(talon: TalonUser){
         doctor.text = talon.name
         dateAndTime.text = "${talon.date} \n ${talon.time}"
-        button.isVisible = false
+        button.text = "Отошел"
+        button.setOnClickListener {
+
+        }
     }
 }
 

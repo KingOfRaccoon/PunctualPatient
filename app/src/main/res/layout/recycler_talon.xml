@@ -34,13 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <ImageButton
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/dropdown_menu"
-                android:background="@drawable/more_vert_24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+
 
         </LinearLayout>
 
@@ -109,18 +103,10 @@
                 android:id="@+id/get_talon"
                 android:text="@string/getTalon"
                 android:textColor="@color/tx_grey"
-                android:layout_marginRight="16dp"
+                android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <ImageButton
-                android:layout_weight="0"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/delete"
-                android:background="@drawable/delete_24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -15,10 +15,12 @@
     <string name="remind">Напомнить</string>
     <string name="enter_akk">Вход в аккаунт</string>
     <string name="login">Логин:</string>
-    <string name="hint_number">Введите номер телефона</string>
+    <string name="hint_number">Номер телефона</string>
+    <string name="hint_password">Пароль</string>
     <string name="code">Введите код из SMS</string>
     <string name="find_cod">Получить код</string>
     <string name="enter">Вход</string>
+    <string name="enter_in_account">Войти</string>
     <string name="ready">Готово</string>
     <string name="confirmation">Подтверждение</string>
     <string name="sms">SMS код</string>

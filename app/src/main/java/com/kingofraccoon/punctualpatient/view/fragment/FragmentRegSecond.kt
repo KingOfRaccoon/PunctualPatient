@@ -100,9 +100,9 @@ class FragmentRegSecond: Fragment() {
                                 User.number
                         )
                 )
-                requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.frame, MainFragment())
-                        .commit()
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                        .replace(R.id.frame, MainFragment())
+//                        .commit()
             }
         return view
     }

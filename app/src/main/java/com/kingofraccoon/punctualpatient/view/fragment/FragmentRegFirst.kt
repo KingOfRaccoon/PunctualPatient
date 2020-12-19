@@ -34,35 +34,42 @@ class FragmentRegFirst : Fragment() {
         textNumber.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {  }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (android.util.Patterns.PHONE.matcher(textNumber.text.toString()).matches()) {
+                /*if (android.util.Patterns.PHONE.matcher(textNumber.text.toString()).matches()) {
                     button_next.isEnabled = true
                     if (password.text.toString() == passwordRepeat.text.toString() &&
-                        !password.text.isNullOrBlank()){
+                        !password.text.isNullOrBlank()
+                    ) {
                         User.number = textNumber.text.toString()
+
+                    } else {
+                        button_next.isEnabled = false
+                        textNumber.setError("Неверный номер")
                     }
-                }
-                else{
-                    button_next.isEnabled = false
-                    textNumber.setError("Неверный номер")
-                }
+                }*/
             }
-            override fun afterTextChanged(p0: Editable?) { }
+                override fun afterTextChanged(p0: Editable?) {}
         })
         button_next.setOnClickListener {
-            Authorization().register("${textNumber.text}@gmail.com", password.text.toString())
-                .addOnCompleteListener {
-                    if (it.isSuccessful){
-                        val user = it.result?.user
-                        updateUI(user)
-                        User.uid = user?.uid.toString()
-                    }
-                    else{
-                        updateUI(null)
-                        Log.d("Fire", it.exception.toString())
-                    }
-                }
-        }
+            if (password.text.toString() == passwordRepeat.text.toString() &&
+                !password.text.isNullOrBlank()
+            ) {
 
+                Authorization().register("${textNumber.text}@gmail.com", password.text.toString())
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val user = it.result?.user
+                            updateUI(user)
+                            User.uid = user?.uid.toString()
+                        } else {
+                            updateUI(null)
+                            Log.d("Fire", it.exception.toString())
+                        }
+                    }
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame, FragmentRegSecond())
+                    .commit()
+            }
+        }
         return view
     }
     fun updateUI(user: FirebaseUser?){}

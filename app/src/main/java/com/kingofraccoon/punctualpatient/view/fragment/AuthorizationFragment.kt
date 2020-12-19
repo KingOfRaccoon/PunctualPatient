@@ -31,8 +31,6 @@ import com.kingofraccoon.punctualpatient.tools.encoder.Cript
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class AuthorizationFragment: Fragment() {
-    val CHANEL_ID = 1.toString()
-    val kod = (1000..9999).random()
     var doctor : Doctor? = null
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -124,8 +122,6 @@ class AuthorizationFragment: Fragment() {
                 } else {
                     Authorization().checkForMultiFactorFailure(task.exception!!)
                 }
-
-
             }
         }
         return view

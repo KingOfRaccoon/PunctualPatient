@@ -5,27 +5,27 @@ import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
 
 class FragmentRegFirst : Fragment() {
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.frag_register_first, container, false)
-        val textName: EditText = view.findViewById(R.id.name)
-        val textSecondName: EditText = view.findViewById(R.id.fam)
-        val textLastName: EditText = view.findViewById(R.id.second_name)
-        val textData: EditText = view.findViewById(R.id.editText)
+        val textName : EditText = view.findViewById(R.id.name)
+        val textSecondName : EditText = view.findViewById(R.id.fam)
+        val textLastName : EditText = view.findViewById(R.id.second_name)
+        val textData : EditText = view.findViewById(R.id.editText)
 
         textSecondName.addTextChangedListener { it: Editable? ->
             User.firstName = it.toString().trim()

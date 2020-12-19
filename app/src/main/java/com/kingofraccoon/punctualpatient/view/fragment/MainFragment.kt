@@ -15,6 +15,10 @@ import com.kingofraccoon.punctualpatient.R
 
 class MainFragment: Fragment() {
 
+    companion object{
+        val tag = "main"
+    }
+
     fun FragmentManager.setFragment(fragment: Fragment, tag: String){
         val frag = this.findFragmentByTag(tag)
         if (frag != null) {

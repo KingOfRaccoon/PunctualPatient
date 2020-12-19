@@ -5,12 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ExpandableListAdapter
-import android.widget.ExpandableListView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +17,7 @@ import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.model.Doctor
 import com.kingofraccoon.punctualpatient.model.Talon
+import com.kingofraccoon.punctualpatient.tools.encoder.EncryptedSharedPreferencesUser
 import com.kingofraccoon.punctualpatient.view.adapters.DoctorAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.ProfileExpandableListAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
@@ -59,67 +58,26 @@ class ProfileFragment: Fragment() {
         val query = FireStore().firebase.collection("talons")
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
         val talonAdapter = TalonFirebaseAdapter(query)
-//        Log.d("Snap", talonAdapter.snapshots.size.toString())
         val doctorAdapter = DoctorAdapter()
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
         val sexUser : TextView = view.findViewById(R.id.sex)
+        val exitButton: ImageButton = view.findViewById(R.id.exit)
         nameUser.text = if (User.name != "") User.name else "${User.firstName} ${User.secondName}  ${User.thirdName}"
         dateUser.text = if (User.date.isBlank()) "14-02-1981" else User.date
         sexUser.text = if (User.sex.isBlank()) "Мужской" else User.sex
         if (User.typeOfUser != "Doctor") {
             recyclerView.adapter = talonAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-//            User.mutableLiveDataTalons.observe(viewLifecycleOwnerLiveData.value!!, {
-//                talonAdapter.setList(it)
-//            })
+
+
             val doctors = mutableListOf<Doctor>()
             var talons = mutableListOf<Talon>()
 
-//            val task = FireStore().firebase.collection("doctors").get()
-//
-//            task.addOnSuccessListener {
-//                it.documents.forEach { value ->
-//                    doctors.add(
-//                            Doctor(
-//                                    value.getString("name") as String,
-//                                    (value.get("cabinet") as Long).toInt(),
-//                                    FireStore().getEnumDoctor(value.getString("nameType") as String)!!,
-//                                    (value.get("start") as Long).toInt(),
-//                                    (value.get("end") as Long).toInt(),
-//                                    (value.get("duration") as Long).toInt(),
-//                                    value.getString("number") as String
-//                            )
-//                    )
-//                }
-//                Log.d("Fire", doctors.size.toString())
-//            }
-//                    .continueWith {
-//
-//                            FireStore().firebase.collection("talons")
-//                                    .whereEqualTo("userID", User.number)
-//                                    .get()
-//                                    .addOnSuccessListener {
-//                                            it.documents.forEach {
-//                                                talonAdapter.addTalon(
-//                                                        Talon(
-//                                                                it.getString("date") as String,
-//                                                                doctors.find { doc ->
-//                                                                    doc.number == it.getString("doctorID")
-//                                                                }!!,
-//                                                                it.getString("time") as String
-//                                                        ).apply { uuid = it.id }
-//                                                )
-//                                            }
-//
-//                                        Log.d("Fire", talonAdapter.listTalons.size.toString())
-                                        view.findViewById<ProgressBar>(R.id.progress)
-                                                .isVisible = false
-//                                    }
-//                        it.continueWith {
-//                        }
-//                    }
-//            talonAdapter.setList(User.mutableListTalon)
+
+            view.findViewById<ProgressBar>(R.id.progress)
+                .isVisible = false
+
         }
         else{
             recyclerView.adapter = doctorAdapter
@@ -127,6 +85,17 @@ class ProfileFragment: Fragment() {
 //                doctorAdapter.setList(it)
             })
         }
+
+        exitButton.setOnClickListener {
+            EncryptedSharedPreferencesUser(requireContext()).deauth()
+
+            fragmentManager!!.beginTransaction()
+                .replace(R.id.frame, AuthorizationFragment())
+                .commit()
+
+
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val expandableListView = view.findViewById<ExpandableListView>(R.id.expandableListView)
         if (expandableListView != null) {

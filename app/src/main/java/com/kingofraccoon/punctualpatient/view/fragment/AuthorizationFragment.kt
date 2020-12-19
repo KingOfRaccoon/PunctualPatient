@@ -1,33 +1,27 @@
 package com.kingofraccoon.punctualpatient.view.fragment
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns.EMAIL_ADDRESS
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.util.PatternsCompat.EMAIL_ADDRESS
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseUser
-import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.GenerateTalonService
+import com.kingofraccoon.punctualpatient.GetTalonDoctorServise
+import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.auth.Authorization
 import com.kingofraccoon.punctualpatient.model.Doctor
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import com.kingofraccoon.punctualpatient.tools.encoder.Cript
+import com.kingofraccoon.punctualpatient.tools.encoder.EncryptedSharedPreferencesUser
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class AuthorizationFragment: Fragment() {
@@ -44,6 +38,7 @@ class AuthorizationFragment: Fragment() {
         val button_check: Button = view.findViewById(R.id.button_check)
         val button_register: Button = view.findViewById(R.id.create_account)
         val text_view: TextView = view.findViewById(R.id.text_enter)
+        val check_box: CheckBox = view.findViewById(R.id.check)
         text_view.text = "Вход"
 
         button_register.setOnClickListener {
@@ -66,16 +61,29 @@ class AuthorizationFragment: Fragment() {
         })
 
         button_check.setOnClickListener {
+
             var user: FirebaseUser? = null
-            Authorization().singIn("${number_people.text}@gmail.com", password_people.text.toString())
+
+            val login = "${number_people.text}@gmail.com"
+            val password = password_people.text.toString()
+
+            Authorization().singIn(login, password)
                 .addOnCompleteListener { task ->
+
                 if (task.isSuccessful) {
                     user = task.result!!.user
                     User.uid = user?.uid.toString()
                     Log.d("Fire", User.uid)
                     Log.d("Fire", "True")
+
                     var check = false
                     if (user != null) {
+
+                        if (check_box.isChecked)
+                            EncryptedSharedPreferencesUser(requireContext())
+                                .auth(login, password)
+
+
                         FireStore().firebase.collection("doctors")
                                 .whereEqualTo("number", user?.uid)
                                 .get()
@@ -124,6 +132,8 @@ class AuthorizationFragment: Fragment() {
                 }
             }
         }
+
+
         return view
     }
 

@@ -15,7 +15,7 @@ object LocalHospital{
         8,
         16, 61,
         "89831037111"
-    )
+    ).apply { doctorID = "yBfD7c7zi1PMsdaHz9ZzrbcXEj13" }
     private val doctor1 = Doctor(
         "Петр Аркдьевич Столыпин",
         2,
@@ -23,14 +23,14 @@ object LocalHospital{
         6,
         14, 27,
         "89831037211"
-    )
+    ).apply { doctorID = "mdYUUbtDgueREyAtBNWMxb1lGV02" }
     private val doctor2 = Doctor(
         "Владимир Ильич Ленин",
         3,
         TypeDoctors.TRAUMATOLOGIST,
         7, 10, 12,
         "89831037311"
-    )
+    ).apply { doctorID = "pKgT5V8poMTamDNnwvz2Kr1J3wn2" }
     private val doctor3 = Doctor(
         "Бедарев Николай Васильевич",
         4,
@@ -38,7 +38,7 @@ object LocalHospital{
         5,
         12, 11,
         "89831037411"
-    )
+    ).apply { doctorID = "C7sZYB72ONOqg8hCnUnSpm6Ws4o1" }
     private val doctor4 = Doctor(
         "Алексеева Ангелина Ивановна",
         5,
@@ -46,7 +46,7 @@ object LocalHospital{
         4,
         9, 20,
         "89831037511"
-    )
+    ).apply { doctorID = "QroFSNEWdkhoh7MeZDpGNs7BChf2" }
     private val doctor5 = Doctor(
         "Костлев Алексей Владимирович",
         6,
@@ -54,7 +54,7 @@ object LocalHospital{
         6,
         10, 30,
         "89831037611"
-    )
+    ).apply { doctorID = "vWRPIGPOcgNZLkCFHeYyHBxliIT2" }
 //    var doctors = mutableListOf(
 //        doctor,
 //        doctor1,

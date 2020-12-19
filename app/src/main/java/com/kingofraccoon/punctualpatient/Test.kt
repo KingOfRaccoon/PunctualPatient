@@ -1,6 +1,8 @@
 package com.kingofraccoon.punctualpatient
 
 import android.os.Build
+import android.util.Base64.encodeToString
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.DocumentSnapshot
 import com.kingofraccoon.punctualpatient.tools.encoder.Cript

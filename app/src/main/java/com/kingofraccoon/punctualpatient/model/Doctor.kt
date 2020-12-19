@@ -9,5 +9,6 @@ data class Doctor(
     var duration: Int,
     var number : String
 ){
+    var doctorID = ""
 
 }

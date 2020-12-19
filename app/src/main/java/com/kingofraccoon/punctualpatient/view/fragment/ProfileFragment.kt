@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.Query
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.model.Doctor
@@ -21,11 +22,15 @@ import com.kingofraccoon.punctualpatient.model.Talon
 import com.kingofraccoon.punctualpatient.view.adapters.DoctorAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.ProfileExpandableListAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
+import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
 
 class ProfileFragment: Fragment() {
-
+    lateinit var query : Query
     companion object{
         val tag = "profile"
+    }
+    init {
+        query = FireStore().firebase.collection("talon").whereEqualTo("userID", User.uid)
     }
 
     internal var adapter: ExpandableListAdapter ?= null
@@ -54,7 +59,7 @@ class ProfileFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
-        val talonAdapter = ProfileTalonAdapter()
+        val talonAdapter = TalonFirebaseAdapter(query)
         val doctorAdapter = DoctorAdapter()
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
@@ -69,49 +74,50 @@ class ProfileFragment: Fragment() {
 //            })
             val doctors = mutableListOf<Doctor>()
             var talons = mutableListOf<Talon>()
-            val task = FireStore().firebase.collection("doctors").get()
 
-            task.addOnSuccessListener {
-                it.documents.forEach { value ->
-                    doctors.add(
-                            Doctor(
-                                    value.getString("name") as String,
-                                    (value.get("cabinet") as Long).toInt(),
-                                    FireStore().getEnumDoctor(value.getString("nameType") as String)!!,
-                                    (value.get("start") as Long).toInt(),
-                                    (value.get("end") as Long).toInt(),
-                                    (value.get("duration") as Long).toInt(),
-                                    value.getString("number") as String
-                            )
-                    )
-                }
+//            val task = FireStore().firebase.collection("doctors").get()
+//
+//            task.addOnSuccessListener {
+//                it.documents.forEach { value ->
+//                    doctors.add(
+//                            Doctor(
+//                                    value.getString("name") as String,
+//                                    (value.get("cabinet") as Long).toInt(),
+//                                    FireStore().getEnumDoctor(value.getString("nameType") as String)!!,
+//                                    (value.get("start") as Long).toInt(),
+//                                    (value.get("end") as Long).toInt(),
+//                                    (value.get("duration") as Long).toInt(),
+//                                    value.getString("number") as String
+//                            )
+//                    )
+//                }
 //                Log.d("Fire", doctors.size.toString())
-            }
-                    .continueWith {
-
-                            FireStore().firebase.collection("talons")
-                                    .whereEqualTo("userID", User.number)
-                                    .get()
-                                    .addOnSuccessListener {
-                                            it.documents.forEach {
-                                                talonAdapter.addTalon(
-                                                        Talon(
-                                                                it.getString("date") as String,
-                                                                doctors.find { doc ->
-                                                                    doc.number == it.getString("doctorID")
-                                                                }!!,
-                                                                it.getString("time") as String
-                                                        )
-                                                )
-                                            }
-
-                                        Log.d("Fire", talonAdapter.listTalons.size.toString())
-                                        view.findViewById<ProgressBar>(R.id.progress)
-                                                .isVisible = false
-                                    }
+//            }
+//                    .continueWith {
+//
+//                            FireStore().firebase.collection("talons")
+//                                    .whereEqualTo("userID", User.number)
+//                                    .get()
+//                                    .addOnSuccessListener {
+//                                            it.documents.forEach {
+//                                                talonAdapter.addTalon(
+//                                                        Talon(
+//                                                                it.getString("date") as String,
+//                                                                doctors.find { doc ->
+//                                                                    doc.number == it.getString("doctorID")
+//                                                                }!!,
+//                                                                it.getString("time") as String
+//                                                        ).apply { uuid = it.id }
+//                                                )
+//                                            }
+//
+//                                        Log.d("Fire", talonAdapter.listTalons.size.toString())
+//                                        view.findViewById<ProgressBar>(R.id.progress)
+//                                                .isVisible = false
+//                                    }
 //                        it.continueWith {
 //                        }
-                    }
+//                    }
 //            talonAdapter.setList(User.mutableListTalon)
         }
         else{

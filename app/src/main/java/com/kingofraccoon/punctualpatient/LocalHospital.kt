@@ -3,7 +3,9 @@ package com.kingofraccoon.punctualpatient
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
-import com.kingofraccoon.punctualpatient.firebase.FireStore
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
+import com.kingofraccoon.punctualpatient.model.Doctor
+import com.kingofraccoon.punctualpatient.model.TypeDoctors
 
 object LocalHospital{
     private val doctor = Doctor(

@@ -2,12 +2,15 @@ package com.kingofraccoon.punctualpatient
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.kingofraccoon.punctualpatient.model.Doctor
+import com.kingofraccoon.punctualpatient.model.Talon
+import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 open class Hospital(
-        var doctors: MutableList<Doctor>,
-        var name: String
+    var doctors: MutableList<Doctor>,
+    var name: String
 //    var adress: Adress
 ) {
     var timetables: MutableList<Timetable> = mutableListOf()

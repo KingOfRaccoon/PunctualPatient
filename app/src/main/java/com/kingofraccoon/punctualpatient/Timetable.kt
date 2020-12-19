@@ -1,7 +1,7 @@
 package com.kingofraccoon.punctualpatient
 
+import com.kingofraccoon.punctualpatient.model.Talon
 import java.time.LocalDate
-import java.util.*
 
 class Timetable(
         var day: LocalDate,

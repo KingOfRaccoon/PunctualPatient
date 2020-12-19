@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android21buttons.fragmenttestrule.FragmentTestRule
 import com.kingofraccoon.punctualpatient.MainActivity
 import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.view.fragment.AuthorizationKodFragment
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

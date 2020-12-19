@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android21buttons.fragmenttestrule.FragmentTestRule
 import com.kingofraccoon.punctualpatient.MainActivity
 import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.view.fragment.FragmentRegFirst
 import junit.framework.TestCase
 import org.hamcrest.core.AllOf.allOf
 import org.hamcrest.core.StringEndsWith.endsWith

@@ -8,7 +8,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.kingofraccoon.punctualpatient.fragment.AuthorizationFragment
+import com.kingofraccoon.punctualpatient.view.fragment.AuthorizationFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -11,22 +11,11 @@ import com.google.firebase.auth.FirebaseUser
 class Authorization {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    fun register(number: String, password: String): Task<AuthResult> {
-        return auth.createUserWithEmailAndPassword(number,password)
-    }
+    fun register(number: String, password: String) =
+            auth.createUserWithEmailAndPassword(number,password)
 
-    fun singIn(email: String, password: String){
+    fun singIn(email: String, password: String) =
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener{ task ->
-                    if (task.isSuccessful){
-                        val user = auth.currentUser
-                        Log.d("Fire", "True")
-                    }
-                    else{
-                        checkForMultiFactorFailure(task.exception!!)
-                    }
-                }
-    }
 
     fun signOut(){
         auth.signOut()

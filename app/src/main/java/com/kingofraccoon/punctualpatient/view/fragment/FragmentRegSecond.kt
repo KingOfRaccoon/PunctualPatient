@@ -13,12 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.ktx.Firebase
-import com.kingofraccoon.punctualpatient.Person
 import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.auth.Authorization
-import com.kingofraccoon.punctualpatient.firebase.FireStore
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class FragmentRegSecond: Fragment() {
@@ -63,23 +61,20 @@ class FragmentRegSecond: Fragment() {
                         Log.d("Fire", it.exception.toString())
                     }
                 }.continueWith {
-
-                }
-
-
-                Log.d("Fire", uid.toString())
-                if (uid != null) {
-                    FireStore().registerNewUserCrypt(uid!!.uid,
-                            Person(
-                                    User.adress,
-                                    User.date,
-                                    User.email,
-                                    User.firstName + " " + User.secondName + " " + User.thirdName,
-                                    User.sex,
-                                    User.age,
-                                    User.number
-                            ))
-                }
+                            Log.d("Fire", uid.toString())
+                            if (uid != null) {
+                                FireStore().registerNewUserCrypt(uid!!.uid,
+                                        Person(
+                                                User.adress,
+                                                User.date,
+                                                User.email,
+                                                User.firstName + " " + User.secondName + " " + User.thirdName,
+                                                User.sex,
+                                                User.age,
+                                                User.number
+                                        ))
+                            }
+                        }
                 requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.frame, MainFragment())
                         .commit()

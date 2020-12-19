@@ -218,7 +218,7 @@ class FireStore: FirebaseApi {
                 "number" to it.number
             )
             firebase.collection("doctors")
-                .document(it.number)
+                .document(it.doctorID)
                 .set(set)
                 .addOnSuccessListener {
                     Log.d("TAG", "DocumentSnapshot successfully written!")
@@ -264,6 +264,9 @@ class FireStore: FirebaseApi {
                 )
         }
         return doctor!!
+    }
+    fun deleteTalon(talon: Talon){
+        firebase.document("talons/${talon.uuid}").delete()
     }
     fun getEnumDoctor(string: String): TypeDoctors? {
         return when(string){

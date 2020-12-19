@@ -59,7 +59,7 @@ class ProfileTalonViewHolder(view: View): TalonViewHolder(view){
         super.bind(talon)
         button.text = "Отменить талон"
         button.setOnClickListener {
-
+            FireStore().firebase
         }
     }
 }

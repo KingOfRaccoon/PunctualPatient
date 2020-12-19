@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         //actBar.setSpan(BackgroundColorSpan(Color.rgb(240, 237, 245)), 0, 0, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
-
     }
     fun FragmentManager.setFragment(fragment: Fragment, tag:String){
         this.beginTransaction()

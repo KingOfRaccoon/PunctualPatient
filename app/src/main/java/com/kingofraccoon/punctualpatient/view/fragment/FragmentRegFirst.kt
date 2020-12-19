@@ -6,67 +6,64 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseUser
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
+import com.kingofraccoon.punctualpatient.auth.Authorization
 
 class FragmentRegFirst : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.frag_register_first, container, false)
-        val textName : EditText = view.findViewById(R.id.name)
-        val textSecondName : EditText = view.findViewById(R.id.fam)
-        val textLastName : EditText = view.findViewById(R.id.second_name)
-        val textData : EditText = view.findViewById(R.id.editText)
+        val passwordRepeat : EditText = view.findViewById(R.id.password_repeat)
+        val password : EditText = view.findViewById(R.id.password_reg)
+        val textNumber : EditText = view.findViewById(R.id.number)
+        val button_next: Button = view.findViewById(R.id.next)
 
-        textSecondName.addTextChangedListener { it: Editable? ->
-            User.firstName = it.toString().trim()
-        }
-
-        textName.addTextChangedListener { it: Editable? ->
-            User.secondName = it.toString().trim()
-        }
-
-        textLastName.addTextChangedListener { it: Editable? ->
-            User.thirdName = it.toString().trim()
-        }
-        textData.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                val builder = AlertDialog.Builder(requireContext());
-                val picker = DatePicker(requireContext());
-                var pickingDate = ""
-                    picker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-                        pickingDate = "$dayOfMonth.$monthOfYear.$year"
+        textNumber.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {  }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (android.util.Patterns.PHONE.matcher(textNumber.text.toString()).matches()) {
+                    button_next.isEnabled = true
+                    if (password.text.toString() == passwordRepeat.text.toString() &&
+                        !password.text.isNullOrBlank()){
+                        User.number = textNumber.text.toString()
                     }
-
-                picker.calendarViewShown = false;
-
-                builder.setTitle("Create Year");
-                builder.setView(picker);
-                builder.setNegativeButton("Cancel", null);
-                builder.setPositiveButton("Set"
-                ) { dialog, which ->
-                    textData.setText(pickingDate)
-                };
-
-                builder.show();
+                }
+                else{
+                    button_next.isEnabled = false
+                    textNumber.setError("Неверный номер")
+                }
             }
+            override fun afterTextChanged(p0: Editable?) { }
+        })
+        button_next.setOnClickListener {
+            Authorization().register("${textNumber.text}@gmail.com", password.text.toString())
+                .addOnCompleteListener {
+                    if (it.isSuccessful){
+                        val user = it.result?.user
+                        updateUI(user)
+                        User.uid = user?.uid.toString()
+                    }
+                    else{
+                        updateUI(null)
+                        Log.d("Fire", it.exception.toString())
+                    }
+                }
         }
 
-        textData.addTextChangedListener { it : Editable? ->
-        User.date = it.toString()
-        }
-
-
-
-            return view
-        }
+        return view
+    }
+    fun updateUI(user: FirebaseUser?){}
 }

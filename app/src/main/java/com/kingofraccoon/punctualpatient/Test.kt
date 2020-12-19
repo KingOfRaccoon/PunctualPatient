@@ -11,6 +11,7 @@ import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import com.kingofraccoon.punctualpatient.tools.DinamicTimeTable
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -77,4 +78,5 @@ fun main(){
     println(hospital.timetables.first().talons)
     dinamicTimeTable.updateTimeTable(12, hospital.timetables.first())
     println(hospital.timetables.first().talons)
+    print(LocalDate.parse("20-12-2020", DateTimeFormatter.ofPattern("dd-MM-yyyy")))
 }

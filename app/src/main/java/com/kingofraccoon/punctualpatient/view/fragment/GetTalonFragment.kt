@@ -12,8 +12,10 @@ import com.kingofraccoon.punctualpatient.LocalHospital.hospital
 import com.kingofraccoon.punctualpatient.model.Talon
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import com.kingofraccoon.punctualpatient.view.adapters.TalonAdapter
+import java.time.LocalDate
+import java.util.*
 
-class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment() {
+class GetTalonFragment(var typeDoctors: TypeDoctors, var date: LocalDate) : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_get_talon, container, false)
@@ -24,7 +26,8 @@ class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment() {
         val mutableListTalon = mutableListOf<Talon>()
 
         hospital.timetables.forEach {
-            mutableListTalon.addAll(it.talons)
+            if (it.day == date)
+                mutableListTalon.addAll(it.talons)
         }
 
         talonAdapter.addList(

@@ -1,26 +1,28 @@
 package com.kingofraccoon.punctualpatient.view.fragment
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.CalendarView
-import android.widget.Spinner
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.kingofraccoon.punctualpatient.LocalHospital
 import com.kingofraccoon.punctualpatient.view.adapters.CustomAdapter
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class FilterTalonFragment: Fragment() {
 
     companion object{
         val tag = "filtertalon"
     }
-    var def_type_doctor = "Введите специализацию врача:"
+    var talondate = ""
+    var def_type_doctor = "Введите специальность врача:"
     var typeDoctors = ""
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,7 +34,7 @@ class FilterTalonFragment: Fragment() {
         val button : Button = root.findViewById(R.id.take_talon)
 
         calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            var talondate = "$dayOfMonth-${month + 1}-$year"
+            talondate = "$dayOfMonth-${month + 1}-$year"
         }
 
         customAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
@@ -52,9 +54,15 @@ class FilterTalonFragment: Fragment() {
         }
 
         button.setOnClickListener {
-            requireFragmentManager().beginTransaction()
-                    .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!))
-                    .commit()
+            if (typeDoctors != "") {
+                LocalHospital.hospital.createTalons(LocalDate.parse(talondate, DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                requireFragmentManager().beginTransaction()
+                        .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!, LocalDate.parse(talondate, DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
+                        .commit()
+            }
+            else{
+                Toast.makeText(requireContext(), "Выберете специальность врача", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return root

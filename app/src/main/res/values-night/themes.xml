@@ -25,6 +25,10 @@
         <item name="android:background">@color/tx_grey</item>
         <item name="android:textColor">@color/wwwhite</item>
     </style>
+    <style name="Talon_style">
+        <item name="android:background">#7A7A7A</item>
+        <item name="android:textColor">@color/wwwhite</item>
+    </style>
     <style name="SpinnerStyle">
         <item name="android:background">#FFF</item>
     </style>

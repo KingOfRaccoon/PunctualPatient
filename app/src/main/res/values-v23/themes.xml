@@ -32,6 +32,10 @@
         <item name="android:background">@color/wwwhite</item>
         <item name="android:textColor">@color/tx_grey</item>
     </style>
+    <style name="Talon_style">
+        <item name="android:background">@color/wwwhite</item>
+        <item name="android:textColor">@color/tx_grey</item>
+    </style>
     <style name="ButtonNavigationStyle">
         <item name="itemIconTint">@color/selector</item>
         <item name="android:itemBackground">@color/wwwhite</item>
@@ -44,7 +48,7 @@
         <item name="android:colorPrimary">@color/light_grey</item>
         <item name="expandIconColor">@color/purple_100</item>
         <item name="todayItem_background">@drawable/circle_black_stroke_background</item>
-        <item name="selectedItem_textColor">@color/purple_100</item>
+        <item name="selectedItem_textColor">@color/teal_200</item>
         <item name="selectableItemBackground">@drawable/circle_black_solid_background</item>
     </style>
 

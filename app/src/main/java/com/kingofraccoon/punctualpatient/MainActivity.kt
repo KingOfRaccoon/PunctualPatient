@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    fun FragmentManager.setFragment(fragment: Fragment){
+    fun FragmentManager.setFragment(fragment: Fragment, tag:String){
         this.beginTransaction()
                 .add(R.id.frame, fragment)
                 .addToBackStack(null)

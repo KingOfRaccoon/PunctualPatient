@@ -34,4 +34,14 @@
         <item name="android:backgroundTint">#A8A8A8</item>
         <item name="itemTextColor">@color/selector</item>
     </style>
+
+    <style name="CalendarStyle">
+        <item name="android:textColor">@color/purple_500</item>
+        <item name="android:colorPrimary">@color/purple_500</item>
+        <item name="todayItem_textColor">@color/purple_200</item>
+        <item name="todayItem_background">@drawable/circle_white_stroke_background</item>
+        <item name="selectableItemBackground">@drawable/circle_white_solid_background</item>
+        <item name="expandIconColor">@color/purple_200</item>
+        <item name="selectedItem_textColor">@color/purple_100</item>
+    </style>
 </resources>

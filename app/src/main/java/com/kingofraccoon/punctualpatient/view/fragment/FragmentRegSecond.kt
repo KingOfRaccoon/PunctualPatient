@@ -10,17 +10,19 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.kingofraccoon.punctualpatient.Person
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
-import com.kingofraccoon.punctualpatient.firebase.FireStore
+import com.kingofraccoon.punctualpatient.User.password
+import com.kingofraccoon.punctualpatient.model.Person
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
+import com.kingofraccoon.punctualpatient.view.fragment.MainFragment
 
 class FragmentRegSecond: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.frag_regist_second, container, false)
         val button: Button = view.findViewById(R.id.next_reg)
         val textAdress : EditText = view.findViewById(R.id.address_reg)
-        val textEmail : EditText = view.findViewById(R.id.password_reg)
+        val password : EditText = view.findViewById(R.id.password_reg)
         val textAge : EditText = view.findViewById(R.id.age_reg)
         val textNumber : EditText = view.findViewById(R.id.number)
         val radioMale : RadioButton = view.findViewById(R.id.male)

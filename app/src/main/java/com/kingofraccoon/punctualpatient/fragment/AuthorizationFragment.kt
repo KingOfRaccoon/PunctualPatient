@@ -20,13 +20,14 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.auth.Authorization
+import com.kingofraccoon.punctualpatient.User.setUser
+import com.kingofraccoon.punctualpatient.encoder.Cript
+import com.kingofraccoon.punctualpatient.encoder.CriptConverter
 import com.kingofraccoon.punctualpatient.firebase.FireStore
 
-class CheckFragment: Fragment() {
-
-    companion object {
-        val tag = "check"
-    }
+class AuthorizationFragment: Fragment() {
+    lateinit var authorization: Authorization
     val CHANEL_ID = 1.toString()
     val kod = (1000..9999).random()
     var doctor : Doctor? = null
@@ -78,19 +79,21 @@ class CheckFragment: Fragment() {
                             else {
                                 User.typeOfUser = "User"
                                 FireStore().firebase
-                                        .collection("users")
+                                        .collection("usersCrypt")
                                         .document(number_people.text.toString())
                                         .get()
                                         .addOnCompleteListener { userDoc ->
                                             if(userDoc.result?.exists() == true) {
-                                                User.name = userDoc.result?.getString("name") as String
-                                                User.sex = userDoc.result?.getString("sex") as String
-                                                User.id = number_people.text.toString()
-                                                User.date = userDoc.result?.getString("date") as String
-                                                User.email = userDoc.result?.getString("email") as String
-                                                User.adress = userDoc.result?.getString("adress") as String
-                                                User.age = (userDoc.result?.getString("age").toString()).toInt()
-                                                User.number = number_people.text.toString()
+                                                val person = Cript().decryptPersonForFireStore(userDoc.result?.getString("text").toString())
+                                                User.setUser(person )
+//                                                User.name = userDoc.result?.getString("name") as String
+//                                                User.sex = userDoc.result?.getString("sex") as String
+//                                                User.id = number_people.text.toString()
+//                                                User.date = userDoc.result?.getString("date") as String
+//                                                User.email = userDoc.result?.getString("email") as String
+//                                                User.adress = userDoc.result?.getString("adress") as String
+//                                                User.age = (userDoc.result?.getString("age").toString()).toInt()
+//                                                User.number = number_people.text.toString()
                                                 check = User.name != ""
                                                 requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
                                                 check(number_people, check)
@@ -133,7 +136,7 @@ class CheckFragment: Fragment() {
             val nc = requireActivity().applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             nc.notify(0, builder)
             requireFragmentManager().beginTransaction()
-                .replace(R.id.frame, CheckKodFragment(kod))
+                .replace(R.id.frame, AuthorizationKodFragment(kod))
                 .commit()
         } else {
             number_people.setTextColor(resources.getColor(R.color.red))

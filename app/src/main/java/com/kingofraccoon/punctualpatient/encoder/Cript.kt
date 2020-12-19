@@ -1,6 +1,9 @@
 package com.kingofraccoon.punctualpatient.encoder
 
+import android.util.Base64
 import android.util.Log
+import com.kingofraccoon.punctualpatient.Person
+import com.kingofraccoon.punctualpatient.retrofit.DataPerson
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -8,10 +11,12 @@ import javax.crypto.spec.SecretKeySpec
 
 class Cript {
     private val cipher: Cipher = Cipher.getInstance("AES")
+
 //    private var kgen = KeyGenerator.getInstance("AES").apply {
 //        init(128)
 //    }
 //    private var key: SecretKey = kgen.generateKey()
+
     private val key: SecretKey = SecretKeySpec("Bar12345Bar12345".toByteArray(), "AES")
 
     fun encrypt(t: String): ByteArray{
@@ -26,5 +31,14 @@ class Cript {
         return String(decriptbyte)
     }
 
+    fun cryptPersonForFireStore(person: Person):String{
+        val encryptPerson = encrypt(CriptConverter().toJson(person))
+        return Base64.encodeToString(encryptPerson, Base64.DEFAULT)
+    }
+
+    fun decryptPersonForFireStore(string: String):Person{
+        val encryptPerson = Base64.decode(string, Base64.DEFAULT)
+        return CriptConverter().fromJsontoPerson(decrypt(encryptPerson))
+    }
 
 }

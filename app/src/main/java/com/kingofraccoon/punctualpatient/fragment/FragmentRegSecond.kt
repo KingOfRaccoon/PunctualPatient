@@ -46,7 +46,7 @@ class FragmentRegSecond: Fragment() {
                 requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.frame, MainFragment())
                         .commit()
-                FireStore().registerNewUser(textNumber.text.toString().trim(),
+                FireStore().registerNewUserCrypt(textNumber.text.toString().trim(),
                         Person(
                                 User.adress,
                                 User.date,

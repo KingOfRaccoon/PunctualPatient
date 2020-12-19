@@ -45,7 +45,7 @@ class ProfileFragment: Fragment() {
             redmiMobiles.add("Адрес: $address")
             redmiMobiles.add("Возраст: $age")
             redmiMobiles.add("Телефон: $number")
-            redmiMobiles.add("Почта: ${mail}")
+            redmiMobiles.add("Почта: $mail")
 
             listData["Полная информация"] = redmiMobiles
 
@@ -60,7 +60,7 @@ class ProfileFragment: Fragment() {
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
         val sexUser : TextView = view.findViewById(R.id.sex)
-        nameUser.text = User.name
+        nameUser.text = if (User.name != "") User.name else "${User.firstName} ${User.secondName}  ${User.thirdName}"
         dateUser.text = if (User.date.isBlank()) "14-02-1981" else User.date
         sexUser.text = if (User.sex.isBlank()) "Мужской" else User.sex
         if (User.typeOfUser != "Doctor") {
@@ -86,33 +86,34 @@ class ProfileFragment: Fragment() {
                             )
                     )
                 }
-                Log.d("Fire", doctors.size.toString())
+//                Log.d("Fire", doctors.size.toString())
             }
                     .continueWith {
-                        FireStore().firebase.collection("users")
-                                .document(User.number)
-                                .collection("talons")
-                                .addSnapshotListener( object : EventListener<QuerySnapshot> {
-                                    @RequiresApi(Build.VERSION_CODES.O)
-                                    override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                                        value?.documents?.forEach {
-                                            talonAdapter.addTalon(
-                                                    Talon(
-                                                            it.getString("date") as String,
-                                                            doctors.find { doc ->
-                                                                doc.name == it.getString("doctor")
-                                                            }!!,
-                                                            it.getString("time") as String
-                                                    )
-                                            )
-                                        }
+
+                            FireStore().firebase.collection("talons")
+                                    .whereEqualTo("userID", User.number)
+                                    .get()
+                                    .addOnSuccessListener {
+                                            it.documents.forEach {
+                                                talonAdapter.addTalon(
+                                                        Talon(
+                                                                it.getString("date") as String,
+                                                                doctors.find { doc ->
+                                                                    doc.number == it.getString("doctorID")
+                                                                }!!,
+                                                                it.getString("time") as String
+                                                        )
+                                                )
+                                            }
+
+                                        Log.d("Fire", talonAdapter.listTalons.size.toString())
+                                        view.findViewById<ProgressBar>(R.id.progress)
+                                                .isVisible = false
                                     }
-                                })
-                        it.continueWith {
-                            view.findViewById<ProgressBar>(R.id.progress)
-                                    .isVisible = false
-                        }
+//                        it.continueWith {
+//                        }
                     }
+//            talonAdapter.setList(User.mutableListTalon)
         }
         else{
             recyclerView.adapter = doctorAdapter

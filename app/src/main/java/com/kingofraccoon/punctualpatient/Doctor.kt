@@ -8,6 +8,6 @@ data class Doctor(
         var endWork: Int,
         var duration: Int,
         var number : String
-) {
+){
 
 }

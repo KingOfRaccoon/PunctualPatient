@@ -32,6 +32,9 @@
         <item name="android:background">@color/wwwhite</item>
         <item name="android:textColor">@color/tx_grey</item>
     </style>
+    <style name="TextStyle">
+        <item name="android:textColor">@color/tx_grey</item>
+    </style>
     <style name="Talon_style">
         <item name="android:background">@color/wwwhite</item>
         <item name="android:textColor">@color/tx_grey</item>

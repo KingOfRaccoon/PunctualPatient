@@ -29,8 +29,8 @@
                 android:paddingTop="8dp"
                 android:layout_marginBottom="2dp"
                 android:layout_marginRight="16dp"
-                android:theme="@style/Talon_style"
                 android:textSize="18sp"
+                android:theme="@style/Talon_style"
                 android:text="@string/talon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

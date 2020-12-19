@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="60dp"
         android:textSize="22sp"
-        android:textColor="@color/tx_grey"
+        android:theme="@style/TextStyle"
         android:id="@+id/text_register" />
 
     <EditText

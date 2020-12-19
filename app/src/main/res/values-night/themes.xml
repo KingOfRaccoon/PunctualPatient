@@ -29,8 +29,8 @@
         <item name="android:background">#7A7A7A</item>
         <item name="android:textColor">@color/wwwhite</item>
     </style>
-    <style name="SpinnerStyle">
-        <item name="android:background">#FFF</item>
+    <style name="TextStyle">
+        <item name="android:textColor">#FFF</item>
     </style>
     <style name="ButtonNavigationStyle">
         <item name="itemIconTint">@color/selector</item>

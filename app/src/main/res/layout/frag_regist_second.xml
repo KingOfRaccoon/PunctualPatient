@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/addition"
-        android:textColor="@color/tx_grey"
+        android:theme="@style/TextStyle"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

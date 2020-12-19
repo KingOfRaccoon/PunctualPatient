@@ -7,6 +7,9 @@ import android.content.Context.NOTIFICATION_SERVICE
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns.EMAIL_ADDRESS
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +18,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.core.util.PatternsCompat.EMAIL_ADDRESS
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.auth.Authorization
@@ -26,12 +30,19 @@ class AuthorizationFragment: Fragment() {
     val CHANEL_ID = 1.toString()
     val kod = (1000..9999).random()
     var doctor : Doctor? = null
+
+   /* final var validator = Validator(requireActivity())
+
+    @Password(message = "Неверный пароль" , til = R.id.password_check)
+    lateinit var password_people: EditText*/
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_check, container, false)
+
         val number_people : EditText = view.findViewById(R.id.phone_check)
         val password_people : EditText = view.findViewById(R.id.password_check)
         val button_check : Button = view.findViewById(R.id.button_check)
@@ -44,10 +55,25 @@ class AuthorizationFragment: Fragment() {
                     .add(R.id.frame, RegisterFragment())
                     .addToBackStack(null)
                     .commit()
+
+
         }
+        number_people.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {  }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (android.util.Patterns.PHONE.matcher(number_people.text.toString()).matches())
+                    button_check.isEnabled = true
+                else{
+                    button_check.isEnabled = false
+                    number_people.setError("Неверный номер")
+                }
+            }
+            override fun afterTextChanged(p0: Editable?) { }
+        })
 
         button_check.setOnClickListener {
-            Authorization().singIn("${number_people.text}@gmail.com", password_people.text.toString())
+            Authorization().singIn(
+                    "${number_people.text}@gmail.com", password_people.text.toString())
 //            var check = false
 //            if (!number_people.text.isNullOrEmpty()) {
 //                FireStore().firebase.collection("doctors")
@@ -96,6 +122,7 @@ class AuthorizationFragment: Fragment() {
 //                            }
 //                        }
 //            }
+            onValidateSuccess()
         }
         return view
     }
@@ -149,5 +176,12 @@ class AuthorizationFragment: Fragment() {
     }
     companion object{
         val tag = "AuthorizationFragment"
+    }
+
+    fun onValidateSuccess() =
+        Toast.makeText(requireContext(), "Успешно", Toast.LENGTH_SHORT).show();
+
+    fun onValidateFailed(){
+        Toast.makeText(requireContext(), "Неверный пароль", Toast.LENGTH_SHORT).show();
     }
 }

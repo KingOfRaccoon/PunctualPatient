@@ -95,18 +95,19 @@ class DoctorTalonFirebaseAdapter(_query: Query)
     set(value) {
         notifyDataSetChanged()
         field = value
+        update()
     }
     init {
         query.addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                update()
                 for (item in value?.documents!!) {
+                    update()
                     val id = item.getString("userID")
-                    var personName = ""
+                    var personName = "Пациент"
                     FireStore().firebase.document("usersCrypt/$id")
                             .get()
                             .addOnSuccessListener {
-                                personName = Cript(User.uid).decryptPersonForFireStore(it["text"].toString()).name
+                                personName = Cript(id.toString()).decryptPersonForFireStore(it["text"].toString()).name
                             }.continueWith {
                                 val talon = TalonUser(
                                         item["date"].toString(),
@@ -117,6 +118,7 @@ class DoctorTalonFirebaseAdapter(_query: Query)
                                 talons.add(talon)
                                 notifyDataSetChanged()
                             }
+
                 }
             }
         })

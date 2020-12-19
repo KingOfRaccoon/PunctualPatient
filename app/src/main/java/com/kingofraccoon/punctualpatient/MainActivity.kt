@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.kingofraccoon.punctualpatient.auth.Authorization
 import com.kingofraccoon.punctualpatient.tools.encoder.EncryptedSharedPreferencesUser
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.view.fragment.AuthorizationFragment
 import com.kingofraccoon.punctualpatient.view.fragment.MainFragment
 
@@ -29,7 +31,6 @@ class MainActivity : AppCompatActivity() {
                 }
         } else
             supportFragmentManager.setFragment(AuthorizationFragment(), AuthorizationFragment.tag)
-
         val actBar = SpannableString(title)
         actBar.setSpan(
             ForegroundColorSpan(Color.rgb(78, 78, 78)),

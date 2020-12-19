@@ -33,6 +33,7 @@ class FireStore: FirebaseApi {
             .get()
                 .addOnSuccessListener{
                     for (item in it.documents) {
+                        Log.d("Fire", item["time"].toString())
                         val ad = DinamicTimeTable().updateTimeTable(minutes, item?.getString("time").toString())
                         firebase.collection(TALONS).document(item?.id.toString())
                                 .update("time", ad)
@@ -190,14 +191,31 @@ class FireStore: FirebaseApi {
     fun deleteTalon(talonID: String){
         firebase.document("talons/${talonID}").set(hashMapOf("flag" to false))
     }
-    fun getEnumDoctor(string: String): TypeDoctors? {
-        return when(string){
-            TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST
-            TypeDoctors.PEDIATRICIAN.nameType -> TypeDoctors.PEDIATRICIAN
-            TypeDoctors.SURGEON.nameType -> TypeDoctors.SURGEON
-            TypeDoctors.TRAUMATOLOGIST.nameType -> TypeDoctors.TRAUMATOLOGIST
-            else -> null
+
+    fun pullDoctorsOnFireStore() {
+        LocalHospital.doctorsFireStore.forEach {
+            val set = hashMapOf(
+                "name" to it.name,
+                "cabinet" to it.number_cabinet,
+                "nameType" to it.typeDoctor.nameType,
+                "start" to it.startWork,
+                "end" to it.endWork,
+                "duration" to it.duration,
+                "number" to it.number
+            )
+            firebase.collection("doctors")
+                .document(it.doctorID)
+                .set(set)
         }
     }
 
-}
+        fun getEnumDoctor(string: String): TypeDoctors? {
+            return when (string) {
+                TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST
+                TypeDoctors.PEDIATRICIAN.nameType -> TypeDoctors.PEDIATRICIAN
+                TypeDoctors.SURGEON.nameType -> TypeDoctors.SURGEON
+                TypeDoctors.TRAUMATOLOGIST.nameType -> TypeDoctors.TRAUMATOLOGIST
+                else -> null
+            }
+        }
+    }

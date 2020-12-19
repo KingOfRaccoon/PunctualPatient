@@ -15,6 +15,7 @@ import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.tools.encoder.EncryptedSharedPreferencesUser
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.view.adapters.DoctorAdapter
+import com.kingofraccoon.punctualpatient.view.adapters.DoctorTalonFirebaseAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.ProfileExpandableListAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
 
@@ -53,8 +54,8 @@ class ProfileFragment: Fragment() {
             .whereEqualTo("flag", true)
 
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
-        val talonAdapter = TalonFirebaseAdapter(query)
-        val doctorAdapter = DoctorAdapter()
+
+
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
         val sexUser : TextView = view.findViewById(R.id.sex)
@@ -64,16 +65,13 @@ class ProfileFragment: Fragment() {
         dateUser.text = if (User.date.isBlank()) "14-02-1981" else User.date
         sexUser.text = if (User.sex.isBlank()) "Мужской" else User.sex
         if (User.typeOfUser != "Doctor") {
+            val talonAdapter = TalonFirebaseAdapter(query)
             recyclerView.adapter = talonAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-
-            view.findViewById<ProgressBar>(R.id.progress)
-                .isVisible = false
-
             view.findViewById<ProgressBar>(R.id.progress).isVisible = false
         }
         else{
+            val doctorAdapter = DoctorTalonFirebaseAdapter(query.whereEqualTo("doctorID", User.uid))
             recyclerView.adapter = doctorAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             view.findViewById<ProgressBar>(R.id.progress).isVisible = false

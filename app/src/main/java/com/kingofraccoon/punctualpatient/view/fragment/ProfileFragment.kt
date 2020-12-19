@@ -25,13 +25,13 @@ import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
 
 class ProfileFragment: Fragment() {
-    lateinit var query : Query
+//    lateinit var query : Query
     companion object{
         val tag = "profile"
     }
-    init {
-        query = FireStore().firebase.collection("talons").whereEqualTo("userID", User.uid)
-    }
+//    init {
+//        query = FireStore().firebase.collection("talons").whereEqualTo("userID", User.uid)
+//    }
 
     internal var adapter: ExpandableListAdapter ?= null
     internal var titleList: List<String> ?= null
@@ -56,9 +56,10 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
+        val query = FireStore().firebase.collection("talons")
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
         val talonAdapter = TalonFirebaseAdapter(query)
-        Log.d("Snap", talonAdapter.snapshots.size.toString())
+//        Log.d("Snap", talonAdapter.snapshots.size.toString())
         val doctorAdapter = DoctorAdapter()
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
@@ -68,6 +69,7 @@ class ProfileFragment: Fragment() {
         sexUser.text = if (User.sex.isBlank()) "Мужской" else User.sex
         if (User.typeOfUser != "Doctor") {
             recyclerView.adapter = talonAdapter
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
 //            User.mutableLiveDataTalons.observe(viewLifecycleOwnerLiveData.value!!, {
 //                talonAdapter.setList(it)
 //            })
@@ -111,8 +113,8 @@ class ProfileFragment: Fragment() {
 //                                            }
 //
 //                                        Log.d("Fire", talonAdapter.listTalons.size.toString())
-//                                        view.findViewById<ProgressBar>(R.id.progress)
-//                                                .isVisible = false
+                                        view.findViewById<ProgressBar>(R.id.progress)
+                                                .isVisible = false
 //                                    }
 //                        it.continueWith {
 //                        }

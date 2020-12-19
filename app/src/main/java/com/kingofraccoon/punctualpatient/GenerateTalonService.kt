@@ -22,7 +22,7 @@ class GenerateTalonService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun generate(startId: Int) {
-        LocalHospital.doctors = FireStore().getDoctors()
+        LocalHospital.hospital.doctors = FireStore().getDoctors()
 //        FireStore().pullDoctorsOnFireStore()
         stopSelf(startId)
     }

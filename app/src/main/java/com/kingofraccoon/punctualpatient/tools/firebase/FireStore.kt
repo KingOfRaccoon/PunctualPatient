@@ -116,11 +116,11 @@ class FireStore: FirebaseApi {
                                     (value.get("end") as Long).toInt(),
                                     (value.get("duration") as Long).toInt(),
                                     value.getString("number") as String
-                        )
+                        ).apply { doctorID = value.id }
                     )
                 }
                 Log.d("Fire", doctors.size.toString())
-                LocalHospital.doctors = doctors
+                LocalHospital.hospital.doctors = doctors
                 LocalHospital.liveDataHospital.value = LocalHospital.hospital
             }
             .addOnFailureListener {
@@ -207,7 +207,7 @@ class FireStore: FirebaseApi {
     }
 
     fun pullDoctorsOnFireStore(){
-        LocalHospital.doctors.forEach {
+        LocalHospital.hospital.doctors.forEach {
             val set = hashMapOf(
                 "name" to it.name,
                 "cabinet" to it.number_cabinet,

@@ -21,7 +21,7 @@ class Talon(
             time: String): this(date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), doctor, time)
         init{
             this.uuid = UUID.randomUUID().mostSignificantBits.toString()
-            this.idDoctor = doctor.number
+            this.idDoctor = doctor.doctorID
         }
 
         @RequiresApi(Build.VERSION_CODES.O)

@@ -21,4 +21,18 @@ class WorkTime(
         else
             return "$hours : $minutes"
     }
+
+    operator fun minus(workTime: WorkTime): WorkTime{
+        this.hours -= workTime.hours
+        this.minutes -= workTime.minutes
+        if (this.minutes < 0){
+            this.hours -= 1
+            this.minutes += 60
+        }
+        return this
+    }
+
+    fun getAllMinutes():Int{
+        return hours * 60 + minutes
+    }
 }

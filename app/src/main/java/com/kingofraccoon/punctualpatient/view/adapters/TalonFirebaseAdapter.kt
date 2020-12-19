@@ -78,10 +78,10 @@ class TalonFirebaseAdapter(_query : Query)
 
         open fun bind(talon :TalonData) {
 
-            val docName = LocalHospital.doctors.find {
+            val docName = LocalHospital.hospital.doctors.find {
                 it.doctorID == talon.doctorID
             }
-
+            Log.d("Fire", docName.toString())
             dateAndTime.text = "${talon?.date} \n ${talon?.time}"
             doctor.text = "Врач: ${docName?.name ?: "Доктор не успел загрузиться"}"
             cabinet.text = "Кабинет №: ${docName?.number_cabinet ?: "Доктор не успел загрузиться"}"

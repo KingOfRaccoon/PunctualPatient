@@ -64,7 +64,8 @@ object LocalHospital{
 //        doctor5
 //    )
 @RequiresApi(Build.VERSION_CODES.O)
-var doctors = FireStore().getDoctors()
+    private var doctors = FireStore().getDoctors()
+    @RequiresApi(Build.VERSION_CODES.O)
     val hospital = Hospital(doctors, "Больница")
     val liveDataHospital = MutableLiveData<Hospital>()
 }

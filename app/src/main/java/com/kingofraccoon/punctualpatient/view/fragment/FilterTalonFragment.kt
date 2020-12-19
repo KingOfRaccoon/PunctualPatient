@@ -52,10 +52,13 @@ class FilterTalonFragment: Fragment() {
         }
 
         button.setOnClickListener {
+            var date = LocalDate.now()
             if (typeDoctors != "") {
-                LocalHospital.hospital.createTalons(LocalDate.parse(talondate, DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                if (talondate != "")
+                    date = LocalDate.parse(talondate, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                LocalHospital.hospital.createTalons(date)
                 requireFragmentManager().beginTransaction()
-                        .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!, LocalDate.parse(talondate, DateTimeFormatter.ofPattern("dd-MM-yyyy"))))
+                        .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!, date))
                         .commit()
             }
             else{

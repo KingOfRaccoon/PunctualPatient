@@ -85,8 +85,8 @@ open class TalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
     open fun bind(talon: Talon) {
 
         dateAndTime.text = "${talon.date} \n ${talon.time}"
-        doctor.text = "Врач: ${LocalHospital.doctors.find { talon.idDoctor == it.number }?.name}"
-        cabinet.text = "Кабинет №: ${LocalHospital.doctors.find { talon.idDoctor == it.number }?.number_cabinet}"
+        doctor.text = "Врач: ${LocalHospital.hospital.doctors.find { talon.idDoctor == it.doctorID }?.name}"
+        cabinet.text = "Кабинет №: ${LocalHospital.hospital.doctors.find { talon.idDoctor == it.doctorID }?.number_cabinet}"
     }
 }
 

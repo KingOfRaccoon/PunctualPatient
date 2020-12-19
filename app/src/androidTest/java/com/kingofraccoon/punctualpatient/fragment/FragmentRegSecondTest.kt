@@ -36,11 +36,11 @@ class FragmentRegSecondTest{
                 .check(matches(withText("ул Ленина, 150")))
         closeSoftKeyboard()
 
-        onView(withId(R.id.mail_reg))
-                .check(matches(withHint("Почта")))
-                .perform(replaceText("1234@mail.ru"))
-                .check(matches(withText("1234@mail.ru")))
-        closeSoftKeyboard()
+//        onView(withId(R.id.mail_reg))
+//                .check(matches(withHint("Почта")))
+//                .perform(replaceText("1234@mail.ru"))
+//                .check(matches(withText("1234@mail.ru")))
+//        closeSoftKeyboard()
 
         onView(withId(R.id.password_repeat))
                 .check(matches(withHint("Возраст")))

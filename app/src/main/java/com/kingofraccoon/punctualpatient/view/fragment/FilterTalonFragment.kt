@@ -32,7 +32,7 @@ class FilterTalonFragment: Fragment() {
         val button : Button = root.findViewById(R.id.take_talon)
 
         calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            var talondate = "$dayOfMonth-${month + 1}calender$year"
+            var talondate = "$dayOfMonth-${month + 1}-$year"
         }
 
         customAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)

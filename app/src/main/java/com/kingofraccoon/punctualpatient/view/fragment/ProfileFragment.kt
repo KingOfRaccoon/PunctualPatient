@@ -55,7 +55,7 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
-        val query = FireStore().firebase.collection("talons")
+        val query = FireStore().firebase.collection("talons").whereEqualTo("flag", true)
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
         val talonAdapter = TalonFirebaseAdapter(query)
         val doctorAdapter = DoctorAdapter()
@@ -77,7 +77,6 @@ class ProfileFragment: Fragment() {
 
             view.findViewById<ProgressBar>(R.id.progress)
                 .isVisible = false
-
         }
         else{
             recyclerView.adapter = doctorAdapter

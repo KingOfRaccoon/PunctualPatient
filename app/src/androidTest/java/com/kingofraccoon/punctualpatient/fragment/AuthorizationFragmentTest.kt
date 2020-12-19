@@ -9,31 +9,31 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.view.fragment.AuthorizationFragment
+import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class CheckFragmentTest{
+class AuthorizationFragmentTest{
     @Rule
     @JvmField
     val fragmentTestRule : FragmentTestRule<MainActivity, AuthorizationFragment> =
             FragmentTestRule(MainActivity::class.java, AuthorizationFragment::class.java)
 
-    @Test
+/*    @Test
     @Throws(Exception::class)
     fun text_view(){
         onView(withId(R.id.text_enter))
                 .check(matches(withText("Вход")))
-    }
-
+    }*/
     @Test
     @Throws(Exception::class)
     fun input_number(){
-        onView(withId(R.id.phone_check))
-                .check(matches(withHint("Введите номер телефона")))
-                .perform(replaceText("89096753423"))
-                .check(matches(withText("89096753423")))
+        onView(allOf(withId(R.id.phone_check)))
+                .check(matches(withHint("Номер телефона")))
+                .perform(typeText("89339321441"))
+                .check(matches(withText("89339321441")))
         closeSoftKeyboard()
     }
 

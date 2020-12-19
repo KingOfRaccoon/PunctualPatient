@@ -13,15 +13,19 @@ import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
+import com.kingofraccoon.punctualpatient.User.password
+import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
+import com.kingofraccoon.punctualpatient.view.fragment.MainFragment
 
 class FragmentRegSecond: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.frag_regist_second, container, false)
         val button: Button = view.findViewById(R.id.next_reg)
         val textAdress : EditText = view.findViewById(R.id.address_reg)
-        val textEmail : EditText = view.findViewById(R.id.password_reg)
         val passworRepeat : EditText = view.findViewById(R.id.password_repeat)
+        val password : EditText = view.findViewById(R.id.password_reg)
+        val textAge : EditText = view.findViewById(R.id.age_reg)
         val textNumber : EditText = view.findViewById(R.id.number)
         val radioMale : RadioButton = view.findViewById(R.id.male)
         val radioFemale : RadioButton = view.findViewById(R.id.female)
@@ -35,8 +39,9 @@ class FragmentRegSecond: Fragment() {
         button.setOnClickListener {
 //            User.adress = Adress.instance(textAdress.text.toString().trim())
             User.adress = textAdress.text.toString().trim()
-            User.email = textEmail.text.toString().trim()
             User.age = if (!passworRepeat.text.isNullOrBlank()) passworRepeat.text.toString().trim().toInt() else 0
+            User.password = password.text.toString().trim()
+            User.age = if (!textAge.text.isNullOrBlank()) textAge.text.toString().trim().toInt() else 0
             User.number = textNumber.text.toString()
             if (radioMale.isChecked)
                 User.sex = "Мужчина"
@@ -50,7 +55,7 @@ class FragmentRegSecond: Fragment() {
                         Person(
                                 User.adress,
                                 User.date,
-                                User.email,
+                                User.password,
                                 User.firstName + " " + User.secondName + " " + User.thirdName,
                                 User.sex,
                                 User.age,

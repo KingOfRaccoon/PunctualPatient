@@ -58,6 +58,7 @@ class ProfileFragment: Fragment() {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
         val talonAdapter = TalonFirebaseAdapter(query)
+        Log.d("Snap", talonAdapter.snapshots.size.toString())
         val doctorAdapter = DoctorAdapter()
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)

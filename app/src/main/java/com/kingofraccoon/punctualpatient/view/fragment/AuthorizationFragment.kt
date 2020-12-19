@@ -122,7 +122,6 @@ class AuthorizationFragment: Fragment() {
 //                            }
 //                        }
 //            }
-            onValidateSuccess()
         }
         return view
     }
@@ -176,12 +175,5 @@ class AuthorizationFragment: Fragment() {
     }
     companion object{
         val tag = "AuthorizationFragment"
-    }
-
-    fun onValidateSuccess() =
-        Toast.makeText(requireContext(), "Успешно", Toast.LENGTH_SHORT).show();
-
-    fun onValidateFailed(){
-        Toast.makeText(requireContext(), "Неверный пароль", Toast.LENGTH_SHORT).show();
     }
 }

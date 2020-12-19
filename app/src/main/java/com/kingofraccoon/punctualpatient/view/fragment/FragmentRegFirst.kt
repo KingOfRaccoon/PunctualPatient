@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
@@ -28,10 +29,11 @@ class FragmentRegFirst : Fragment() {
                     }
                     override fun afterTextChanged(s: Editable?) {
                         User.firstName = s.toString().trim()
+                        //val content = s?.ed.toString()
+
                     }
                 }
         )
-
         textName.addTextChangedListener(
                 object : TextWatcher{
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -43,8 +45,8 @@ class FragmentRegFirst : Fragment() {
                         User.secondName = s.toString().trim()
                     }
                 }
-        )
 
+        )
         textLastName.addTextChangedListener(
                 object : TextWatcher{
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -57,7 +59,6 @@ class FragmentRegFirst : Fragment() {
                     }
                 }
         )
-
         textData.addTextChangedListener(
                 object : TextWatcher{
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -70,7 +71,6 @@ class FragmentRegFirst : Fragment() {
                     }
                 }
         )
-
         return view
     }
 }

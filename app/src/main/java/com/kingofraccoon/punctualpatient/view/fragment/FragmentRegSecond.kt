@@ -2,6 +2,8 @@ package com.kingofraccoon.punctualpatient.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +68,18 @@ class FragmentRegSecond: Fragment() {
                 Toast.makeText(requireContext(), "Введите свой номер телефона", Toast.LENGTH_SHORT).show()
             }
         }
+        textNumber.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {  }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (android.util.Patterns.PHONE.matcher(textNumber.text.toString()).matches())
+                    button.isEnabled = true
+                else{
+                    button.isEnabled = false
+                    textNumber.setError("Неверный номер")
+                }
+            }
+            override fun afterTextChanged(p0: Editable?) { }
+        })
         return view
     }
 }

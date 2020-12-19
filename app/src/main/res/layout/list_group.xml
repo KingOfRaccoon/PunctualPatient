@@ -12,7 +12,7 @@
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textColor="@color/tx_grey"
+        android:theme="@style/ExpandableList_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

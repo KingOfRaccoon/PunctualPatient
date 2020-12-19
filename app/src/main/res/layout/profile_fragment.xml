@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:paddingTop="8dp"
-        android:background="@color/wwwhite"
+        android:theme="@style/ExpandableList_style"
         android:id="@+id/linear"
         android:paddingLeft="15dp"
         android:layout_width="match_parent"
@@ -44,6 +44,7 @@
                 android:layout_gravity="left|center_vertical">
 
                 <TextView
+                    android:theme="@style/ExpandableList_style"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -51,16 +52,15 @@
                     android:paddingLeft="4dp"
                     android:paddingRight="8dp"
                     android:text="ФИО: "
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
+                    android:theme="@style/ExpandableList_style"
                     android:layout_weight="4"
                     android:id="@+id/full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Филонов Сергей Сергеевич"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical">
                 <TextView
+                    android:theme="@style/ExpandableList_style"
                     android:layout_weight="2"
                     android:id="@+id/birth"
                     android:layout_width="wrap_content"
@@ -79,16 +80,15 @@
                     android:paddingLeft="4dp"
                     android:paddingRight="8dp"
                     android:text="Дата рождения: "
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
+                    android:theme="@style/ExpandableList_style"
                     android:layout_weight="4"
                     android:id="@+id/about"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="26.01.2003"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
@@ -97,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical">
                 <TextView
+                    android:theme="@style/ExpandableList_style"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,16 +105,15 @@
                     android:paddingLeft="4dp"
                     android:paddingRight="8dp"
                     android:text="Пол: "
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
+                    android:theme="@style/ExpandableList_style"
                     android:layout_weight="64"
                     android:id="@+id/sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="мужской"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -123,7 +123,7 @@
     <ExpandableListView
         android:id="@+id/expandableListView"
         android:dividerHeight="1dp"
-        android:background="#FFF"
+        android:theme="@style/ExpandableList_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +131,7 @@
         app:layout_constraintTop_toBottomOf="@id/linear" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:theme="@style/ExpandableList_style"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

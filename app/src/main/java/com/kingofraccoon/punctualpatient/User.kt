@@ -10,7 +10,7 @@ object User {
     var adress = ""
     var sex = ""
 
-    var email = ""
+    var password = ""
     var age = 0
     var number = ""
 
@@ -41,7 +41,7 @@ object User {
         date = person.date
         adress = person.adress
         sex = person.sex
-        email = person.email
+        password = person.password
         age = person.age
         number = person.number
     }

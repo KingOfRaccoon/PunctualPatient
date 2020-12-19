@@ -69,7 +69,7 @@ class RegisterTalonViewHolder(view: View): TalonViewHolder(view){
     override fun bind(talon: Talon) {
         super.bind(talon)
         button.setOnClickListener {
-            FireStore().writeTalon(User.number, talon)
+            FireStore().writeTalon(User.uid, talon)
         }
     }
 }

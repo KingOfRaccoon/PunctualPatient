@@ -72,6 +72,8 @@ class AuthorizationFragment: Fragment() {
                 .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     user = task.result!!.user
+                    User.uid = user?.uid.toString()
+                    Log.d("Fire", User.uid)
                     Log.d("Fire", "True")
                     var check = false
                     if (user != null) {

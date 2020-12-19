@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.android21buttons.fragmenttestrule.FragmentTestRule
 import com.kingofraccoon.punctualpatient.MainActivity
 import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.view.fragment.FilterTalonFragment
 import org.hamcrest.core.IsAnything.anything
 import org.hamcrest.core.StringContains.containsString
 import org.junit.Rule

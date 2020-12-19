@@ -2,6 +2,8 @@ package com.kingofraccoon.punctualpatient
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.kingofraccoon.punctualpatient.model.Doctor
+import com.kingofraccoon.punctualpatient.model.Talon
 import java.time.LocalDate
 
 class TalonGenerator {

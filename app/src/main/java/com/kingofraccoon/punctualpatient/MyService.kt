@@ -3,7 +3,7 @@ package com.kingofraccoon.punctualpatient
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import com.kingofraccoon.punctualpatient.firebase.FireStore
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class MyService : Service() {
 

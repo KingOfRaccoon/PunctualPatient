@@ -4,12 +4,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
-import android.content.Intent
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,13 +18,9 @@ import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.auth.Authorization
-import com.kingofraccoon.punctualpatient.User.setUser
-import com.kingofraccoon.punctualpatient.encoder.Cript
-import com.kingofraccoon.punctualpatient.encoder.CriptConverter
-import com.kingofraccoon.punctualpatient.firebase.FireStore
 
 class AuthorizationFragment: Fragment() {
-    lateinit var authorization: Authorization
+//    lateinit var authorization: Authorization
     val CHANEL_ID = 1.toString()
     val kod = (1000..9999).random()
     var doctor : Doctor? = null
@@ -38,6 +31,7 @@ class AuthorizationFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_check, container, false)
         val number_people : EditText = view.findViewById(R.id.phone_check)
+        val password_people : EditText = view.findViewById(R.id.password_check)
         val button_check : Button = view.findViewById(R.id.button_check)
         val button_register : Button = view.findViewById(R.id.create_account)
         val text_view : TextView = view.findViewById(R.id.text_enter)
@@ -51,62 +45,55 @@ class AuthorizationFragment: Fragment() {
         }
 
         button_check.setOnClickListener {
-            var check = false
-            if (!number_people.text.isNullOrEmpty()) {
-                FireStore().firebase.collection("doctors")
-                        .whereEqualTo("number", number_people.text.toString())
-                        .get()
-                        .addOnSuccessListener {
-                            it.documents.forEach { value ->
-                                doctor = Doctor(
-                                        value.getString("name") as String,
-                                        (value.get("cabinet") as Long).toInt(),
-                                        getEnumDoctor(value.getString("nameType") as String)!!,
-                                        (value.get("start") as Long).toInt(),
-                                        (value.get("end") as Long).toInt(),
-                                        (value.get("duration") as Long).toInt(),
-                                        value.getString("number") as String
-                                )
-                            }
-                            check = doctor != null
-                            if (check) {
-                                User.number = doctor?.number.toString()
-                                User.name = doctor?.name.toString()
-                                User.typeOfUser = "Doctor"
-                                requireActivity().startService(Intent(requireActivity(), GetTalonDoctorServise::class.java))
-                                check(number_people, check)
-                            }
-                            else {
-                                User.typeOfUser = "User"
-                                FireStore().firebase
-                                        .collection("usersCrypt")
-                                        .document(number_people.text.toString())
-                                        .get()
-                                        .addOnCompleteListener { userDoc ->
-                                            if(userDoc.result?.exists() == true) {
-                                                val person = Cript().decryptPersonForFireStore(userDoc.result?.getString("text").toString())
-                                                User.setUser(person )
-//                                                User.name = userDoc.result?.getString("name") as String
-//                                                User.sex = userDoc.result?.getString("sex") as String
-//                                                User.id = number_people.text.toString()
-//                                                User.date = userDoc.result?.getString("date") as String
-//                                                User.email = userDoc.result?.getString("email") as String
-//                                                User.adress = userDoc.result?.getString("adress") as String
-//                                                User.age = (userDoc.result?.getString("age").toString()).toInt()
-//                                                User.number = number_people.text.toString()
-                                                check = User.name != ""
-                                                requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
-                                                check(number_people, check)
-                                            }
-                                            else
-                                                check(number_people, check)
-                                        }
-                                        .addOnFailureListener {
-                                            Log.d("Fire", it.message.toString())
-                                        }
-                            }
-                        }
-            }
+            Authorization().register("${number_people.text}@gmail.com", password_people.text.toString())
+//            var check = false
+//            if (!number_people.text.isNullOrEmpty()) {
+//                FireStore().firebase.collection("doctors")
+//                        .whereEqualTo("number", number_people.text.toString())
+//                        .get()
+//                        .addOnSuccessListener {
+//                            it.documents.forEach { value ->
+//                                doctor = Doctor(
+//                                        value.getString("name") as String,
+//                                        (value.get("cabinet") as Long).toInt(),
+//                                        getEnumDoctor(value.getString("nameType") as String)!!,
+//                                        (value.get("start") as Long).toInt(),
+//                                        (value.get("end") as Long).toInt(),
+//                                        (value.get("duration") as Long).toInt(),
+//                                        value.getString("number") as String
+//                                )
+//                            }
+//                            check = doctor != null
+//                            if (check) {
+//                                User.number = doctor?.number.toString()
+//                                User.name = doctor?.name.toString()
+//                                User.typeOfUser = "Doctor"
+//                                requireActivity().startService(Intent(requireActivity(), GetTalonDoctorServise::class.java))
+//                                check(number_people, check)
+//                            }
+//                            else {
+//                                User.typeOfUser = "User"
+//                                FireStore().firebase
+//                                        .collection("usersCrypt")
+//                                        .document(number_people.text.toString())
+//                                        .get()
+//                                        .addOnCompleteListener { userDoc ->
+//                                            if(userDoc.result?.exists() == true) {
+//                                                val person = Cript().decryptPersonForFireStore(userDoc.result?.getString("text").toString())
+//                                                User.setUser(person )
+//                                                check = User.name != ""
+//                                                requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
+//                                                check(number_people, check)
+//                                            }
+//                                            else
+//                                                check(number_people, check)
+//                                        }
+//                                        .addOnFailureListener {
+//                                            Log.d("Fire", it.message.toString())
+//                                        }
+//                            }
+//                        }
+//            }
         }
         return view
     }
@@ -157,5 +144,8 @@ class AuthorizationFragment: Fragment() {
             TypeDoctors.TRAUMATOLOGIST.nameType -> TypeDoctors.TRAUMATOLOGIST
             else -> null
         }
+    }
+    companion object{
+        val tag = "AuthorizationFragment"
     }
 }

@@ -1,125 +1,20 @@
 package com.kingofraccoon.punctualpatient
 
 import android.graphics.Color
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Base64
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.FirebaseFunctionsException
-import com.kingofraccoon.punctualpatient.encoder.Cript
-import com.kingofraccoon.punctualpatient.encoder.CriptConverter
-import com.kingofraccoon.punctualpatient.firebase.FireStore
-import com.kingofraccoon.punctualpatient.fragment.CheckFragment
-import com.kingofraccoon.punctualpatient.retrofit.Answer
-import com.kingofraccoon.punctualpatient.auth.Authorization
 import com.kingofraccoon.punctualpatient.fragment.AuthorizationFragment
-import com.kingofraccoon.punctualpatient.retrofit.DataPerson
-import com.kingofraccoon.punctualpatient.retrofit.RetroFitClient
-import com.kingofraccoon.punctualpatient.retrofit.RetrofitApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-//    private lateinit var functions : FirebaseFunctions
-//    lateinit var retrofit: RetrofitApi
-//    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//    FireStore().pullDoctorsOnFireStore()
-//        retrofit = RetroFitClient.instance()!!
-//        functions = FirebaseFunctions.getInstance()
-        supportFragmentManager.setFragment(CheckFragment(), CheckFragment.tag)
-        retrofit = RetroFitClient.instance()!!
-        functions = FirebaseFunctions.getInstance()
-//        Authorization().auth(123456789.toString(), 1234.toString())
-        val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword("zmear@mail.ru","password")
-                .addOnCompleteListener {
-                    if (it.isSuccessful){
-                        val user = auth.currentUser
-                        updateUI(user)
-                        Log.d("Fire", auth.uid.toString())
-                    }
-                    else{
-                        updateUI(null)
-                    }
-                }
-//        functions.getHttpsCallable("addMessage").call(hashMapOf(
-//                "number1" to 3,
-//                "number2" to 6
-//        )).addOnCompleteListener {
-//            Log.d("Fire", it.result.toString())
-//        }
-//                .addOnCompleteListener {
-//            OnCompleteListener<Answer> {
-//            Log.d("Fire", it.result.toString())
-//            }
-//        }
-//                .addOnSuccessListener {
-//            Log.d("Fire", it.toString())
-//        }.addOnFailureListener {
-//            Log.d("Fire", it.message.toString())
-//        }
-//        addMessage("Привет!")
-//            .addOnCompleteListener {
-//                if (!it.isSuccessful){
-//                    val e = it.exception
-//                    if (e is FirebaseFunctionsException){
-//                        val code = e.code
-//                        val details = e.details
-//                        Log.d("Fire", code.toString() + " " + details.toString())
-//                    }
-//                }
-//                else
-//                    Log.d("Fire", it.result.toString())
-//            }
-//        retrofit.addMessage("1").enqueue(
-//                object : Callback<Answer>{
-//                    override fun onResponse(call: Call<Answer>, response: Response<Answer>) {
-//                        Log.d("Fire", response.body().toString())
-//                    }
-//
-//                    override fun onFailure(call: Call<Answer>, t: Throwable) {
-//                        Log.d("Fire", t.message.toString())
-//                    }
-//                }
-//        )
-        retrofit.check().enqueue(
-                object : Callback<MutableList<DataPerson>>{
-                    override fun onResponse(call: Call<MutableList<DataPerson>>, response: Response<MutableList<DataPerson>>) {
-                        response.body()?.forEach {
-                            Log.d("Fire", it.toString())
-                        }
-                    }
-
-                    override fun onFailure(call: Call<MutableList<DataPerson>>, t: Throwable) {
-                        Log.d("Fire", t.message.toString())
-                    }
-                }
-        )
-        supportFragmentManager.setFragment(AuthorizationFragment())
-//        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bnv)
-//        bottomNavigationView.setOnNavigationItemSelectedListener {
-//            when(it.itemId){
-//                R.id.writeTalon -> supportFragmentManager.setFragment(FilterTalonFragment())
-//                R.id.profile -> supportFragmentManager.setFragment(ProfileFragment())
-//            }
-//            return@setOnNavigationItemSelectedListener true
-//        }
-
+        supportFragmentManager.setFragment(AuthorizationFragment(), AuthorizationFragment.tag)
         val actBar = SpannableString(title)
         actBar.setSpan(ForegroundColorSpan(Color.rgb(78, 78, 78)), 0, title.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         supportActionBar?.setTitle(actBar)
@@ -132,19 +27,6 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
-
 }
-        return functions
-            .getHttpsCallable("randomNum")
-            .call()
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data as String
-                result
-            }
-    }
-    fun updateUI(user: FirebaseUser?) { }
 
 

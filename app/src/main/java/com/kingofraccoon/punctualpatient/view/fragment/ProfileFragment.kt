@@ -90,14 +90,13 @@ class ProfileFragment: Fragment() {
             User.mutableLiveDataTalonsDoctor.observe(viewLifecycleOwner, Observer{
 //                doctorAdapter.setList(it)
             })
-        }
 
         exitButton.setOnClickListener {
             EncryptedSharedPreferencesUser(requireContext()).deauth()
 
             fragmentManager!!.beginTransaction()
-                .replace(R.id.frame, AuthorizationFragment())
-                .commit()
+                    .replace(R.id.frame, AuthorizationFragment())
+                    .commit()
 
 
         }
@@ -117,6 +116,7 @@ class ProfileFragment: Fragment() {
                 false
             }
         }
-        return view
+            return view
+        }
+
     }
-}

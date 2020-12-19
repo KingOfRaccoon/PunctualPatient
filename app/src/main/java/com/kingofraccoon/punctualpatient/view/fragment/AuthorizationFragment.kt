@@ -115,6 +115,7 @@ class AuthorizationFragment: Fragment() {
                                                 .addOnCompleteListener { userDoc ->
                                                     if (userDoc.result?.exists() == true) {
                                                         val person = Cript().decryptPersonForFireStore(userDoc.result?.getString("text").toString())
+                                                        Log.d("decrypt", "$person")
                                                         User.setUser(person)
                                                         check = User.name != ""
                                                         check(number_people, check)

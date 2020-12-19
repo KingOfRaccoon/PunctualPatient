@@ -11,7 +11,10 @@ import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import com.kingofraccoon.punctualpatient.tools.DinamicTimeTable
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -81,4 +84,6 @@ fun main(){
 //    print(LocalDate.parse("20-12-2020", DateTimeFormatter.ofPattern("dd-MM-yyyy")))
     println(hospital.timetables.first().talons.first())
     println(dinamicTimeTable.getDifference(hospital.timetables.first().talons.first(),"8:59", 61).toString())
+    val time = LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
+    println(time)
 }

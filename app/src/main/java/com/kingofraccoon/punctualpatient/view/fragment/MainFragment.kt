@@ -36,7 +36,7 @@ class MainFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.main_fragment, container, false)
-
+        requireFragmentManager().setFragment(ProfileFragment(), ProfileFragment.tag)
         val bottomNavigationView : BottomNavigationView = view.findViewById(R.id.bnv)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){

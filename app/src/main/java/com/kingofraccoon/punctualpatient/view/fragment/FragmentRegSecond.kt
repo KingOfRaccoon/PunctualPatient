@@ -17,6 +17,7 @@ import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.auth.Authorization
+import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class FragmentRegSecond: Fragment() {
@@ -26,6 +27,8 @@ class FragmentRegSecond: Fragment() {
         val textAdress : EditText = view.findViewById(R.id.address_reg)
         val textPassword : EditText = view.findViewById(R.id.password_reg)
         val textAge : EditText = view.findViewById(R.id.age_reg)
+        val passworRepeat : EditText = view.findViewById(R.id.password_repeat)
+        val password : EditText = view.findViewById(R.id.password_reg)
         val textNumber : EditText = view.findViewById(R.id.number)
         val radioMale : RadioButton = view.findViewById(R.id.male)
         val radioFemale : RadioButton = view.findViewById(R.id.female)
@@ -39,6 +42,8 @@ class FragmentRegSecond: Fragment() {
         button.setOnClickListener {
 //            User.adress = Adress.instance(textAdress.text.toString().trim())
             User.adress = textAdress.text.toString().trim()
+            User.age = if (!passworRepeat.text.isNullOrBlank()) passworRepeat.text.toString().trim().toInt() else 0
+            User.password = password.text.toString().trim()
             User.email = textPassword.text.toString().trim()
             User.age = if (!textAge.text.isNullOrBlank()) textAge.text.toString().trim().toInt() else 0
             User.number = textNumber.text.toString()
@@ -47,6 +52,20 @@ class FragmentRegSecond: Fragment() {
             else
                 User.sex = "Женщина"
             if(!textNumber.text.isNullOrBlank()) {
+                requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.frame, MainFragment())
+                        .commit()
+                FireStore().registerNewUserCrypt(textNumber.text.toString().trim(),
+                        Person(
+                                User.adress,
+                                User.date,
+                                User.password,
+                                User.firstName + " " + User.secondName + " " + User.thirdName,
+                                User.sex,
+                                User.age,
+                                User.number
+                        )
+                )
                 var uid : FirebaseUser? = null
                 val auth = Authorization().register("${textNumber.text}@gmail.com", textPassword.text.toString())
                         auth.addOnCompleteListener {

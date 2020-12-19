@@ -30,7 +30,7 @@ fun cryptPerson(cript: Cript, person: Person): HashMap<String, String>{
     return hashMapOf(
             "adress" to Base64.getEncoder().encodeToString(cript.encrypt(person.adress)),
             "date" to Base64.getEncoder().encodeToString(cript.encrypt(person.date)),
-            "email" to Base64.getEncoder().encodeToString(cript.encrypt(person.email)),
+            "email" to Base64.getEncoder().encodeToString(cript.encrypt(person.password)),
             "name" to Base64.getEncoder().encodeToString(cript.encrypt(person.name)),
             "sex" to Base64.getEncoder().encodeToString(cript.encrypt(person.sex)),
             "age" to Base64.getEncoder().encodeToString(cript.encrypt(person.age.toString())),

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="15dp"
     app:cardCornerRadius="8dp"
+    android:theme="@style/Talon_style"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     app:cardElevation="@dimen/cardview_compat_inset_shadow"
@@ -28,13 +29,11 @@
                 android:paddingTop="8dp"
                 android:layout_marginBottom="2dp"
                 android:layout_marginRight="16dp"
-                android:textColor="@color/tx_grey"
+                android:theme="@style/Talon_style"
                 android:textSize="18sp"
                 android:text="@string/talon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-
 
         </LinearLayout>
 

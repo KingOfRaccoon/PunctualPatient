@@ -37,7 +37,7 @@
     <string name="next">Далее</string>
     <string name="addition">Дополнительная информация</string>
     <string name="address">Адрес</string>
-    <string name="age">Возраст</string>
+    <string name="password_repeat">Повторите пароль</string>
     <string name="mail">Почта</string>
     <string name="number">Номер</string>
 

@@ -16,42 +16,27 @@ import com.kingofraccoon.punctualpatient.view.adapters.TalonAdapter
 class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_get_talon, container, false)
-        val recyclerView : RecyclerView = view.findViewById(R.id.recycler)
+        val root = inflater.inflate(R.layout.fragment_get_talon, container, false)
+        val recyclerView : RecyclerView = root.findViewById(R.id.recycler)
+
         val talonAdapter = TalonAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = talonAdapter
         val mutableListTalon = mutableListOf<Talon>()
+
         hospital.timetables.forEach {
             mutableListTalon.addAll(it.talons)
         }
+
         talonAdapter.addList(
                 mutableListTalon.filter
                 {
                     it.doctor.typeDoctor == typeDoctors
                 }.toMutableList())
-        return view
+
+        recyclerView.adapter = talonAdapter
+
+        return root
     }
-
-//    fun calendarListener():{
-//        var calendarView = R.layout.calendarView
-//        calendarView.setOnDateChangeListener { view; var year: Int; var month: Int; var dayOfMonth: Int ->
-//            "$dayOfMonth.${month + 1}.$year"
-//        }
-//        return 0
-//    }
-//
-//
-//    calendarView.setOnClickListener {
-//        val selectedDate = calendarView.date
-//        val calendar = Calendar.getInstance()
-//        calendar.timeInMillis = selectedDate
-//        val dateFormatter = DateFormat.getDateInstance(DateFormat.MEDIUM)
-//        var date = dateFormatter.format(calendar.time)
-//    }
-
-
-
 
        /* val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, "Menu", duration)

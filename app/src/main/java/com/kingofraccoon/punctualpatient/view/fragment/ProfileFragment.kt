@@ -7,40 +7,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import android.widget.ExpandableListView
-import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
-import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
-import com.kingofraccoon.punctualpatient.model.Doctor
-import com.kingofraccoon.punctualpatient.model.Talon
-import com.kingofraccoon.punctualpatient.view.adapters.DoctorAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.ProfileExpandableListAdapter
-import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
 
 class ProfileFragment: Fragment() {
-    lateinit var query : Query
     companion object{
         val tag = "profile"
     }
+
+    var query : Query
     init {
-        query = FireStore().firebase.collection("talons").whereEqualTo("userID", User.uid)
+        if (User.typeOfUser != "Doctor") {
+            query = FireStore().firebase.collection("talons")//.whereEqualTo("userID", User.uid)
+        }else{
+            query = FireStore().firebase.collection("talons")//.whereEqualTo("userID", User.uid)
+        }
     }
 
-    internal var adapter: ExpandableListAdapter ?= null
-    internal var titleList: List<String> ?= null
+    private var expandableListAdapter: ExpandableListAdapter ?= null
+    private var titleList: List<String> ?= null
 
     val number = User.number
     val age = User.age
-    val address = if (User.adress.isBlank()) "ул. Пионерская, дом 103, кв 60" else User.adress
+    val address = User.adress
 
-    val data: HashMap<String, List<String>>
+    val profileData: HashMap<String, List<String>>
         get() {
             val listData = HashMap<String, List<String>>()
 
@@ -55,90 +55,49 @@ class ProfileFragment: Fragment() {
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.profile_fragment, container, false)
-        val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
-        val talonAdapter = TalonFirebaseAdapter(query)
-        val doctorAdapter = DoctorAdapter()
-        val nameUser : TextView = view.findViewById(R.id.full_name)
-        val dateUser : TextView = view.findViewById(R.id.about)
-        val sexUser : TextView = view.findViewById(R.id.sex)
+        val root = inflater.inflate(R.layout.profile_fragment, container, false)
+
+        val recyclerViewTalons : RecyclerView = root.findViewById(R.id.user_talon)
+//        Log.d("CreateFragment", query)
+        Log.d("CreateFragment", query.toString())
+        val talonFirebaseAdapter = TalonFirebaseAdapter(query/*,
+            object : TalonFirebaseAdapter.OnRequestSelectedListener {
+                override fun onRequestSelectedListener(requestData: DocumentSnapshot) {
+
+                }
+            }*/)
+
+
+        val nameUser : TextView = root.findViewById(R.id.full_name)
+        val dateUser : TextView = root.findViewById(R.id.about)
+        val sexUser : TextView = root.findViewById(R.id.sex)
+
         nameUser.text = if (User.name != "") User.name else "${User.firstName} ${User.secondName}  ${User.thirdName}"
         dateUser.text = if (User.date.isBlank()) "14-02-1981" else User.date
         sexUser.text = if (User.sex.isBlank()) "Мужской" else User.sex
-        if (User.typeOfUser != "Doctor") {
-            recyclerView.adapter = talonAdapter
-//            User.mutableLiveDataTalons.observe(viewLifecycleOwnerLiveData.value!!, {
-//                talonAdapter.setList(it)
-//            })
-            val doctors = mutableListOf<Doctor>()
-            var talons = mutableListOf<Talon>()
 
-//            val task = FireStore().firebase.collection("doctors").get()
-//
-//            task.addOnSuccessListener {
-//                it.documents.forEach { value ->
-//                    doctors.add(
-//                            Doctor(
-//                                    value.getString("name") as String,
-//                                    (value.get("cabinet") as Long).toInt(),
-//                                    FireStore().getEnumDoctor(value.getString("nameType") as String)!!,
-//                                    (value.get("start") as Long).toInt(),
-//                                    (value.get("end") as Long).toInt(),
-//                                    (value.get("duration") as Long).toInt(),
-//                                    value.getString("number") as String
-//                            )
-//                    )
-//                }
-//                Log.d("Fire", doctors.size.toString())
-//            }
-//                    .continueWith {
-//
-//                            FireStore().firebase.collection("talons")
-//                                    .whereEqualTo("userID", User.number)
-//                                    .get()
-//                                    .addOnSuccessListener {
-//                                            it.documents.forEach {
-//                                                talonAdapter.addTalon(
-//                                                        Talon(
-//                                                                it.getString("date") as String,
-//                                                                doctors.find { doc ->
-//                                                                    doc.number == it.getString("doctorID")
-//                                                                }!!,
-//                                                                it.getString("time") as String
-//                                                        ).apply { uuid = it.id }
-//                                                )
-//                                            }
-//
-//                                        Log.d("Fire", talonAdapter.listTalons.size.toString())
-//                                        view.findViewById<ProgressBar>(R.id.progress)
-//                                                .isVisible = false
-//                                    }
-//                        it.continueWith {
-//                        }
-//                    }
-//            talonAdapter.setList(User.mutableListTalon)
-        }
-        else{
-            recyclerView.adapter = doctorAdapter
-            User.mutableLiveDataTalonsDoctor.observe(viewLifecycleOwner, Observer{
-//                doctorAdapter.setList(it)
-            })
-        }
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val expandableListView = view.findViewById<ExpandableListView>(R.id.expandableListView)
-        if (expandableListView != null) {
-            val listData = data
-            titleList = ArrayList(listData.keys)
-            adapter = ProfileExpandableListAdapter(requireContext(), titleList as ArrayList<String>, listData)
-            expandableListView.setAdapter(adapter)
-            expandableListView.setOnGroupExpandListener { groupPosition ->  }
 
-            expandableListView.setOnGroupCollapseListener { groupPosition ->  }
+        recyclerViewTalons.adapter = talonFirebaseAdapter
+        recyclerViewTalons.layoutManager = LinearLayoutManager(requireContext())
 
-            expandableListView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
-                false
+
+        val expandableListView = root.findViewById<ExpandableListView>(R.id.expandableListView)
+        if (expandableListView != null)
+            {
+                val listData = profileData
+                titleList = ArrayList(listData.keys)
+                expandableListAdapter =
+                    ProfileExpandableListAdapter(requireContext(), titleList as ArrayList<String>, listData)
+                expandableListView.setAdapter(expandableListAdapter)
+                expandableListView.setOnGroupExpandListener { groupPosition -> }
+
+                expandableListView.setOnGroupCollapseListener { groupPosition -> }
+
+                expandableListView.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
+                    false
+                }
             }
-        }
-        return view
+
+        return root
     }
 }

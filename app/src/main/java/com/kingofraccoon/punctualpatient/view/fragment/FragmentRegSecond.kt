@@ -54,15 +54,15 @@ class FragmentRegSecond: Fragment() {
                         .replace(R.id.frame, MainFragment())
                         .commit()
                 FireStore().registerNewUserCrypt(textNumber.text.toString().trim(),
-                        Person(
-                                User.adress,
-                                User.date,
-//                                User.password,
-                                User.firstName + " " + User.secondName + " " + User.thirdName,
-                                User.sex,
-                                User.age,
-                                User.number
-                        )
+                    Person(
+                            User.adress,
+                            User.date,
+//                            User.password,
+                            User.firstName + " " + User.secondName + " " + User.thirdName,
+                            User.sex,
+                            User.age,
+                            User.number
+                    )
                 )
                 var uid : FirebaseUser? = null
                 val auth = Authorization().register("${textNumber.text}@gmail.com", textPassword.text.toString())

@@ -1,8 +1,8 @@
 package com.kingofraccoon.punctualpatient.model
 
-class TalonData(
+data class TalonData(
     var date: String,
-    var idDoctor: String,
+    var doctorID: String,
     var time: String,
-    var idUser: String
+    var userID: String
 )

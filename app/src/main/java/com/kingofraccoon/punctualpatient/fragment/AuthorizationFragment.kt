@@ -45,7 +45,7 @@ class AuthorizationFragment: Fragment() {
         }
 
         button_check.setOnClickListener {
-            Authorization().register("${number_people.text}@gmail.com", password_people.text.toString())
+            Authorization().singIn("${number_people.text}@gmail.com", password_people.text.toString())
 //            var check = false
 //            if (!number_people.text.isNullOrEmpty()) {
 //                FireStore().firebase.collection("doctors")
@@ -80,7 +80,7 @@ class AuthorizationFragment: Fragment() {
 //                                        .addOnCompleteListener { userDoc ->
 //                                            if(userDoc.result?.exists() == true) {
 //                                                val person = Cript().decryptPersonForFireStore(userDoc.result?.getString("text").toString())
-//                                                User.setUser(person )
+//                                                User.setUser(person)
 //                                                check = User.name != ""
 //                                                requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
 //                                                check(number_people, check)

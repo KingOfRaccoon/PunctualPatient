@@ -20,7 +20,7 @@ class FragmentRegSecond: Fragment() {
         val view = inflater.inflate(R.layout.frag_regist_second, container, false)
         val button: Button = view.findViewById(R.id.next_reg)
         val textAdress : EditText = view.findViewById(R.id.address_reg)
-        val textEmail : EditText = view.findViewById(R.id.mail_reg)
+        val textEmail : EditText = view.findViewById(R.id.password_reg)
         val textAge : EditText = view.findViewById(R.id.age_reg)
         val textNumber : EditText = view.findViewById(R.id.number)
         val radioMale : RadioButton = view.findViewById(R.id.male)

@@ -3,7 +3,7 @@ package com.kingofraccoon.punctualpatient
 import androidx.lifecycle.MutableLiveData
 
 object User {
-    var id = "Я"
+    var uid = ""
     var name = ""
     var date = ""
 //    var adress = Adress()

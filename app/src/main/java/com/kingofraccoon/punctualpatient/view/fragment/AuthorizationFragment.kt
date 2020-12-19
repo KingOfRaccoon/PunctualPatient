@@ -1,17 +1,12 @@
 package com.kingofraccoon.punctualpatient.view.fragment
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns.EMAIL_ADDRESS
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +14,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import androidx.core.util.PatternsCompat.EMAIL_ADDRESS
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseUser
 import com.kingofraccoon.punctualpatient.*

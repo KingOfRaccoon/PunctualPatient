@@ -25,7 +25,6 @@ import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
 
 class ProfileFragment: Fragment() {
-//    lateinit var query : Query
     companion object{
         val tag = "profile"
     }
@@ -56,21 +55,26 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
-        val query = FireStore().firebase.collection("talons").whereEqualTo("flag", true)
+        val query = FireStore().firebase.collection(FireStore.TALONS)
+            .whereEqualTo("flag", true)
+            .whereEqualTo("userID", User.uid)
+
+
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
+
         val talonAdapter = TalonFirebaseAdapter(query)
         val doctorAdapter = DoctorAdapter()
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
         val sexUser : TextView = view.findViewById(R.id.sex)
+
         nameUser.text = if (User.name != "") User.name else "${User.firstName} ${User.secondName}  ${User.thirdName}"
         dateUser.text = if (User.date.isBlank()) "14-02-1981" else User.date
         sexUser.text = if (User.sex.isBlank()) "Мужской" else User.sex
         if (User.typeOfUser != "Doctor") {
             recyclerView.adapter = talonAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            val doctors = mutableListOf<Doctor>()
-            var talons = mutableListOf<Talon>()
+
             view.findViewById<ProgressBar>(R.id.progress).isVisible = false
         }
         else{

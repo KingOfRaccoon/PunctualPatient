@@ -14,26 +14,15 @@ import com.kingofraccoon.punctualpatient.model.Talon
 import com.kingofraccoon.punctualpatient.model.TalonData
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
-interface OnRequestSelectedListener
-{
-    fun onRequestSelectedListener(requestData: DocumentSnapshot)
-}
-
 class TalonFirebaseAdapter(_query : Query)
     : RecyclerView.Adapter<TalonFirebaseAdapter.FirebaseTalonViewHolder>() {
-
 
     var talons = mutableListOf<TalonData>()
 
     var query : Query = _query
         set(value) {
-//            stopListening()
-
-//            snapshots.clear()
             notifyDataSetChanged()
-
             field = value
-//            startListening()
         }
 
     init {

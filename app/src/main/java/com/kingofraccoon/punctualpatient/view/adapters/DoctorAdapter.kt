@@ -1,5 +1,6 @@
 package com.kingofraccoon.punctualpatient.view.adapters
 
+import android.app.TimePickerDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.model.TalonUser
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class DoctorAdapter : RecyclerView.Adapter<DoctorViewHolder>() {
     var listTalons = mutableListOf<TalonUser>(
@@ -56,8 +59,6 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorViewHolder>() {
 
 }
 
-
-
 class DoctorViewHolder(view: View): RecyclerView.ViewHolder(view){
     val cabinet : TextView = view.findViewById(R.id.number_cabinet)
     val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
@@ -66,8 +67,18 @@ class DoctorViewHolder(view: View): RecyclerView.ViewHolder(view){
     fun bind(talon: TalonUser){
         doctor.text = talon.name
         dateAndTime.text = "${talon.date} \n ${talon.time}"
+
         button.text = "Отошел"
         button.setOnClickListener {
+            var timeDamp = 0
+            val timePicker = TimePickerDialog(it.context,
+                { view, hourOfDay, minute ->
+                    timeDamp = minute
+
+                    FireStore().translationDoctorTalons(timeDamp, User.uid)
+
+                }, 0, 10, false)
+                .show()
 
         }
     }

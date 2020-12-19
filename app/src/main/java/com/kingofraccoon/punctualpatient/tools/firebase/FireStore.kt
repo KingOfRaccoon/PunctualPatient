@@ -3,7 +3,10 @@ package com.kingofraccoon.punctualpatient.tools.firebase
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.model.*
 import com.kingofraccoon.punctualpatient.tools.encoder.Cript
@@ -11,70 +14,34 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class FireStore: FirebaseApi {
+
+    companion object{
+        val TALONS = "talons"
+    }
+
     var firebase = FirebaseFirestore.getInstance()
 
     override fun getMyTalons(id: String, doctors: MutableList<Doctor>): MutableList<Talon> {
         val myTalons = mutableListOf<Talon>()
-//        firebase.collection("usersCrypt/$id/talons")
-//            .get()
-//            .addOnSuccessListener {
-//                    it.documents.forEach {
-//                        User.listTalonsID.add(it.getString("idTalon") as String)
-//                    }
-//                }
-//            .continueWith {
-//                User.listTalonsID.forEach {
-//                    firebase.collection("talons")
-//                        .whereEqualTo("idUser", User.number)
-//                        .get()
-//                        .addOnSuccessListener {
-//                            it.documents.forEach {
-//                                myTalons.add(
-//                                    Talon(
-//                                        it.getString("date") as String,
-//                                        doctors.find { doc ->
-//                                            doc.number == it.getString("doctorID")
-//                                        }!!,
-//                                        it.getString("time") as String
-//                                    )
-//                                )
-//                            }
-//
-//                        }
-//                }
-//            }
         return myTalons
     }
 
-    fun getProfileTalon(id: String): MutableList<Talon> {
-        val doctors = mutableListOf<Doctor>()
-        var talons = mutableListOf<Talon>()
-        val task = firebase.collection("doctors").get()
+    fun translationDoctorTalons(minutes : Int, uuid : String){
+        firebase.collection(TALONS)
+            .whereEqualTo("doctorID", uuid)
+            .whereEqualTo("flag",true)
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    for (item in value?.documents!!){
 
-        task.addOnSuccessListener {
-            it.documents.forEach { value ->
-                doctors.add(
-                        Doctor(
-                                value.getString("name") as String,
-                                (value.get("cabinet") as Long).toInt(),
-                                getEnumDoctor(value.getString("nameType") as String)!!,
-                                (value.get("start") as Long).toInt(),
-                                (value.get("end") as Long).toInt(),
-                                (value.get("duration") as Long).toInt(),
-                                value.getString("number") as String
-                        )
-                )
-            }
-            Log.d("Fire", doctors.size.toString())
-        }
-                .addOnFailureListener {
-                    Log.d("Fire", it.message.toString())
+                        firebase.collection(TALONS).document(item.reference.path)
+                            .update("time",10)
+                    }
                 }
-                .continueWith {
-                    talons = getMyTalons(id, doctors)
-                }
-        return talons
+            })
     }
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun writeTalon(id: String, talon: Talon) {
         val hashMap = hashMapOf(

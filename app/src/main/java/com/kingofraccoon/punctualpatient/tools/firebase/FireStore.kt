@@ -188,7 +188,7 @@ class FireStore: FirebaseApi {
                 "name" to person.name,
                 "sex" to person.sex,
                 "date" to person.date,
-                "email" to person.password,
+//                "email" to person.password,
                 "adress" to person.adress.toString(),
                 "age" to person.age.toString()
         )

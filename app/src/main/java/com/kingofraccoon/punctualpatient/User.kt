@@ -44,7 +44,7 @@ object User {
         date = person.date
         adress = person.adress
         sex = person.sex
-        password = person.password
+//        password = person.password
         age = person.age
         number = person.number
     }

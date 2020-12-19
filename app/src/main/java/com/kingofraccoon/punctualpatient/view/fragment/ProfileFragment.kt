@@ -37,7 +37,6 @@ class ProfileFragment: Fragment() {
     internal var titleList: List<String> ?= null
 
     val number = User.number
-    val password = User.password
     val age = User.age
     val address = if (User.adress.isBlank()) "ул. Пионерская, дом 103, кв 60" else User.adress
 
@@ -49,7 +48,6 @@ class ProfileFragment: Fragment() {
             redmiMobiles.add("Адрес: $address")
             redmiMobiles.add("Возраст: $age")
             redmiMobiles.add("Телефон: $number")
-            redmiMobiles.add("Почта: $password")
 
             listData["Полная информация"] = redmiMobiles
 

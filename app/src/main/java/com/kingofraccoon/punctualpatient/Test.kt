@@ -22,30 +22,4 @@ fun main(){
 //            .addOnFailureListener {
 //                print("No")
 //            }
-
-}
-
-@RequiresApi(Build.VERSION_CODES.O)
-fun cryptPerson(cript: Cript, person: Person): HashMap<String, String>{
-    return hashMapOf(
-            "adress" to Base64.getEncoder().encodeToString(cript.encrypt(person.adress)),
-            "date" to Base64.getEncoder().encodeToString(cript.encrypt(person.date)),
-            "email" to Base64.getEncoder().encodeToString(cript.encrypt(person.password)),
-            "name" to Base64.getEncoder().encodeToString(cript.encrypt(person.name)),
-            "sex" to Base64.getEncoder().encodeToString(cript.encrypt(person.sex)),
-            "age" to Base64.getEncoder().encodeToString(cript.encrypt(person.age.toString())),
-            "number" to Base64.getEncoder().encodeToString(cript.encrypt(person.number))
-    )
-}
-
-fun encryptPerson(cript: Cript, doc: DocumentSnapshot): Person {
-    return Person(
-            cript.decrypt(android.util.Base64.decode(doc.get("adress") as String, android.util.Base64.DEFAULT)),
-            cript.decrypt(android.util.Base64.decode(doc.get("date") as String, android.util.Base64.DEFAULT)),
-            cript.decrypt(android.util.Base64.decode(doc.get("email") as String, android.util.Base64.DEFAULT)),
-            cript.decrypt(android.util.Base64.decode(doc.get("name") as String, android.util.Base64.DEFAULT)),
-            cript.decrypt(android.util.Base64.decode(doc.get("sex") as String, android.util.Base64.DEFAULT)),
-            cript.decrypt(android.util.Base64.decode(doc.get("age") as String, android.util.Base64.DEFAULT)).toInt(),
-            cript.decrypt(android.util.Base64.decode(doc.get("number") as String, android.util.Base64.DEFAULT))
-    )
 }

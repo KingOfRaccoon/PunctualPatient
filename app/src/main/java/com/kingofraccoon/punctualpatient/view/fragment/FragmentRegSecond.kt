@@ -3,8 +3,6 @@ package com.kingofraccoon.punctualpatient.view.fragment
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +17,6 @@ import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.auth.Authorization
-import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class FragmentRegSecond: Fragment() {
@@ -28,7 +25,6 @@ class FragmentRegSecond: Fragment() {
         val button: Button = view.findViewById(R.id.next_reg)
         val textAdress : EditText = view.findViewById(R.id.address_reg)
         val textPassword : EditText = view.findViewById(R.id.password_reg)
-        val textAge : EditText = view.findViewById(R.id.age_reg)
         val passworRepeat : EditText = view.findViewById(R.id.password_repeat)
         val password : EditText = view.findViewById(R.id.password_reg)
         val textNumber : EditText = view.findViewById(R.id.number)
@@ -86,7 +82,7 @@ class FragmentRegSecond: Fragment() {
                                         Person(
                                                 User.adress,
                                                 User.date,
-                                                User.email,
+                                                User.password,
                                                 User.firstName + " " + User.secondName + " " + User.thirdName,
                                                 User.sex,
                                                 User.age,

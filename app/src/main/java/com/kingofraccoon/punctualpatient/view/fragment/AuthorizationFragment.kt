@@ -70,10 +70,9 @@ class AuthorizationFragment: Fragment() {
                     var check = false
                     if (user != null) {
                         FireStore().firebase.collection("doctors")
-                                .whereEqualTo("number", user?.uid)
+                                .document(user?.uid.toString())
                                 .get()
-                                .addOnSuccessListener {
-                                    it.documents.forEach { value ->
+                                .addOnSuccessListener { value ->
                                         doctor = Doctor(
                                                 value.getString("name") as String,
                                                 (value.get("cabinet") as Long).toInt(),
@@ -83,7 +82,6 @@ class AuthorizationFragment: Fragment() {
                                                 (value.get("duration") as Long).toInt(),
                                                 value.getString("number") as String
                                         )
-                                    }
                                     check = doctor != null
                                     if (check) {
                                         User.number = doctor?.number.toString()
@@ -126,9 +124,14 @@ class AuthorizationFragment: Fragment() {
 
         fun check(number_people: EditText, check: Boolean) {
             if (check) {
+                if (User.typeOfUser == "User")
                 requireFragmentManager().beginTransaction()
                         .replace(R.id.frame, MainFragment())
                         .commit()
+                else
+                    requireFragmentManager().beginTransaction()
+                            .replace(R.id.frame, ProfileFragment())
+                            .commit()
             } else {
                 number_people.setTextColor(resources.getColor(R.color.red))
                 if (number_people.text.isNullOrEmpty()) {

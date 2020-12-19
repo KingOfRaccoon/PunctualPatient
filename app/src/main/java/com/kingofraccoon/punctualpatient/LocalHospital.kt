@@ -15,7 +15,7 @@ object LocalHospital{
         8,
         16, 61,
         "89831037111"
-    ).apply { doctorID = "yBfD7c7zi1PMsdaHz9ZzrbcXEj13" }
+    ).apply { doctorID = "HaUKoez6ivW79LpwE0ARjv2XApD2" }
     private val doctor1 = Doctor(
         "Петр Аркдьевич Столыпин",
         2,

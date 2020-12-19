@@ -12,20 +12,20 @@ class TalonGenerator {
         val listTalons = mutableListOf<Talon>()
         val quantity = (doctor.endWork - doctor.startWork) * 60 / doctor.duration
         val time = WorkTime(doctor.startWork)
-        for (i in 0 until quantity){
+        for (i in 0 until quantity) {
             listTalons.add(
-                    Talon(
-                            day,
-                            doctor,
-                            time.toString()
-                    )
+                Talon(
+                    day,
+                    doctor,
+                    time.toString()
+                )
             )
             time.minutes += doctor.duration
         }
         return listTalons
     }
 
-    fun getTime(time: Int, duration: Int): String{
+    fun getTime(time: Int, duration: Int): String {
         var string = ""
         string += ((time * 60 + duration) / 60).toInt().toString()
         string += ":"

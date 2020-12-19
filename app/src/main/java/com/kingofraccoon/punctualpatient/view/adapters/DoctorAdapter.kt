@@ -41,10 +41,6 @@ class DoctorAdapter : RecyclerView.Adapter<DoctorViewHolder>() {
         )
     )
 
-    fun setList(mutableList: MutableList<TalonUser>){
-        listTalons.addAll(mutableList)
-        notifyDataSetChanged()
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
         return DoctorViewHolder(
             LayoutInflater.from(parent.context)
@@ -79,7 +75,6 @@ class DoctorViewHolder(view: View): RecyclerView.ViewHolder(view){
 
                 }, 0, 10, false)
                 .show()
-
         }
     }
 }

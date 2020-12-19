@@ -8,23 +8,24 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import com.kingofraccoon.punctualpatient.LocalHospital
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
-import com.kingofraccoon.punctualpatient.model.Talon
 import com.kingofraccoon.punctualpatient.model.TalonData
 import com.kingofraccoon.punctualpatient.model.TalonUser
 import com.kingofraccoon.punctualpatient.tools.encoder.Cript
-import com.kingofraccoon.punctualpatient.tools.encoder.CriptConverter
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
-class TalonFirebaseAdapter(_query : Query)
-    : RecyclerView.Adapter<TalonFirebaseAdapter.FirebaseTalonViewHolder>() {
+class TalonFirebaseAdapter(_query: Query) :
+    RecyclerView.Adapter<TalonFirebaseAdapter.FirebaseTalonViewHolder>() {
 
     var talons = mutableListOf<TalonData>()
 
-    var query : Query = _query
+    var query: Query = _query
         set(value) {
             notifyDataSetChanged()
             field = value
@@ -49,7 +50,7 @@ class TalonFirebaseAdapter(_query : Query)
         })
     }
 
-    fun update(){
+    fun update() {
         talons.clear()
         notifyDataSetChanged()
     }
@@ -57,21 +58,23 @@ class TalonFirebaseAdapter(_query : Query)
     override fun getItemCount() = talons.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirebaseTalonViewHolder {
-        return FirebaseTalonViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycler_talon, parent, false))
+        return FirebaseTalonViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycler_talon, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: FirebaseTalonViewHolder, position: Int) {
         holder.bind(talons[position])
     }
 
-    inner class FirebaseTalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val cabinet : TextView = view.findViewById(R.id.number_cabinet)
-        val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
-        val doctor : TextView = view.findViewById(R.id.doctor)
-        val button : Button = view.findViewById(R.id.get_talon)
+    inner class FirebaseTalonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val cabinet: TextView = view.findViewById(R.id.number_cabinet)
+        val dateAndTime: TextView = view.findViewById(R.id.date_and_time)
+        val doctor: TextView = view.findViewById(R.id.doctor)
+        val button: Button = view.findViewById(R.id.get_talon)
 
-        open fun bind(talon :TalonData) {
+        open fun bind(talon: TalonData) {
 
             val docName = LocalHospital.hospital.doctors.find {
                 it.doctorID == talon.doctorID
@@ -88,14 +91,15 @@ class TalonFirebaseAdapter(_query : Query)
     }
 }
 
-class DoctorTalonFirebaseAdapter(_query: Query)
-    :RecyclerView.Adapter<DoctorTalonFirebaseAdapter.DoctorFirebaseTalonViewHolder>(){
+class DoctorTalonFirebaseAdapter(_query: Query) :
+    RecyclerView.Adapter<DoctorTalonFirebaseAdapter.DoctorFirebaseTalonViewHolder>() {
     var talons = mutableListOf<TalonUser>()
-    var query : Query = _query
-    set(value) {
-        notifyDataSetChanged()
-        field = value
-    }
+    var query: Query = _query
+        set(value) {
+            notifyDataSetChanged()
+            field = value
+        }
+
     init {
         query.addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -104,58 +108,68 @@ class DoctorTalonFirebaseAdapter(_query: Query)
                     val id = item.getString("userID")
                     var personName = ""
                     FireStore().firebase.document("usersCrypt/$id")
-                            .get()
-                            .addOnSuccessListener {
-                                personName = Cript().decryptPersonForFireStore(it["text"].toString()).name
-                            }.continueWith {
-                                val talon = TalonUser(
-                                        item["date"].toString(),
-                                        personName,
-                                        item["time"].toString(),
-                                )
-                                Log.d("TEST", talon.toString())
-                                talons.add(talon)
-                                notifyDataSetChanged()
-                            }
+                        .get()
+                        .addOnSuccessListener {
+                            personName =
+                                Cript().decryptPersonForFireStore(it["text"].toString()).name
+                        }.continueWith {
+                            val talon = TalonUser(
+                                item["date"].toString(),
+                                personName,
+                                item["time"].toString(),
+                            )
+                            Log.d("TEST", talon.toString())
+                            talons.add(talon)
+                            notifyDataSetChanged()
+                        }
                 }
             }
         })
     }
-    fun update(){
+
+    fun update() {
         talons.clear()
         notifyDataSetChanged()
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorFirebaseTalonViewHolder {
-        return DoctorFirebaseTalonViewHolder(LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycler_talon, parent, false))
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DoctorFirebaseTalonViewHolder {
+        return DoctorFirebaseTalonViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycler_talon, parent, false)
+        )
     }
+
     override fun onBindViewHolder(holder: DoctorFirebaseTalonViewHolder, position: Int) {
         holder.bind(talons[position])
     }
 
     override fun getItemCount() = talons.size
 
-    inner class DoctorFirebaseTalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val cabinet : TextView = view.findViewById(R.id.number_cabinet)
-        val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
-        val doctor : TextView = view.findViewById(R.id.doctor)
-        val button : Button = view.findViewById(R.id.get_talon)
-        fun bind(talon: TalonUser){
+    inner class DoctorFirebaseTalonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val cabinet: TextView = view.findViewById(R.id.number_cabinet)
+        val dateAndTime: TextView = view.findViewById(R.id.date_and_time)
+        val doctor: TextView = view.findViewById(R.id.doctor)
+        val button: Button = view.findViewById(R.id.get_talon)
+        fun bind(talon: TalonUser) {
             doctor.text = talon.name
             dateAndTime.text = "${talon?.date} \n ${talon?.time}"
             button.text = "Отошёл"
             button.setOnClickListener {
                 var timeDamp = 0
-                val timePicker = TimePickerDialog(it.context,
-                        { view, hourOfDay, minute ->
-                            timeDamp = minute
+                val timePicker = TimePickerDialog(
+                    it.context,
+                    { view, hourOfDay, minute ->
+                        timeDamp = minute
 
-                            FireStore().translationDoctorTalons(timeDamp, User.uid)
+                        FireStore().translationDoctorTalons(timeDamp, User.uid)
 
-                        }, 0, 10, false)
-                        .show()
+                    }, 0, 10, false
+                )
+                    .show()
             }
         }
     }

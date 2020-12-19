@@ -1,7 +1,6 @@
 package com.kingofraccoon.punctualpatient.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.Query
-import com.kingofraccoon.punctualpatient.*
-import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
-import com.kingofraccoon.punctualpatient.model.Doctor
-import com.kingofraccoon.punctualpatient.model.Talon
-import com.kingofraccoon.punctualpatient.view.adapters.*
+import com.kingofraccoon.punctualpatient.R
+import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.tools.encoder.EncryptedSharedPreferencesUser
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.view.adapters.DoctorAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.ProfileExpandableListAdapter
-import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
 import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
 
 class ProfileFragment: Fragment() {
@@ -71,10 +66,6 @@ class ProfileFragment: Fragment() {
         if (User.typeOfUser != "Doctor") {
             recyclerView.adapter = talonAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-
-            val doctors = mutableListOf<Doctor>()
-            var talons = mutableListOf<Talon>()
 
 
             view.findViewById<ProgressBar>(R.id.progress)

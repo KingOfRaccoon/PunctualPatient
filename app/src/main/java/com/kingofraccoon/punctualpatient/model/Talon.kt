@@ -32,19 +32,4 @@ class Talon(
                         "\n" +
                         time
         }
-    companion object {
-        fun convertToTalon(talonData: TalonData): Talon {
-            var nameDoctor = ""
-            var doctor: Doctor? = null
-            FireStore().firebase.collection("doctors")
-                .whereEqualTo("number", talonData.doctorID)
-                .get()
-                .addOnSuccessListener {
-                    nameDoctor = it.first().getString("name") as String
-                }.continueWith {
-                    doctor = FireStore().getDoctor(talonData.doctorID)
-                }
-            return Talon(talonData.date, doctor!!, talonData.time)
-        }
-    }
 }

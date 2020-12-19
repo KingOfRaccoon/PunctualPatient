@@ -9,29 +9,35 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.kingofraccoon.punctualpatient.LocalHospital
-import com.kingofraccoon.punctualpatient.view.adapters.CustomAdapter
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
+import com.kingofraccoon.punctualpatient.view.adapters.CustomAdapter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class FilterTalonFragment: Fragment() {
+class FilterTalonFragment : Fragment() {
 
-    companion object{
+    companion object {
         val tag = "filtertalon"
     }
+
     var talondate = ""
     var def_type_doctor = "Введите специальность врача:"
     var typeDoctors = ""
+
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val root = inflater.inflate(R.layout.filter_talon_fragment, container, false)
         val calendar: CalendarView = root.findViewById(R.id.calendarView)
-        val spinner : Spinner = root.findViewById(R.id.spinner_filter)
+        val spinner: Spinner = root.findViewById(R.id.spinner_filter)
         val types = resources.getStringArray(R.array.typesDoctors).toMutableList()
         val customAdapter = CustomAdapter(requireContext())
-        val button : Button = root.findViewById(R.id.take_talon)
+        val button: Button = root.findViewById(R.id.take_talon)
 
         calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             var talondate = "$dayOfMonth-${month + 1}calender$year"
@@ -43,11 +49,17 @@ class FilterTalonFragment: Fragment() {
         spinner.adapter = customAdapter
         spinner.setSelection(customAdapter.count)
 
-        spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 if (spinner.selectedItem != def_type_doctor)
                     typeDoctors = types[position]
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
@@ -61,18 +73,19 @@ class FilterTalonFragment: Fragment() {
                     FireStore().pullTimeTable(it)
                 }
                 requireFragmentManager().beginTransaction()
-                        .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!, date))
-                        .commit()
-            }
-            else{
-                Toast.makeText(requireContext(), "Выберите специальность врача", Toast.LENGTH_SHORT).show()
+                    .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!, date))
+                    .commit()
+            } else {
+                Toast.makeText(requireContext(), "Выберите специальность врача", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
         return root
     }
+
     private fun getEnumDoctor(): TypeDoctors? {
-        return when(typeDoctors){
+        return when (typeDoctors) {
             TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST
             TypeDoctors.PEDIATRICIAN.nameType -> TypeDoctors.PEDIATRICIAN
             TypeDoctors.SURGEON.nameType -> TypeDoctors.SURGEON

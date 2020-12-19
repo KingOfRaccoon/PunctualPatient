@@ -3,11 +3,11 @@ package com.kingofraccoon.punctualpatient
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
-import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.model.Doctor
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
-object LocalHospital{
+object LocalHospital {
     private val doctor = Doctor(
         "Зубенко Михаил Петрович",
         1,
@@ -55,16 +55,11 @@ object LocalHospital{
         10, 30,
         "89831037611"
     ).apply { doctorID = "vWRPIGPOcgNZLkCFHeYyHBxliIT2" }
-//    var doctors = mutableListOf(
-//        doctor,
-//        doctor1,
-//        doctor2,
-//        doctor3,
-//        doctor4,
-//        doctor5
-//    )
-@RequiresApi(Build.VERSION_CODES.O)
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private var doctors = FireStore().getDoctors()
+
     @RequiresApi(Build.VERSION_CODES.O)
     val hospital = Hospital(doctors, "Больница")
     val liveDataHospital = MutableLiveData<Hospital>()

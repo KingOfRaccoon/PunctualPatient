@@ -17,8 +17,8 @@ class MyService : Service() {
         return Service.START_STICKY
     }
 
-    fun generate(startId: Int){
-            FireStore().changeUser()
+    fun generate(startId: Int) {
+        FireStore().changeUser()
         stopSelf(startId)
 
     }

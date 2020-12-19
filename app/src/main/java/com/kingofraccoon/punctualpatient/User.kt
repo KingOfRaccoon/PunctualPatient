@@ -9,7 +9,7 @@ object User {
     var uid = ""
     var name = ""
     var date = ""
-//    var adress = Adress()
+
     var adress = ""
     var sex = ""
 
@@ -26,7 +26,7 @@ object User {
     var mutableListTalon = mutableListOf<Talon>()
     val mutableLiveDataTalons = MutableLiveData<MutableList<Talon>>()
 
-    fun setValue(mutableList: MutableList<Talon>){
+    fun setValue(mutableList: MutableList<Talon>) {
         mutableListTalon = mutableList
         mutableLiveDataTalons.value = mutableListTalon
     }
@@ -34,17 +34,16 @@ object User {
     var mutableListTalonDoctor = mutableListOf<TalonUser>()
     val mutableLiveDataTalonsDoctor = MutableLiveData<MutableList<TalonUser>>()
 
-    fun setValueDoctor(mutableList: MutableList<TalonUser>){
+    fun setValueDoctor(mutableList: MutableList<TalonUser>) {
         mutableListTalonDoctor = mutableList
         mutableLiveDataTalonsDoctor.value = mutableList
     }
 
-    fun setUser(person: Person){
+    fun setUser(person: Person) {
         name = person.name
         date = person.date
         adress = person.adress
         sex = person.sex
-//        password = person.password
         age = person.age
         number = person.number
     }

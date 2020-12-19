@@ -1,9 +1,7 @@
 package com.kingofraccoon.punctualpatient.tools
 
-import com.kingofraccoon.punctualpatient.Timetable
 import com.kingofraccoon.punctualpatient.WorkTime
 import com.kingofraccoon.punctualpatient.model.Talon
-import java.time.Duration
 
 class DinamicTimeTable {
     fun updateTimeTable(minutes: Int, talon1: String): String {

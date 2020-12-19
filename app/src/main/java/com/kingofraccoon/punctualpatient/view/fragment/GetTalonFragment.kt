@@ -2,24 +2,29 @@ package com.kingofraccoon.punctualpatient.view.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.LocalHospital.hospital
+import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.model.Talon
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import com.kingofraccoon.punctualpatient.view.adapters.TalonAdapter
 import java.time.LocalDate
-import java.util.*
 
 class GetTalonFragment(var typeDoctors: TypeDoctors, var date: LocalDate) : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val root = inflater.inflate(R.layout.fragment_get_talon, container, false)
-        val recyclerView : RecyclerView = root.findViewById(R.id.recycler)
+        val recyclerView: RecyclerView = root.findViewById(R.id.recycler)
 
         val talonAdapter = TalonAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -31,10 +36,11 @@ class GetTalonFragment(var typeDoctors: TypeDoctors, var date: LocalDate) : Frag
         }
 
         talonAdapter.addList(
-                mutableListTalon.filter
-                {
-                    it.doctor.typeDoctor == typeDoctors
-                }.toMutableList())
+            mutableListTalon.filter
+            {
+                it.doctor.typeDoctor == typeDoctors
+            }.toMutableList()
+        )
 
         recyclerView.adapter = talonAdapter
 

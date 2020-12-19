@@ -5,5 +5,5 @@ import java.time.LocalDate
 
 class Timetable(
         var day: LocalDate,
-        var talons : MutableList<Talon>
+        var talons: MutableList<Talon>
 )

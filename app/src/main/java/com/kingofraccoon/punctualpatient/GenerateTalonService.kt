@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
-import java.time.LocalDate
 
 class GenerateTalonService : Service() {
 

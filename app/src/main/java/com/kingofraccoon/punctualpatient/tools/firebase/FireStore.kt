@@ -131,26 +131,6 @@ class FireStore: FirebaseApi {
                 }
     }
 
-    fun checkUserOrDoctor(number: String): Boolean {
-        var doctor : Doctor? = null
-        firebase.collection("doctors")
-            .whereEqualTo("number", number)
-            .get()
-            .addOnSuccessListener {
-                it.documents.forEach { value ->
-                    doctor = Doctor(
-                        value.getString("name") as String,
-                        (value.get("cabinet") as Long).toInt(),
-                        getEnumDoctor(value.getString("nameType") as String)!!,
-                        (value.get("start") as Long).toInt(),
-                        (value.get("end") as Long).toInt(),
-                        (value.get("duration") as Long).toInt(),
-                        value.getString("number") as String
-                    )
-                }
-            }
-        return doctor != null
-    }
     fun getAllTalonsDoctors(nameDoctor : String): MutableList<TalonUser> {
         val talonsDoctor = mutableListOf<TalonUser>()
         val f = firebase.collection("users")
@@ -179,20 +159,6 @@ class FireStore: FirebaseApi {
         return talonsDoctor
     }
 
-    fun registerNewUser(userNumber: String, person: Person){
-        val hashMap = hashMapOf(
-                "name" to person.name,
-                "sex" to person.sex,
-                "date" to person.date,
-//                "email" to person.password,
-                "adress" to person.adress.toString(),
-                "age" to person.age.toString()
-        )
-        firebase.collection("users")
-                .document(userNumber)
-                .set(hashMap)
-    }
-
     fun registerNewUserCrypt(userNumber: String, person: Person){
         val hashMap = hashMapOf(
             "text" to Cript().cryptPersonForFireStore(person)
@@ -201,29 +167,6 @@ class FireStore: FirebaseApi {
         firebase.collection("usersCrypt")
             .document(userNumber)
             .set(hashMap)
-    }
-
-    fun pullDoctorsOnFireStore(){
-        LocalHospital.hospital.doctors.forEach {
-            val set = hashMapOf(
-                "name" to it.name,
-                "cabinet" to it.number_cabinet,
-                "nameType" to it.typeDoctor.nameType,
-                "start" to it.startWork,
-                "end" to it.endWork,
-                "duration" to it.duration,
-                "number" to it.number
-            )
-            firebase.collection("doctors")
-                .document(it.doctorID)
-                .set(set)
-                .addOnSuccessListener {
-                    Log.d("TAG", "DocumentSnapshot successfully written!")
-                }
-                .addOnFailureListener {
-                        e -> Log.w("TAG", "Error writing document", e)
-                }
-        }
     }
 
     fun changeUser(){

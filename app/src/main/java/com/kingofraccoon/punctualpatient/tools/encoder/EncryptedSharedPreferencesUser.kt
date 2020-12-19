@@ -6,11 +6,12 @@ import androidx.security.crypto.MasterKeys
 
 class EncryptedSharedPreferencesUser(context: Context) {
 
-    companion object{
+    companion object {
         val IS_AUTH = "Auth"
         val LOGIN_REFERENCE = "LOGIN"
         val PASS_REFERENCE = "PASS"
     }
+
     val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
     var sharedPreferences = EncryptedSharedPreferences.create(
         "PreferencesFilename",
@@ -19,23 +20,27 @@ class EncryptedSharedPreferencesUser(context: Context) {
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
+
     fun editor() = sharedPreferences.edit()
 
     fun checkAuth(): Boolean = sharedPreferences.getBoolean(IS_AUTH, false)
 
-    fun auth(login: String, password : String){
-        editor().putString(LOGIN_REFERENCE,login).commit()
+    fun auth(login: String, password: String) {
+        editor().putString(LOGIN_REFERENCE, login).commit()
         editor().putString(PASS_REFERENCE, password).commit()
         editor().putBoolean(IS_AUTH, true).commit()
     }
 
-    fun deauth(){
+    fun deauth() {
         editor().putBoolean(IS_AUTH, false).commit()
     }
 
-    fun getLoginAndPass():Pair<String?, String?>{
-        return Pair(sharedPreferences.getString(LOGIN_REFERENCE,""),
+    fun getLoginAndPass(): Pair<String?, String?> {
+        return Pair(
+            sharedPreferences.getString(LOGIN_REFERENCE, ""),
             sharedPreferences.getString(
-            PASS_REFERENCE,""))
+                PASS_REFERENCE, ""
+            )
+        )
     }
 }

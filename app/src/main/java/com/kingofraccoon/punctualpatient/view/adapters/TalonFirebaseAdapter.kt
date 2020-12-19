@@ -7,42 +7,86 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import com.kingofraccoon.punctualpatient.LocalHospital
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.model.Talon
+import com.kingofraccoon.punctualpatient.model.TalonData
+
+interface OnRequestSelectedListener
+{
+    fun onRequestSelectedListener(requestData: DocumentSnapshot)
+}
+
+class TalonFirebaseAdapter(_query : Query)
+    : RecyclerView.Adapter<TalonFirebaseAdapter.FirebaseTalonViewHolder>() {
 
 
-class TalonFirebaseAdapter(query : Query) : FirestoreAdapter<FirebaseTalonViewHolder>(query) {
+    var talons = mutableListOf<TalonData>()
+
+    var query : Query = _query
+        set(value) {
+//            stopListening()
+
+//            snapshots.clear()
+            notifyDataSetChanged()
+
+            field = value
+//            startListening()
+        }
+
+    init {
+        query.addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                update()
+                for (item in value?.documents!!) {
+                    var talon = TalonData(
+                        item["date"].toString(),
+                        item["doctorID"].toString(),
+                        item["time"].toString(),
+                        item["userID"].toString()
+                    )
+                    Log.d("TEST", talon.toString())
+                    talons.add(talon)
+
+                }
+            }
+        })
+    }
+
+    fun update(){
+        talons.clear()
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = talons.size
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirebaseTalonViewHolder {
         return FirebaseTalonViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.recycler_talon, parent, false))
     }
 
     override fun onBindViewHolder(holder: FirebaseTalonViewHolder, position: Int) {
-        holder.bind(snapshots[position])
+        holder.bind(talons[position])
     }
 
-}
-open class FirebaseTalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
-    val cabinet : TextView = view.findViewById(R.id.number_cabinet)
-    val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
-    val doctor : TextView = view.findViewById(R.id.doctor)
-    val button : Button = view.findViewById(R.id.get_talon)
-    open fun bind(snapshot: DocumentSnapshot) {
-        Log.d("Snap", snapshot.exists().toString())
-        if (snapshot.exists()) {
-            val talon = Talon(
-                    snapshot.getString("date") as String,
-                    LocalHospital.doctors.find {
-                       it.doctorID == snapshot.getString("doctorID")
-                    }!!,
-                    snapshot.getString("time") as String
-            )
-            dateAndTime.text = "${talon.date} \n ${talon.time}"
-            doctor.text = "Врач: ${talon.doctor.name}"
-            cabinet.text = "Кабинет №: ${talon.doctor.number_cabinet}"
+    inner class FirebaseTalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val cabinet : TextView = view.findViewById(R.id.number_cabinet)
+        val dateAndTime : TextView = view.findViewById(R.id.date_and_time)
+        val doctor : TextView = view.findViewById(R.id.doctor)
+        val button : Button = view.findViewById(R.id.get_talon)
+
+        open fun bind(talon :TalonData) {
+
+            val docName = LocalHospital.doctors.find {
+                it.doctorID == talon.doctorID
+            }
+
+            dateAndTime.text = "${talon?.date} \n ${talon?.time}"
+            doctor.text = "Врач: ${docName?.name ?: "Доктор не успел загрузиться"}"
+            cabinet.text = "Кабинет №: ${docName?.number_cabinet ?: "Доктор не успел загрузиться"}"
+
         }
     }
 }
+

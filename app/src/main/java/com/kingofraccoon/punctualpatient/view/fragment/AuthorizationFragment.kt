@@ -27,8 +27,6 @@ import com.kingofraccoon.punctualpatient.tools.encoder.Cript
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class AuthorizationFragment: Fragment() {
-    val CHANEL_ID = 1.toString()
-    val kod = (1000..9999).random()
     var doctor : Doctor? = null
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -106,8 +104,6 @@ class AuthorizationFragment: Fragment() {
                 } else {
                     Authorization().checkForMultiFactorFailure(task.exception!!)
                 }
-
-
             }
         }
         return view
@@ -119,27 +115,8 @@ class AuthorizationFragment: Fragment() {
 
         fun check(number_people: EditText, check: Boolean) {
             if (check) {
-                val notificationManager = requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    val channel = NotificationChannel(CHANEL_ID, "My channel",
-                            NotificationManager.IMPORTANCE_HIGH)
-                    channel.description = "My channel description"
-                    channel.enableLights(true)
-                    channel.lightColor = Color.RED
-                    channel.enableVibration(false)
-                    notificationManager.createNotificationChannel(channel)
-                }
-                val builder = NotificationCompat.Builder(requireContext(), CHANEL_ID)
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("Ваш код подверждения")
-                        .setContentText("$kod - ваш код для подтверждения")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .build()
-                val nc = requireActivity().applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-                nc.notify(0, builder)
                 requireFragmentManager().beginTransaction()
-                        .replace(R.id.frame, AuthorizationKodFragment(kod))
+                        .replace(R.id.frame, MainFragment())
                         .commit()
             } else {
                 number_people.setTextColor(resources.getColor(R.color.red))
@@ -152,7 +129,6 @@ class AuthorizationFragment: Fragment() {
                 }
             }
         }
-
         private fun getEnumDoctor(string: String): TypeDoctors? {
             return when (string) {
                 TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST
@@ -164,35 +140,5 @@ class AuthorizationFragment: Fragment() {
         }
         companion object {
             val tag = "AuthorizationFragment"
-        }
-    }
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                val channel = NotificationChannel(CHANEL_ID, "My channel",
-//                        NotificationManager.IMPORTANCE_HIGH)
-//                channel.description = "My channel description"
-//                channel.enableLights(true)
-//                channel.lightColor = Color.RED
-//                channel.enableVibration(false)
-//                notificationManager.createNotificationChannel(channel)
-//            }
-//
-//        } else {
-//            number_people.setTextColor(resources.getColor(R.color.red))
-//            if (number_people.text.isNullOrEmpty()) {
-//                number_people.setHintTextColor(Color.RED)
-//                requireContext().setToast("Введите свой номер")
-//            } else {
-//                number_people.setTextColor(Color.RED)
-//                requireContext().setToast("Проверьте правильность введенного номера")
-//            }
-//        }
-//    }
-    private fun getEnumDoctor(string: String): TypeDoctors? {
-        return when(string){
-            TypeDoctors.CARDIOLOGIST.nameType -> TypeDoctors.CARDIOLOGIST
-            TypeDoctors.PEDIATRICIAN.nameType -> TypeDoctors.PEDIATRICIAN
-            TypeDoctors.SURGEON.nameType -> TypeDoctors.SURGEON
-            TypeDoctors.TRAUMATOLOGIST.nameType -> TypeDoctors.TRAUMATOLOGIST
-            else -> null
         }
     }

@@ -1,5 +1,6 @@
 package com.kingofraccoon.punctualpatient.view.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ open class FirebaseTalonViewHolder(view: View) : RecyclerView.ViewHolder(view){
     val doctor : TextView = view.findViewById(R.id.doctor)
     val button : Button = view.findViewById(R.id.get_talon)
     open fun bind(snapshot: DocumentSnapshot) {
+        Log.d("Snap", snapshot.exists().toString())
         if (snapshot.exists()) {
             val talon = Talon(
                     snapshot.getString("date") as String,

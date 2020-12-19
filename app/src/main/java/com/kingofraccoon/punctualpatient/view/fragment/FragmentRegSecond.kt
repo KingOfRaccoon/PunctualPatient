@@ -12,12 +12,10 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.ktx.Firebase
 import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.auth.Authorization
-import com.kingofraccoon.punctualpatient.model.Person
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class FragmentRegSecond: Fragment() {
@@ -26,8 +24,8 @@ class FragmentRegSecond: Fragment() {
         val button: Button = view.findViewById(R.id.next_reg)
         val textAdress : EditText = view.findViewById(R.id.address_reg)
         val textPassword : EditText = view.findViewById(R.id.password_reg)
-        val textAge : EditText = view.findViewById(R.id.age_reg)
-        val passworRepeat : EditText = view.findViewById(R.id.password_repeat)
+//        val textAge : EditText = view.findViewById(R.id.age_reg)
+        val passwordRepeat : EditText = view.findViewById(R.id.password_repeat)
         val password : EditText = view.findViewById(R.id.password_reg)
         val textNumber : EditText = view.findViewById(R.id.number)
         val radioMale : RadioButton = view.findViewById(R.id.male)
@@ -42,10 +40,10 @@ class FragmentRegSecond: Fragment() {
         button.setOnClickListener {
 //            User.adress = Adress.instance(textAdress.text.toString().trim())
             User.adress = textAdress.text.toString().trim()
-            User.age = if (!passworRepeat.text.isNullOrBlank()) passworRepeat.text.toString().trim().toInt() else 0
+            User.age = if (!passwordRepeat.text.isNullOrBlank()) passwordRepeat.text.toString().trim().toInt() else 0
             User.password = password.text.toString().trim()
-            User.email = textPassword.text.toString().trim()
-            User.age = if (!textAge.text.isNullOrBlank()) textAge.text.toString().trim().toInt() else 0
+//            User.email = textPassword.text.toString().trim()
+//            User.age = if (!textAge.text.isNullOrBlank()) textAge.text.toString().trim().toInt() else 0
             User.number = textNumber.text.toString()
             if (radioMale.isChecked)
                 User.sex = "Мужчина"
@@ -59,7 +57,7 @@ class FragmentRegSecond: Fragment() {
                         Person(
                                 User.adress,
                                 User.date,
-                                User.password,
+//                                User.password,
                                 User.firstName + " " + User.secondName + " " + User.thirdName,
                                 User.sex,
                                 User.age,
@@ -86,7 +84,7 @@ class FragmentRegSecond: Fragment() {
                                         Person(
                                                 User.adress,
                                                 User.date,
-                                                User.email,
+//                                                User.email,
                                                 User.firstName + " " + User.secondName + " " + User.thirdName,
                                                 User.sex,
                                                 User.age,

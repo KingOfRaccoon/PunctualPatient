@@ -65,7 +65,7 @@ class FilterTalonFragment: Fragment() {
                         .commit()
             }
             else{
-                Toast.makeText(requireContext(), "Выберете специальность врача", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Выберите специальность врача", Toast.LENGTH_SHORT).show()
             }
         }
 

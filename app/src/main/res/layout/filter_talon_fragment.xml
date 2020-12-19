@@ -29,7 +29,7 @@
         android:layout_marginRight="16dp"
         android:textSize="18sp"
         android:theme="@style/TextStyle"
-        android:text="Выберете дату: "
+        android:text="Выберите дату: "
         app:layout_constraintTop_toBottomOf="@+id/spinner_filter"
     android:id="@+id/title_take_date"
         app:layout_constraintStart_toStartOf="parent"

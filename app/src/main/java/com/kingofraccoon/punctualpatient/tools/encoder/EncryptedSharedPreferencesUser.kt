@@ -26,11 +26,11 @@ class EncryptedSharedPreferencesUser(context: Context) {
     fun auth(login: String, password : String){
         editor().putString(LOGIN_REFERENCE,login).commit()
         editor().putString(PASS_REFERENCE, password).commit()
-        editor().putBoolean(IS_AUTH, true)
+        editor().putBoolean(IS_AUTH, true).commit()
     }
 
     fun deauth(){
-        editor().putBoolean(IS_AUTH, false)
+        editor().putBoolean(IS_AUTH, false).commit()
     }
 
     fun getLoginAndPass():Pair<String?, String?>{

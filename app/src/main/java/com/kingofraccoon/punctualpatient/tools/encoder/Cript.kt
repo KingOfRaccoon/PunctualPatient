@@ -9,11 +9,6 @@ import javax.crypto.spec.SecretKeySpec
 class Cript {
     private val cipher: Cipher = Cipher.getInstance("AES")
 
-//    private var kgen = KeyGenerator.getInstance("AES").apply {
-//        init(128)
-//    }
-//    private var key: SecretKey = kgen.generateKey()
-
     private val key: SecretKey = SecretKeySpec("Bar12345Bar12345".toByteArray(), "AES")
 
     fun encrypt(t: String): ByteArray{

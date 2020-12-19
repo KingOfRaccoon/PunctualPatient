@@ -10,6 +10,9 @@ class Cript(encyptKey : String) {
     private val cipher: Cipher = Cipher.getInstance("AES")
     private var _encyptKey = encyptKey.dropLast(encyptKey.length - 16)
     private val key: SecretKey = SecretKeySpec(_encyptKey.toByteArray(), "AES")
+//        init(128)
+//    }
+//    private var key: SecretKey = kgen.generateKey()
 
     fun encrypt(t: String): ByteArray{
         cipher.init(Cipher.ENCRYPT_MODE, key)

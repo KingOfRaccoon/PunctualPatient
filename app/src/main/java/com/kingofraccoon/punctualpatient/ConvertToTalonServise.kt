@@ -7,7 +7,7 @@ import android.util.Log
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
-import com.kingofraccoon.punctualpatient.firebase.FireStore
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 class ConvertToTalonServise : Service() {
 

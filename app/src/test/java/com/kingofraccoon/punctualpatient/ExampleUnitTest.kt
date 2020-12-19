@@ -1,10 +1,10 @@
 package com.kingofraccoon.punctualpatient
 
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import com.kingofraccoon.punctualpatient.encoder.Cript
-import com.kingofraccoon.punctualpatient.encoder.CriptConverter
+import com.kingofraccoon.punctualpatient.tools.encoder.Cript
+import com.kingofraccoon.punctualpatient.tools.encoder.CriptConverter
+import com.kingofraccoon.punctualpatient.model.Doctor
+import com.kingofraccoon.punctualpatient.model.Person
+import com.kingofraccoon.punctualpatient.model.TypeDoctors
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 

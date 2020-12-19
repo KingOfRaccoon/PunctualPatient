@@ -1,9 +1,12 @@
 package com.kingofraccoon.punctualpatient
 
 import androidx.lifecycle.MutableLiveData
+import com.kingofraccoon.punctualpatient.model.Person
+import com.kingofraccoon.punctualpatient.model.Talon
+import com.kingofraccoon.punctualpatient.model.TalonUser
 
 object User {
-    var id = "Я"
+    var uid = ""
     var name = ""
     var date = ""
 //    var adress = Adress()

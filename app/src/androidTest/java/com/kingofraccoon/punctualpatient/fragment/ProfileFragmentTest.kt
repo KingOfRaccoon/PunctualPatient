@@ -1,17 +1,15 @@
 package com.kingofraccoon.punctualpatient.fragment
 
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.android21buttons.fragmenttestrule.FragmentTestRule
-import com.kingofraccoon.punctualpatient.CustomAdapter
 import com.kingofraccoon.punctualpatient.MainActivity
-import com.kingofraccoon.punctualpatient.ProfileTalonViewHolder
+import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonViewHolder
 import com.kingofraccoon.punctualpatient.R
-import junit.framework.TestCase
+import com.kingofraccoon.punctualpatient.view.fragment.ProfileFragment
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

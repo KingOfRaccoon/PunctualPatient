@@ -12,6 +12,7 @@ import com.kingofraccoon.punctualpatient.LocalHospital
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.model.Talon
 import com.kingofraccoon.punctualpatient.model.TalonData
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 
 interface OnRequestSelectedListener
 {
@@ -45,7 +46,7 @@ class TalonFirebaseAdapter(_query : Query)
                         item["doctorID"].toString(),
                         item["time"].toString(),
                         item["userID"].toString()
-                    )
+                    ).apply { uid = item.id }
                     Log.d("TEST", talon.toString())
                     talons.add(talon)
 
@@ -85,7 +86,10 @@ class TalonFirebaseAdapter(_query : Query)
             dateAndTime.text = "${talon?.date} \n ${talon?.time}"
             doctor.text = "Врач: ${docName?.name ?: "Доктор не успел загрузиться"}"
             cabinet.text = "Кабинет №: ${docName?.number_cabinet ?: "Доктор не успел загрузиться"}"
-
+            button.text = "Отказаться от талона"
+            button.setOnClickListener {
+                FireStore().deleteTalon(talon.uid)
+            }
         }
     }
 }

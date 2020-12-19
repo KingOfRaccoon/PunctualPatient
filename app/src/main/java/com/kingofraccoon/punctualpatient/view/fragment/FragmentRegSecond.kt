@@ -35,6 +35,7 @@ class FragmentRegSecond: Fragment() {
         val textData : EditText = view.findViewById(R.id.editText)
         val radioMale : RadioButton = view.findViewById(R.id.male)
         val radioFemale : RadioButton = view.findViewById(R.id.female)
+        radioFemale.isChecked = true
         radioMale.setOnClickListener {
             radioFemale.isChecked = false
         }

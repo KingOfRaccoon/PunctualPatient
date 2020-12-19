@@ -37,6 +37,7 @@ class AuthorizationFragment: Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ):View? {
+
         val view = inflater.inflate(R.layout.fragment_check, container, false)
         val number_people: EditText = view.findViewById(R.id.phone_check)
         val password_people: EditText = view.findViewById(R.id.password_check)
@@ -108,7 +109,6 @@ class AuthorizationFragment: Fragment() {
                                                         val person = Cript().decryptPersonForFireStore(userDoc.result?.getString("text").toString())
                                                         User.setUser(person)
                                                         check = User.name != ""
-                                                        requireActivity().startService(Intent(requireActivity(), GenerateTalonService::class.java))
                                                         check(number_people, check)
                                                     } else
                                                         check(number_people, check)

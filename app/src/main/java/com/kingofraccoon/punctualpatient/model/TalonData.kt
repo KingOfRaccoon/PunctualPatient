@@ -5,4 +5,6 @@ data class TalonData(
     var doctorID: String,
     var time: String,
     var userID: String
-)
+){
+    var uid = ""
+}

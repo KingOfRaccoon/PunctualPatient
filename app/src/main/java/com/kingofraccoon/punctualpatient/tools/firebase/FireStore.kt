@@ -265,8 +265,8 @@ class FireStore: FirebaseApi {
         }
         return doctor!!
     }
-    fun deleteTalon(talon: Talon){
-        firebase.document("talons/${talon.uuid}").delete()
+    fun deleteTalon(talonID: String){
+        firebase.document("talons/${talonID}").delete()
     }
     fun getEnumDoctor(string: String): TypeDoctors? {
         return when(string){

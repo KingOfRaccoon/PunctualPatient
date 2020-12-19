@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
 import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.model.*
+import com.kingofraccoon.punctualpatient.tools.DinamicTimeTable
 import com.kingofraccoon.punctualpatient.tools.encoder.Cript
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -28,17 +29,16 @@ class FireStore: FirebaseApi {
 
     fun translationDoctorTalons(minutes : Int, uuid : String){
         firebase.collection(TALONS)
+                .whereEqualTo("flag",true)
             .whereEqualTo("doctorID", uuid)
-            .whereEqualTo("flag",true)
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    for (item in value?.documents!!){
-
-                        firebase.collection(TALONS).document(item.reference.path)
-                            .update("time",10)
+            .get()
+                .addOnSuccessListener{
+                    for (item in it.documents) {
+                        val ad = DinamicTimeTable().updateTimeTable(minutes, item?.getString("time").toString())
+                        firebase.collection(TALONS).document(item?.id.toString())
+                                .update("time", ad)
                     }
                 }
-            })
     }
 
 

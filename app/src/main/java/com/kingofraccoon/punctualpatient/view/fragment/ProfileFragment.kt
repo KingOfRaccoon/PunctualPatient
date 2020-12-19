@@ -19,10 +19,7 @@ import com.kingofraccoon.punctualpatient.*
 import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.model.Doctor
 import com.kingofraccoon.punctualpatient.model.Talon
-import com.kingofraccoon.punctualpatient.view.adapters.DoctorAdapter
-import com.kingofraccoon.punctualpatient.view.adapters.ProfileExpandableListAdapter
-import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
-import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
+import com.kingofraccoon.punctualpatient.view.adapters.*
 
 class ProfileFragment: Fragment() {
     companion object{
@@ -57,13 +54,11 @@ class ProfileFragment: Fragment() {
         val view = inflater.inflate(R.layout.profile_fragment, container, false)
         val query = FireStore().firebase.collection(FireStore.TALONS)
             .whereEqualTo("flag", true)
-            .whereEqualTo("userID", User.uid)
-
 
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
 
-        val talonAdapter = TalonFirebaseAdapter(query)
-        val doctorAdapter = DoctorAdapter()
+        val talonAdapter = TalonFirebaseAdapter(query.whereEqualTo("userID", User.uid))
+        val doctorAdapter = DoctorTalonFirebaseAdapter(query.whereEqualTo("doctorID", User.uid))
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
         val sexUser : TextView = view.findViewById(R.id.sex)
@@ -79,11 +74,9 @@ class ProfileFragment: Fragment() {
         }
         else{
             recyclerView.adapter = doctorAdapter
-            User.mutableLiveDataTalonsDoctor.observe(viewLifecycleOwner, Observer{
-//                doctorAdapter.setList(it)
-            })
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            view.findViewById<ProgressBar>(R.id.progress).isVisible = false
         }
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val expandableListView = view.findViewById<ExpandableListView>(R.id.expandableListView)
         if (expandableListView != null) {
             val listData = data

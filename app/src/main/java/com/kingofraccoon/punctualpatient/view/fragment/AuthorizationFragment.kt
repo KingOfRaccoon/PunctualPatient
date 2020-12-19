@@ -73,6 +73,7 @@ class AuthorizationFragment: Fragment() {
                                 .document(user?.uid.toString())
                                 .get()
                                 .addOnSuccessListener { value ->
+                                    if (value.exists()) {
                                         doctor = Doctor(
                                                 value.getString("name") as String,
                                                 (value.get("cabinet") as Long).toInt(),
@@ -82,6 +83,7 @@ class AuthorizationFragment: Fragment() {
                                                 (value.get("duration") as Long).toInt(),
                                                 value.getString("number") as String
                                         )
+                                    }
                                     check = doctor != null
                                     if (check) {
                                         User.number = doctor?.number.toString()

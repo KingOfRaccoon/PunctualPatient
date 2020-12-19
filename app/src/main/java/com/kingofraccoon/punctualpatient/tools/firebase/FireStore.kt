@@ -81,7 +81,8 @@ class FireStore: FirebaseApi {
                 "date" to talon.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 "doctorID" to talon.idDoctor,
                 "time" to talon.time,
-                "userID" to id
+                "userID" to id,
+                "flag" to true
         )
         firebase.collection("talons")
                 .document(talon.uuid)
@@ -129,10 +130,38 @@ class FireStore: FirebaseApi {
                 .continueWith {
                     LocalHospital.hospital.doctors = doctors
                     LocalHospital.hospital.createTalons(LocalDate.now())
+                    LocalHospital.hospital.timetables.forEach {
+                        pullTimeTable(it)
+                    }
                     LocalHospital.liveDataHospital.value = LocalHospital.hospital
 //                    User.setValue(getMyTalons(User.number, doctors))
                 }
         return doctors
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun pullTimeTable(timetable: Timetable){
+        var count = 0
+        firebase.collection("talons").whereEqualTo("date",
+                timetable.day.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                .get()
+                .addOnSuccessListener {
+                    count = it.size()
+                }
+                .continueWith {
+                    if (count == 0) {
+                        timetable.talons.forEach { talon ->
+                            firebase.collection("talons")
+                                    .document(talon.uuid)
+                                    .set(hashMapOf(
+                                            "date" to talon.date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                                            "doctorID" to talon.idDoctor,
+                                            "time" to talon.time,
+                                            "userID" to "",
+                                            "flag" to false
+                                    ))
+                        }
+                    }
+                }
     }
 
     fun checkUserOrDoctor(number: String): Boolean {
@@ -266,7 +295,7 @@ class FireStore: FirebaseApi {
         return doctor!!
     }
     fun deleteTalon(talonID: String){
-        firebase.document("talons/${talonID}").delete()
+        firebase.document("talons/${talonID}").set(hashMapOf("flag" to false))
     }
     fun getEnumDoctor(string: String): TypeDoctors? {
         return when(string){

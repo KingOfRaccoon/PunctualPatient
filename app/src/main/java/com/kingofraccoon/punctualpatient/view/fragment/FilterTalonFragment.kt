@@ -13,6 +13,7 @@ import com.kingofraccoon.punctualpatient.LocalHospital
 import com.kingofraccoon.punctualpatient.view.adapters.CustomAdapter
 import com.kingofraccoon.punctualpatient.R
 import com.kingofraccoon.punctualpatient.model.TypeDoctors
+import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -57,6 +58,9 @@ class FilterTalonFragment: Fragment() {
                 if (talondate != "")
                     date = LocalDate.parse(talondate, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
                 LocalHospital.hospital.createTalons(date)
+                LocalHospital.hospital.timetables.forEach {
+                    FireStore().pullTimeTable(it)
+                }
                 requireFragmentManager().beginTransaction()
                         .replace(R.id.main_frame, GetTalonFragment(getEnumDoctor()!!, date))
                         .commit()

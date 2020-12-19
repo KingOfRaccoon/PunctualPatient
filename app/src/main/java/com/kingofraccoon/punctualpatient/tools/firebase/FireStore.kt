@@ -3,11 +3,10 @@ package com.kingofraccoon.punctualpatient.tools.firebase
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
-import com.kingofraccoon.punctualpatient.*
+import com.kingofraccoon.punctualpatient.LocalHospital
+import com.kingofraccoon.punctualpatient.Timetable
+import com.kingofraccoon.punctualpatient.User
 import com.kingofraccoon.punctualpatient.model.*
 import com.kingofraccoon.punctualpatient.tools.DinamicTimeTable
 import com.kingofraccoon.punctualpatient.tools.encoder.Cript
@@ -161,9 +160,8 @@ class FireStore: FirebaseApi {
 
     fun registerNewUserCrypt(userNumber: String, person: Person){
         val hashMap = hashMapOf(
-            "text" to Cript().cryptPersonForFireStore(person)
+            "text" to Cript(User.uid).cryptPersonForFireStore(person)
         )
-        Log.d("encrypt", "$hashMap")
         firebase.collection("usersCrypt")
             .document(userNumber)
             .set(hashMap)
@@ -187,24 +185,6 @@ class FireStore: FirebaseApi {
         User.setValueDoctor(list)
     }
 
-
-    fun getDoctor(idDoctor: String): Doctor {
-        var doctor : Doctor? = null
-        val task = firebase.document("doctors/$idDoctor").get()
-
-        task.addOnSuccessListener {value ->
-                    doctor = Doctor(
-                        value.getString("name") as String,
-                        (value.get("cabinet") as Long).toInt(),
-                        getEnumDoctor(value.getString("nameType") as String)!!,
-                        (value.get("start") as Long).toInt(),
-                        (value.get("end") as Long).toInt(),
-                        (value.get("duration") as Long).toInt(),
-                        value.getString("number") as String
-                )
-        }
-        return doctor!!
-    }
     fun deleteTalon(talonID: String){
         firebase.document("talons/${talonID}").set(hashMapOf("flag" to false))
     }

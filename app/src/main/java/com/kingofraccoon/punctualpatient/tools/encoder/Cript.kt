@@ -6,10 +6,10 @@ import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
-class Cript {
+class Cript(encyptKey : String) {
     private val cipher: Cipher = Cipher.getInstance("AES")
-
-    private val key: SecretKey = SecretKeySpec("Bar12345Bar12345".toByteArray(), "AES")
+    private var _encyptKey = encyptKey.dropLast(encyptKey.length - 16)
+    private val key: SecretKey = SecretKeySpec(_encyptKey.toByteArray(), "AES")
 
     fun encrypt(t: String): ByteArray{
         cipher.init(Cipher.ENCRYPT_MODE, key)

@@ -111,7 +111,7 @@ class DoctorTalonFirebaseAdapter(_query: Query) :
                         .get()
                         .addOnSuccessListener {
                             personName =
-                                Cript().decryptPersonForFireStore(it["text"].toString()).name
+                                Cript(User.uid).decryptPersonForFireStore(it["text"].toString()).name
                         }.continueWith {
                             val talon = TalonUser(
                                 item["date"].toString(),

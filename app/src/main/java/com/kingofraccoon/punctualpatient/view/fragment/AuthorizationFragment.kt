@@ -116,17 +116,7 @@ class AuthorizationFragment: Fragment() {
                 channel.enableVibration(false)
                 notificationManager.createNotificationChannel(channel)
             }
-            val builder = NotificationCompat.Builder(requireContext(), CHANEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle("Ваш код подверждения")
-                    .setContentText("$kod - ваш код для подтверждения")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .build()
-            val nc = requireActivity().applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            nc.notify(0, builder)
-            requireFragmentManager().beginTransaction()
-                .replace(R.id.frame, AuthorizationKodFragment(kod))
-                .commit()
+
         } else {
             number_people.setTextColor(resources.getColor(R.color.red))
             if (number_people.text.isNullOrEmpty()) {

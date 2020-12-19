@@ -42,7 +42,7 @@ class FragmentRegSecondTest{
                 .check(matches(withText("1234@mail.ru")))
         closeSoftKeyboard()
 
-        onView(withId(R.id.age_reg))
+        onView(withId(R.id.password_repeat))
                 .check(matches(withHint("Возраст")))
                 .perform(replaceText("15"))
                 .check(matches(withText("15")))

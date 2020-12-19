@@ -23,19 +23,22 @@ class FilterTalonFragment: Fragment() {
     var typeDoctors = ""
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.filter_talon_fragment, container, false)
-        val spinner : Spinner = view.findViewById(R.id.spinner_filter)
+        val root = inflater.inflate(R.layout.filter_talon_fragment, container, false)
+
+        val spinner : Spinner = root.findViewById(R.id.spinner_filter)
+
         val types = resources.getStringArray(R.array.typesDoctors).toMutableList()
         val customAdapter = CustomAdapter(requireContext())
-        val button : Button = view.findViewById(R.id.take_talon)
 
-
+        spinner.adapter = customAdapter
+        spinner.setSelection(customAdapter.count)
         customAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         customAdapter.addAll(types)
         customAdapter.add(def_type_doctor)
 
-        spinner.adapter = customAdapter
-        spinner.setSelection(customAdapter.count)
+        val button : Button = root.findViewById(R.id.take_talon)
+
+
         spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (spinner.selectedItem != def_type_doctor)
@@ -50,7 +53,7 @@ class FilterTalonFragment: Fragment() {
                     .commit()
         }
 
-        return view
+        return root
     }
     private fun getEnumDoctor(): TypeDoctors? {
         return when(typeDoctors){

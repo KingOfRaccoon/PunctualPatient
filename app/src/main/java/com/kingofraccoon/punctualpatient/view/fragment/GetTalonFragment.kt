@@ -16,21 +16,26 @@ import com.kingofraccoon.punctualpatient.view.adapters.TalonAdapter
 class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_get_talon, container, false)
-        val recyclerView : RecyclerView = view.findViewById(R.id.recycler)
+        val root = inflater.inflate(R.layout.fragment_get_talon, container, false)
+        val recyclerView : RecyclerView = root.findViewById(R.id.recycler)
+
         val talonAdapter = TalonAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = talonAdapter
         val mutableListTalon = mutableListOf<Talon>()
+
         hospital.timetables.forEach {
             mutableListTalon.addAll(it.talons)
         }
+
         talonAdapter.addList(
                 mutableListTalon.filter
                 {
                     it.doctor.typeDoctor == typeDoctors
                 }.toMutableList())
-        return view
+
+        recyclerView.adapter = talonAdapter
+
+        return root
     }
 
 //    fun calendarListener():{

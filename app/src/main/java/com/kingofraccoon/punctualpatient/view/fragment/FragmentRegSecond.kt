@@ -21,7 +21,7 @@ class FragmentRegSecond: Fragment() {
         val button: Button = view.findViewById(R.id.next_reg)
         val textAdress : EditText = view.findViewById(R.id.address_reg)
         val textEmail : EditText = view.findViewById(R.id.password_reg)
-        val textAge : EditText = view.findViewById(R.id.age_reg)
+        val passworRepeat : EditText = view.findViewById(R.id.password_repeat)
         val textNumber : EditText = view.findViewById(R.id.number)
         val radioMale : RadioButton = view.findViewById(R.id.male)
         val radioFemale : RadioButton = view.findViewById(R.id.female)
@@ -36,7 +36,7 @@ class FragmentRegSecond: Fragment() {
 //            User.adress = Adress.instance(textAdress.text.toString().trim())
             User.adress = textAdress.text.toString().trim()
             User.email = textEmail.text.toString().trim()
-            User.age = if (!textAge.text.isNullOrBlank()) textAge.text.toString().trim().toInt() else 0
+            User.age = if (!passworRepeat.text.isNullOrBlank()) passworRepeat.text.toString().trim().toInt() else 0
             User.number = textNumber.text.toString()
             if (radioMale.isChecked)
                 User.sex = "Мужчина"

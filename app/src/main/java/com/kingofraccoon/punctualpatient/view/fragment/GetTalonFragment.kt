@@ -38,26 +38,6 @@ class GetTalonFragment(var typeDoctors: TypeDoctors) : Fragment() {
         return root
     }
 
-//    fun calendarListener():{
-//        var calendarView = R.layout.calendarView
-//        calendarView.setOnDateChangeListener { view; var year: Int; var month: Int; var dayOfMonth: Int ->
-//            "$dayOfMonth.${month + 1}.$year"
-//        }
-//        return 0
-//    }
-//
-//
-//    calendarView.setOnClickListener {
-//        val selectedDate = calendarView.date
-//        val calendar = Calendar.getInstance()
-//        calendar.timeInMillis = selectedDate
-//        val dateFormatter = DateFormat.getDateInstance(DateFormat.MEDIUM)
-//        var date = dateFormatter.format(calendar.time)
-//    }
-
-
-
-
        /* val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, "Menu", duration)
         val but_popup: ImageButton = view!!.findViewById(R.id.dropdown_menu)

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
+import android.widget.CalendarView
 import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -24,11 +25,14 @@ class FilterTalonFragment: Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.filter_talon_fragment, container, false)
-
+        val calendar: CalendarView = root.findViewById(R.id.calendarView)
         val spinner : Spinner = root.findViewById(R.id.spinner_filter)
-
         val types = resources.getStringArray(R.array.typesDoctors).toMutableList()
         val customAdapter = CustomAdapter(requireContext())
+
+        calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            var talondate = "$dayOfMonth-${month + 1}calender$year"
+        }
 
         spinner.adapter = customAdapter
         spinner.setSelection(customAdapter.count)

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.annotation.RequiresApi
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseUser
 import com.kingofraccoon.punctualpatient.R
@@ -41,7 +43,10 @@ class FragmentRegFirst : Fragment() {
                 }
             }
                 override fun afterTextChanged(p0: Editable?) {}
-        })*/
+        })
+
+
+       })*/
         button_next.setOnClickListener {
             if (password.text.toString() == passwordRepeat.text.toString() &&
                 !password.text.isNullOrBlank()

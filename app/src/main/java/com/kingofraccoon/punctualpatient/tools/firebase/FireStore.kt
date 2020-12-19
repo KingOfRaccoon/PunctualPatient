@@ -197,6 +197,7 @@ class FireStore: FirebaseApi {
         val hashMap = hashMapOf(
             "text" to Cript().cryptPersonForFireStore(person)
         )
+        Log.d("encrypt", "$hashMap")
         firebase.collection("usersCrypt")
             .document(userNumber)
             .set(hashMap)

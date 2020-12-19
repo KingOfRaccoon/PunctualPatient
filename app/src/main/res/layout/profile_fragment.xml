@@ -30,6 +30,8 @@
             android:layout_height="60dp"
             android:src="@drawable/male_user" />
 
+
+
         <LinearLayout
             android:layout_marginTop="2dp"
             android:paddingLeft="4dp"
@@ -118,6 +120,12 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/exit"
+            android:background="@drawable/calender_icon"/>
     </LinearLayout>
 
     <ExpandableListView

@@ -5,10 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ExpandableListAdapter
-import android.widget.ExpandableListView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +17,11 @@ import com.kingofraccoon.punctualpatient.tools.firebase.FireStore
 import com.kingofraccoon.punctualpatient.model.Doctor
 import com.kingofraccoon.punctualpatient.model.Talon
 import com.kingofraccoon.punctualpatient.view.adapters.*
+import com.kingofraccoon.punctualpatient.tools.encoder.EncryptedSharedPreferencesUser
+import com.kingofraccoon.punctualpatient.view.adapters.DoctorAdapter
+import com.kingofraccoon.punctualpatient.view.adapters.ProfileExpandableListAdapter
+import com.kingofraccoon.punctualpatient.view.adapters.ProfileTalonAdapter
+import com.kingofraccoon.punctualpatient.view.adapters.TalonFirebaseAdapter
 
 class ProfileFragment: Fragment() {
     companion object{
@@ -56,12 +58,12 @@ class ProfileFragment: Fragment() {
             .whereEqualTo("flag", true)
 
         val recyclerView : RecyclerView = view.findViewById(R.id.user_talon)
-
-        val talonAdapter = TalonFirebaseAdapter(query.whereEqualTo("userID", User.uid))
-        val doctorAdapter = DoctorTalonFirebaseAdapter(query.whereEqualTo("doctorID", User.uid))
+        val talonAdapter = TalonFirebaseAdapter(query)
+        val doctorAdapter = DoctorAdapter()
         val nameUser : TextView = view.findViewById(R.id.full_name)
         val dateUser : TextView = view.findViewById(R.id.about)
         val sexUser : TextView = view.findViewById(R.id.sex)
+        val exitButton: ImageButton = view.findViewById(R.id.exit)
 
         nameUser.text = if (User.name != "") User.name else "${User.firstName} ${User.secondName}  ${User.thirdName}"
         dateUser.text = if (User.date.isBlank()) "14-02-1981" else User.date
@@ -70,6 +72,14 @@ class ProfileFragment: Fragment() {
             recyclerView.adapter = talonAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+
+            val doctors = mutableListOf<Doctor>()
+            var talons = mutableListOf<Talon>()
+
+
+            view.findViewById<ProgressBar>(R.id.progress)
+                .isVisible = false
+
             view.findViewById<ProgressBar>(R.id.progress).isVisible = false
         }
         else{
@@ -77,6 +87,22 @@ class ProfileFragment: Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             view.findViewById<ProgressBar>(R.id.progress).isVisible = false
         }
+            User.mutableLiveDataTalonsDoctor.observe(viewLifecycleOwner, Observer{
+//                doctorAdapter.setList(it)
+            })
+        }
+
+        exitButton.setOnClickListener {
+            EncryptedSharedPreferencesUser(requireContext()).deauth()
+
+            fragmentManager!!.beginTransaction()
+                .replace(R.id.frame, AuthorizationFragment())
+                .commit()
+
+
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val expandableListView = view.findViewById<ExpandableListView>(R.id.expandableListView)
         if (expandableListView != null) {
             val listData = data

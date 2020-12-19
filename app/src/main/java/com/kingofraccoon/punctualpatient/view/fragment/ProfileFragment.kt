@@ -30,7 +30,7 @@ class ProfileFragment: Fragment() {
         val tag = "profile"
     }
     init {
-        query = FireStore().firebase.collection("talon").whereEqualTo("userID", User.uid)
+        query = FireStore().firebase.collection("talons").whereEqualTo("userID", User.uid)
     }
 
     internal var adapter: ExpandableListAdapter ?= null

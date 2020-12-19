@@ -2,6 +2,8 @@ package com.kingofraccoon.punctualpatient.view.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +57,7 @@ class FragmentRegSecond: Fragment() {
                         Person(
                                 User.adress,
                                 User.date,
-                                User.password,
+//                                User.password,
                                 User.firstName + " " + User.secondName + " " + User.thirdName,
                                 User.sex,
                                 User.age,
@@ -82,7 +84,7 @@ class FragmentRegSecond: Fragment() {
                                         Person(
                                                 User.adress,
                                                 User.date,
-                                                User.password,
+//                                                User.password,
                                                 User.firstName + " " + User.secondName + " " + User.thirdName,
                                                 User.sex,
                                                 User.age,

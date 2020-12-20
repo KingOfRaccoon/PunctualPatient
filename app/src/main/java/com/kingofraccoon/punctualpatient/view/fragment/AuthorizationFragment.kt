@@ -119,10 +119,10 @@ class AuthorizationFragment : Fragment() {
                                             .get()
                                             .addOnCompleteListener { userDoc ->
                                                 if (userDoc.result?.exists() == true) {
-                                                    val person = Cript(user!!.uid).decryptPersonForFireStore(
-                                                        userDoc.result?.getString("text").toString()
-                                                    )
-                                                    Log.d("decrypt", "$person")
+                                                    var personCript = userDoc.result?.getString("text").toString()
+                                                    Log.d("decrypt1", "$personCript")
+                                                    var person = Cript(user!!.uid).decryptPersonForFireStore(personCript)
+                                                    Log.d("decrypt2", "$person")
                                                     User.setUser(person)
                                                     check = User.name != ""
                                                     check(number_people, check)

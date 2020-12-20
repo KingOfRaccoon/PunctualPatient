@@ -159,9 +159,11 @@ class FireStore: FirebaseApi {
     }
 
     fun registerNewUserCrypt(userNumber: String, person: Person){
+        Log.d("encrypt1", "$person")
         val hashMap = hashMapOf(
             "text" to Cript(User.uid).cryptPersonForFireStore(person)
         )
+        Log.d("encrypt2", "$hashMap")
         firebase.collection("usersCrypt")
             .document(userNumber)
             .set(hashMap)

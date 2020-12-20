@@ -125,7 +125,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/exit"
-            android:background="@drawable/calender_icon"/>
+            android:background="@drawable/ic_baseline_person_remove_alt_1_24"/>
     </LinearLayout>
 
     <ExpandableListView
